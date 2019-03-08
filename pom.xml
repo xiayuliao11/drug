@@ -14,6 +14,9 @@
         <module>drug_tree_wep</module>
         <module>drug_eureka</module>
         <module>drug_tree_server</module>
+        <module>drug_orderapi</module>
+        <module>drug_orderservice</module>
+        <module>drug_orderweb</module>
     </modules>
 
 
