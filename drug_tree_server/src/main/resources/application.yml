@@ -1,0 +1,23 @@
+server:
+  port: 7002
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
+spring:
+  application:
+    name: tree-server
+  datasource:
+    name: mydb
+    url: jdbc:mysql://192.168.101.55:3306/drug?serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+feign:
+  hystrix:
+    enabled: false
+mybatis:
+  mapperLocations: classpath*:mybatis/mapper-*.xml
+  #给指定包下面的类起别名
+  type-aliases-package: com.jk.pojo
