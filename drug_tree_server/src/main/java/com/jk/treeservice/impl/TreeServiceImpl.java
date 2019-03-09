@@ -5,6 +5,7 @@ import com.jk.pojo.TreeBean;
 import com.jk.treeservice.TreeServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class TreeServiceImpl implements TreeServiceService {
      * 获得左侧树
      * @return
      */
+    @ResponseBody
     @Override
     public List<TreeBean> getTree() {
         List<TreeBean> list = mapper.getTree(0);
