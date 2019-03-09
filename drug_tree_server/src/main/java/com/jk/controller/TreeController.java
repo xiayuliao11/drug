@@ -1,12 +1,11 @@
 package com.jk.controller;
 
 import com.jk.pojo.TreeBean;
-import com.jk.service.TreeServerService;
-import com.jk.service.TreeService;
+import com.jk.treeservice.TreeService;
+import com.jk.treeservice.TreeServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -15,16 +14,16 @@ import java.util.List;
 public class TreeController implements TreeService {
 
     @Autowired
-    TreeServerService treeServerService;
+    TreeServiceService treeServiceService;
 
     /**
-     * 查询左侧树
+     * 获得左侧树
      * @return
      */
     @Override
-    @GetMapping("getTree")
     @ResponseBody
+    @GetMapping("getTree")
     public List<TreeBean> getTree() {
-        return treeServerService.getTree();
+        return treeServiceService.getTree();
     }
 }

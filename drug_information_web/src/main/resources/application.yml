@@ -1,0 +1,16 @@
+server:
+  port: 4002
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
+spring:
+  application:
+    name: manage-feign
+
+    thymeleaf:
+      encoding: UTF-8
+      servlet:
+        content-type: text/html
+
+

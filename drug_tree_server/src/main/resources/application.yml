@@ -8,12 +8,16 @@ spring:
   application:
     name: tree-server
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.101.55:3306/drug?useUnicode=true&characterEncoding=utf-8
+    name: mydb
+    url: jdbc:mysql://192.168.101.55:3306/drug?serverTimezone=UTC
     username: root
     password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+feign:
+  hystrix:
+    enabled: false
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
+  mapperLocations: classpath*:mybatis/mapper-*.xml
+  #给指定包下面的类起别名
   type-aliases-package: com.jk.pojo
-
-
