@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.mapper.PortMapper">
+    <select id="findSiteCount" resultType="int">
+         select count(*) from t_site
+    </select>
 
+    <select id="findSitePage" resultType="com.jk.pojo.SiteBean">
+     SELECT
+	s.*, city. NAME cityName,
+	province. NAME provinceName
+FROM
+	t_site s
+LEFT JOIN drug_area city ON s.cityid = city.id
+LEFT JOIN drug_area province ON s.provinceId = province.id
+limit #{start},#{rows}
+    </select>
 </mapper>
  
