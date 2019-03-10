@@ -1,13 +1,12 @@
-package com.jk.service;
-
+package com.jk.treeservice;
 
 import com.jk.pojo.TreeBean;
 
 import java.util.List;
 
-public interface TreeServerService {
+public interface TreeServiceService {
     /**
-     * 查询左侧树
+     * 获得左侧树
      * @return
      */
     List<TreeBean> getTree();

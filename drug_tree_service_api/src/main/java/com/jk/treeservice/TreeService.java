@@ -1,4 +1,4 @@
-package com.jk.service;
+package com.jk.treeservice;
 
 
 import com.jk.pojo.TreeBean;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("TreeService")
+/*@RequestMapping("TreeService")*/
 public interface TreeService {
     /***
      * 获取左侧树

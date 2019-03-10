@@ -12,3 +12,18 @@ spring:
       encoding: UTF-8
       servlet:
         content-type: text/html
+
+
+hystrix:
+
+  command:
+
+    default:
+
+      execution:
+
+        isolation:
+
+          thread:
+
+            timeoutInMilliseconds: 5000

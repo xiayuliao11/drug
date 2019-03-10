@@ -1,7 +1,7 @@
 package com.jk.controller;
 
 import com.jk.pojo.TreeBean;
-import com.jk.service.TreeServiceDamo;
+import com.jk.treeservice.TreeServiceDamo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,5 +33,6 @@ public class TreeController {
     @RequestMapping("getTree")
     public List<TreeBean> getTree(){
         List<TreeBean> tree = treeServiceDamo.getTree();
-        return tree;}
+        return tree;
+    }
 }

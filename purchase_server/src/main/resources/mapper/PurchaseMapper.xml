@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.PurchaseMapper">
+
+    <select id="querySupplierDrugs" parameterType="com.jk.pojo.SupplierDrugs" resultType="com.jk.pojo.SupplierDrugs">
+        select t.*,t.drug_name drugName,t.purchase_price purchasePrice,t.validity_period validityPeriod,t.package_quantity packageQuantity,t.box_count boxCount from t_supplier_grugs t
+            <if test="supplierDrugs.manufacturer!=null and supplierDrugs.manufacturer!=''">
+                where t.manufacturer like '%${supplierDrugs.manufacturer}%'
+            </if>
+    </select>
+</mapper>
