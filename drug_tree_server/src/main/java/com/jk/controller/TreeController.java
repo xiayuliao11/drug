@@ -21,7 +21,7 @@ public class TreeController implements TreeService {
      * @return
      */
     @Override
-  /*  @ResponseBody*/
+    @ResponseBody
   /*  @GetMapping("getTree")*/
     public List<TreeBean> getTree() {
         return treeServiceService.getTree();

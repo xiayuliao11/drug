@@ -8,10 +8,9 @@ spring:
   application:
     name: tree-server
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.101.55:3306/drug?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.101.55:3306/drug?characterEncoding=utf-8&serverTimezone=UTC&tcpRcvBuf=1024000
     username: root
     password: root
-
 mybatis:
   mapper-locations: classpath*:mybatis/mapper-*.xml

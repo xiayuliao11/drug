@@ -36,11 +36,9 @@
         getTree();
     })
     function getTree(){
-
         $.ajax({
             url:"/to/getTree",
             type:"POST",
-            data:$("form").serialize(),
             success:function(pageUtil){
                 $("#tree").treeview({data:pageUtil,
                     onNodeSelected:function(event, data) {
@@ -49,8 +47,9 @@
                             $.addtabs.add({
                                 id:data.id,
                                 title:data.text,
-                                url:"/to/tovivw?name="+data.href
+                                url:"/to/toview?name="+data.href
                             });
+
                         }
                     }
                 });
