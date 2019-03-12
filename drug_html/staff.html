@@ -20,7 +20,7 @@
 <script>
     //查询销售列表
    $("#table").bootstrapTable({
-       url:"http://localhost:1999/findStaff",
+       url:"http://192.168.101.37:1999/findStaff",
        queryParams:function(){
            return {};
        },
@@ -46,7 +46,7 @@
 //启用
 function  start(id){
     $.ajax({
-        url:'http://localhost:1999/start',
+        url:'http://192.168.101.37:1999/start',
         type:'post',
         data:{id:id},
         dataType:'json',
@@ -58,7 +58,7 @@ function  start(id){
 //停用
 function  shop(id){
     $.ajax({
-        url:'http://localhost:1999/shop',
+        url:'http://192.168.101.37:1999/shop',
         type:'post',
         data:{id:id},
         dataType:'json',
@@ -70,7 +70,7 @@ function  shop(id){
 //删除
 function delOne(id){
    $.ajax({
-       url:'http://localhost:1999/delOne',
+       url:'http://192.168.101.37:1999/delOne',
        type:'DELETE',
        data:{id:id},
        dataType:'json',
@@ -94,7 +94,7 @@ function createAddContent(url){
 function addStaff(){
     bootbox.dialog({
         title:'添加',
-        message: createAddContent("http://localhost:1999/toAdd"),
+        message: createAddContent("http://192.168.101.37:1999/toAdd"),
         closeButton: true,//是否显示关闭按钮
         buttons : {
             "success" : {
@@ -102,7 +102,7 @@ function addStaff(){
                 "className" : "btn-sm btn-success",
                 "callback" : function() {
                     $.ajax({
-                        url:'http://localhost:1999/saveStaff',
+                        url:'http://192.168.101.37:1999/saveStaff',
                         dataType:'json',
                         type:'post',
                         data:$("#From").serialize(),
@@ -126,7 +126,7 @@ function addStaff(){
 function update(id){
 bootbox.dialog({
     title:'修改',
-    message: createAddContent("http://localhost:1999/toUpdate"),
+    message: createAddContent("http://192.168.101.37:1999/toUpdate"),
     closeButton: true,
     buttons : {
         "success" : {
@@ -134,7 +134,7 @@ bootbox.dialog({
             "className" : "btn-sm btn-success",
             "callback" : function() {
                 $.ajax({
-                    url:'http://localhost:1999/saveStaff',
+                    url:'http://192.168.101.37:1999/saveStaff',
                     type:'post',
                     data:$("#From").serialize(),
                     success:function(data){
@@ -162,7 +162,7 @@ bootbox.dialog({
     }
 });
 $.ajax({
-    url:"http://localhost:1999/updateById",
+    url:"http://192.168.101.37:1999/updateById",
     data:{id:id},
     async:false,
     success:function(data){

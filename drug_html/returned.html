@@ -19,7 +19,7 @@
 <script>
 //查询列表
    $("#table").bootstrapTable({
-       url:"http://localhost:1999/findReturned",
+       url:"http://192.168.101.37:1999/findReturned",
        queryParams:function(){
            return {};
        },
@@ -45,7 +45,7 @@
 //确定
 function  sure(id){
     $.ajax({
-        url:'http://localhost:1999/updateSure',
+        url:'http://192.168.101.37:1999/updateSure',
         type:'post',
         data:{id:id},
         dataType:'json',
@@ -69,7 +69,7 @@ function createAddContent(url){
 function look(id){
     bootbox.dialog({
         title:'退货信息',
-        message: createAddContent("http://localhost:1999/toReturned"),
+        message: createAddContent("http://192.168.101.37:1999/toReturned"),
         closeButton: true,
         buttons : {
             "success" : {
@@ -80,7 +80,7 @@ function look(id){
         }
     });
     $.ajax({
-        url:"http://localhost:1999/returnById",
+        url:"http://192.168.101.37:1999/returnById",
         data:{id:id},
         async:false,
         success:function(data){

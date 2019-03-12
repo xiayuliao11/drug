@@ -20,7 +20,7 @@
 <script>
     //查询销售列表
     $("#table").bootstrapTable({
-        url:"http://localhost:1999/findNotice",
+        url:"http://192.168.101.37:1999/findNotice",
         queryParams:function(){
             return {};
         },
@@ -44,7 +44,7 @@
     //上线
     function  up(id){
         $.ajax({
-            url:'http://localhost:1999/up',
+            url:'http://192.168.101.37:1999/up',
             type:'post',
             data:{id:id},
             dataType:'json',
@@ -56,7 +56,7 @@
     //下线
     function  down(id){
         $.ajax({
-            url:'http://localhost:1999/down',
+            url:'http://192.168.101.37:1999/down',
             type:'post',
             data:{id:id},
             dataType:'json',
@@ -68,7 +68,7 @@
     //删除
     function delNotice(id){
         $.ajax({
-            url:'http://localhost:1999/delNotice',
+            url:'http://192.168.101.37:1999/delNotice',
             type:'DELETE',
             data:{id:id},
             dataType:'json',
@@ -92,7 +92,7 @@
     function addNotice(){
         bootbox.dialog({
             title:'添加',
-            message: createAddContent("http://localhost:1999/toAddNotice"),
+            message: createAddContent("http://192.168.101.37:1999/toAddNotice"),
             closeButton: true,//是否显示关闭按钮
             buttons : {
                 "success" : {
@@ -100,7 +100,7 @@
                     "className" : "btn-sm btn-success",
                     "callback" : function() {
                         $.ajax({
-                            url:'http://localhost:1999/saveNotice',
+                            url:'http://192.168.101.37:1999/saveNotice',
                             type:'post',
                             data:$("#From").serialize(),
                             success:function(){
@@ -123,7 +123,7 @@
     function update(id){
         bootbox.dialog({
             title:'修改',
-            message: createAddContent("http://localhost:1999/toAddNotice"),
+            message: createAddContent("http://192.168.101.37:1999/toAddNotice"),
             closeButton: true,
             buttons : {
                 "success" : {
@@ -131,7 +131,7 @@
                     "className" : "btn-sm btn-success",
                     "callback" : function() {
                         $.ajax({
-                            url:'http://localhost:1999/saveNotice',
+                            url:'http://192.168.101.37:1999/saveNotice',
                             type:'post',
                             data:$("#From").serialize(),
                             success:function(data){
@@ -159,7 +159,7 @@
             }
         });
         $.ajax({
-            url:"http://localhost:1999/noticeById",
+            url:"http://192.168.101.37:1999/noticeById",
             data:{id:id},
             async:false,
             success:function(data){
