@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="/js/jquery-2.1.1.min.js"></script>
+
+    <script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="/layer/layer.js"></script>
+
+</head>
+<script type="text/javascript">
+    $(function () {
+
+        initTable();
+    })
+
+    //-----------------------------------------------------查询开始
+    function initTable() {
+
+        $("#table").bootstrapTable({
+          //  url:'/getGoodsReturned',
+            url:"http://192.168.101.22:5001/getGoodsReturned",
+            striped: true,  //表格显示条纹，默认为false
+            toolbar: '#toolbar',  //把表单和调查的部分结合到一起
+            pagination: true, // 在表格底部显示分页组件，默认false
+            pageList: [1, 2, 3, 4, 5, 6, 8, 10], // 设置页面可以显示的数据条数
+            pageSize: 6, // 页面数据条数
+            pageNumber: 1, // 首页页码
+            clickToSelect: true, //是否启用点击选中行
+            sidePagination: 'server', // 设置为服务器端分页(!!!!)
+            //  search: true,     //搜索框
+            searchTimeOut: 2000,
+            queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
+                console.log(params)
+                return { //这里return值就是请求 url属性时携带的参数
+                    pageSize: params.limit, // 每页要显示的数据条数
+                    offset: params.offset, // 每页显示数据的开始行号
+                    // sear_name:params.search,  //自动搜索框
+
+                    procurer:$("#procurer").val(), //调查时发送的参数
+                    datesta:$("#datesta").val(), //调查时发送的参数
+                    dateend:$("#dateend").val(), //调查时发送的参数
+                    state:$("#numbers option:selected").val(),
+                //    state:$("input[type='radio']:checked").val(), //调查时发送的参数
+
+                }
+            },
+            columns:[
+                {field:'fx',title:'fx',checkbox:true,align:'center',valign:'middle'},
+                {field:'id',title:'id',align:'center',valign:'middle'},
+
+                {field:'salesReturnCommddtiy',title:'退货商品',align:'center',valign:'middle'},
+                {field:'quantity',title:'商品数量',align:'center',valign:'middle'},
+
+                {field:'procurer',title:'供应商',align:'center',valign:'middle'},
+
+                /*    {field:'tdate',title:'时间',align:'center',valign:'middle'},*/
+                {field:'salesReturnTime',title:'退货时间',align:'center',valign:'middle',formatter:function(value,row,index){
+                        return new Date(value).toLocaleDateString().replace(/\//g, "-") + " " + new Date(value).toTimeString().substr(0, 8)
+                    }},
+                {field:'salesReturnPrice',title:'退货金额',align:'center',valign:'middle'},
+                {field:'state',title:'退货状态',align:'center',valign:'middle',formatter:function (value,row,index) {
+                        if (value==1) {
+                            return "已确认";
+                        }else
+                            return "未确认";
+                    }},
+
+                {field:'cz',title:'操作',align:'center',valign:'middle',formatter:function (value,row,index) {
+                        var content="";
+                        if (row.state==0) {
+                            content+="  <a href='javascript:void(0)' onclick=updateItem("+row.id+")>确认</a>";
+                            content+=" 订单详情"
+                            return content;
+                        }
+                        if (row.state==1) 
+                        {
+                            content+=" 订单详情"
+                            return content;
+                        }
+
+                    }},
+            ],
+            onLoadSuccess: function(){
+                console.info("加载成功");
+            },
+            onLoadError: function(){
+                console.info("加载数据失败");
+            }
+        });
+    }
+    //----------------------------------------------查询结束
+    //----------------------------清楚表单的数据
+    function cleate(){
+
+        document.getElementById("savForm").reset();
+    }
+    //----------------------------清楚表单的数据
+</script>
+<body>
+
+<div id="toolbar">
+
+    <form id="savForm">
+        <div class="form-group">
+            <label for="exampleInputEmail1">退货状态</label>
+        <select name="state" class="form-control" id="numbers">
+            <option value="-1" selected>请选择
+            <option value="0">未确认
+            <option value="1">已确认
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">供应商</label>
+            <input name="procurer " id="procurer" class="form-control"  placeholder="请输入供应商">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">退货时间</label>
+            <input name="datesta" id="datesta" class="form-control" type="date">
+            ---	<input name="dateend" id="dateend" class="form-control"type="date">
+
+        </div>
+    </form>                <!-- $('#table').bootstrapTable('refresh')刷新页面的时候,会把调查的参数传过去   -->
+    <button onclick="$('#table').bootstrapTable('refresh');" class="btn btn-success">查询</button>
+    <button onclick="cleate()" class="btn btn-success">重置</button>
+</div>
+<table id="table"></table>
+</body>
+</html>
