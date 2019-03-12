@@ -19,7 +19,7 @@
 <script>
 //查询销售列表
    $("#table").bootstrapTable({
-       url:"http://localhost:1999/findList",
+       url:"http://192.168.101.37:1999/findList",
        pagination:true,
        toolbar:'#search',
        pageList:[3,6,9],
@@ -65,7 +65,7 @@
 //发货
 function  send(id){
        $.ajax({
-       url:'http://localhost:1999/updateSend',
+       url:'http://192.168.101.37:1999/updateSend',
        type:'post',
        data:{id:id},
        dataType:'json',
@@ -77,7 +77,7 @@ function  send(id){
 //取消
 function  cancel(id){
     $.ajax({
-        url:'http://localhost:1999/updateCancel',
+        url:'http://192.168.101.37:1999/updateCancel',
         type:'post',
         data:{id:id},
         dataType:'json',
@@ -101,7 +101,7 @@ function createAddContent(url){
 function look(id){
     bootbox.dialog({
         title:'订单信息',
-        message: createAddContent("http://localhost:1999/toLook"),
+        message: createAddContent("http://192.168.101.37:1999/toLook"),
         closeButton: true,
         buttons : {
             "success" : {
@@ -113,7 +113,7 @@ function look(id){
         }
     });
     $.ajax({
-        url:"http://localhost:1999/lookById",
+        url:"http://192.168.101.37:1999/lookById",
         data:{id:id},
         async:false,
         success:function(data){

@@ -87,7 +87,7 @@
             //是否初始化图片显示
             initialPreviewAsData: true,
             language: 'zh', //设置语言
-            uploadUrl: 'http://localhost:1999/shopImg', //上传的地址
+            uploadUrl: 'http://192.168.101.37:1999/shopImg', //上传的地址
             allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
             showUpload: true, //是否显示上传按钮
             showCaption: false,//是否显示标题
@@ -108,7 +108,7 @@
 //新增
 function  add() {
     $.ajax({
-        url: 'http://localhost:1999/saveShop',
+        url: 'http://192.168.101.37:1999/saveShop',
         type: 'post',
         data: $("#From").serialize(),
         success:function () {

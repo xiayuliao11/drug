@@ -19,7 +19,7 @@
 <script>
 //查询列表
    $("#table").bootstrapTable({
-       url:"http://localhost:1999/findInvoice",
+       url:"http://192.168.101.37:1999/findInvoice",
        queryParams:function(){
            return {};
        },
@@ -44,7 +44,7 @@
 //开票
 function  Kai(id){
    $.ajax({
-      url:'http://localhost:1999/updateInvoice',
+      url:'http://192.168.101.37:1999/updateInvoice',
        type:"post",
       data:{id:id},
       dataType:'json',
