@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 引入jquery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 引入bootstrap的css、js -->
+	<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+	<script type="text/javascript"src="bootstrap3/js/bootstrap.js"></script>
+		<!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.min.css">
+    <script src="js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>销售订单！</title>
+</head>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+        <span class="navbar-brand"><a target="a" href="http://localhost:1999//selectSale">全部订单</a></span>
+        <span class="navbar-brand"><a target="a" href="http://localhost:1999//selectPay">待支付</a></span>
+        <span class="navbar-brand"><a target="a" href="http://localhost:1999//selectUnpaid">待发货</a></span>
+        <span class="navbar-brand"><a target="a" href="http://localhost:1999//selectGive">配送中</a></span>
+        <span class="navbar-brand"><a target="a" href="http://localhost:1999//selectTake">待收货</a></span>
+        <span class="navbar-brand"><a target="a" href="http://localhost:1999//selectFinish">已完成</a></span>
+        <span class="navbar-brand"><a target="a" href="http://localhost:1999//selectClose">已关闭</a></span>
+    </div>
+    <div class="navbar-right">
+        <span class="navbar-brand glyphicon glyphicon-user"></span>
+        <span class="navbar-brand glyphicon glyphicon-home"></span>
+        <span class="navbar-brand glyphicon glyphicon-bell"></span>
+        <span class="navbar-brand glyphicon glyphicon-off"></span>
+    </div>
+</nav>
+<div style="margin-top: 55px;">
+    <iframe name="a" height="600" width="100%" src="http://localhost:1999//selectSale">
+    </iframe>
+</div>
+<body>
+
+</body>
+</html>

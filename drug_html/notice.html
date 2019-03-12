@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 引入jquery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 引入bootstrap的css、js -->
+	<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+	<script type="text/javascript"src="bootstrap3/js/bootstrap.js"></script>
+		<!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.min.css">
+    <script src="js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>公告管理！</title>
+</head>
+<button type='button' class='btn btn-success' onclick='addNotice()'>添加公告</button>
+<table id="table" class="table"></table>
+</body>
+<script>
+    //查询销售列表
+    $("#table").bootstrapTable({
+        url:"http://localhost:1999/findNotice",
+        queryParams:function(){
+            return {};
+        },
+        columns:[
+            {field:"headline",title:"公告标题"},
+            {field:"status",title:"显示状态",formatter:function(value,row,index){
+                    return value==0?"下线":"上线"
+            }},
+            {field:"time",title:"创建时间"},
+            {field:"status",title:"YN",formatter:function(value,row,index){
+                    return value==0?"<button type='button' class='btn btn-default' onclick='up(\""+row.id+"\")'>上线</button>":"<button type='button' class='btn btn-default' onclick='down(\""+row.id+"\")'>下线</button>"
+            }},
+            {field:"123",title:"操作",formatter:function(value,row,index){
+                    var html="<button type='button' class='btn btn-warning' onclick='delNotice("+row.id+")'>删除</button>  ";
+                    html+="<button type='button' class='btn btn-success' onclick='update("+row.id+")'>编辑</button>";
+                    return html;
+            }}
+        ]
+    })
+
+    //上线
+    function  up(id){
+        $.ajax({
+            url:'http://localhost:1999/up',
+            type:'post',
+            data:{id:id},
+            dataType:'json',
+            success:function(data){
+                $('#table').bootstrapTable('refresh');
+            }
+        })
+    }
+    //下线
+    function  down(id){
+        $.ajax({
+            url:'http://localhost:1999/down',
+            type:'post',
+            data:{id:id},
+            dataType:'json',
+            success:function(data){
+                $('#table').bootstrapTable('refresh');
+            }
+        })
+    }
+    //删除
+    function delNotice(id){
+        $.ajax({
+            url:'http://localhost:1999/delNotice',
+            type:'DELETE',
+            data:{id:id},
+            dataType:'json',
+            success:function(data){
+                $('#table').bootstrapTable('refresh');
+            }
+        })
+    }
+    var res;
+    function createAddContent(url){
+        $.ajax({
+            url:url,
+            async:false,
+            success:function(data){
+                res = data;
+            }
+        });
+        return res;
+    }
+    //新增
+    function addNotice(){
+        bootbox.dialog({
+            title:'添加',
+            message: createAddContent("http://localhost:1999/toAddNotice"),
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                "success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'http://localhost:1999/saveNotice',
+                            type:'post',
+                            data:$("#From").serialize(),
+                            success:function(){
+                                $('#table').bootstrapTable('refresh');
+                            }
+                        });
+                    }
+                },
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+                    }
+                }
+            }
+
+        });
+    }
+    //修改回显
+    function update(id){
+        bootbox.dialog({
+            title:'修改',
+            message: createAddContent("http://localhost:1999/toAddNotice"),
+            closeButton: true,
+            buttons : {
+                "success" : {
+                    "label" : "<i class='glyphicon glyphicon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'http://localhost:1999/saveNotice',
+                            type:'post',
+                            data:$("#From").serialize(),
+                            success:function(data){
+                                bootbox.alert({
+                                    message: '修改数据成功',
+                                    className: 'bb-alternate-modal',
+                                    buttons: {
+                                        ok: {
+                                            label: '确定',
+                                            className: 'btn-success'
+                                        }
+                                    },
+                                });
+                                $('#table').bootstrapTable('refresh');
+                            }
+                        });
+                    }
+                },
+                "cancel" : {
+                    "label" : "<i class='glyphicon glyphicon-remove'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+                    }
+                }
+            }
+        });
+        $.ajax({
+            url:"http://localhost:1999/noticeById",
+            data:{id:id},
+            async:false,
+            success:function(data){
+                $("#id").val(data.id);
+                $("#headline").val(data.headline);
+                $("#content").val(data.content);
+                $("#status").val(data.status);
+            }
+        })
+    }
+</script>
+</html>
