@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 引入jquery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 引入bootstrap的css、js -->
+	<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+	<script type="text/javascript"src="bootstrap3/js/bootstrap.js"></script>
+		<!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.min.css">
+    <script src="js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>已完成！</title>
+</head>
+   <table id="table" class="table"></table>
+</body>
+<script>
+    //查询销售列表
+   $("#table").bootstrapTable({
+       url:"http://localhost:1999/findStatus",
+       pagination:true,
+       sidePagination:'server',//分页方式：client客户端分页，server服务端分页
+       striped:true,//条纹表格
+       queryParams:function(){
+           return {
+               page:this.pageNumber,
+               rows:this.pageSize,
+               saleStatus:4
+           };
+       },
+       columns:[
+           {field:"123",title:"  ",formatter:function(value,row,index){
+                   return "<img id=\"u11645_img\" class=\"img \" src=\"/u11645.png\"/>";
+               }},
+           {field:"saleName",title:"采购商品"},
+           {field:"lowerTime",title:"下单时间"},
+           {field:"paymentTime",title:"支付时间"},
+           {field:"saleAddress",title:"采购商"},
+           {field:"saleCount",title:"采购数量"},
+           {field:"saleExtension",title:"推广产品",formatter:function(value,row,index){
+                   return   value==0?"否":"是";
+               }},
+           {field:"saleActivity",title:"活动产品",formatter:function(value,row,index){
+                   return   value==0?"否":"是";
+               }},
+           {field:"saleMoney",title:"实收款",formatter:function(value,row,index){
+                   return   "<font color='red'>"+value+"</font>";
+               }},
+           {field:"saleStatus",title:"订单状态",formatter:function(value,row,index){
+                   return   value==1?"待发货":(value==2?"配送中":(value==3?"待收货":(value==4?"已完成":(value==5?"已关闭":(value==6?"待支付":"")))));
+               }},
+           {field:"saleStatus",title:"操作",formatter:function(value,row,index){
+                   return   value==6? "<button type='button' class='btn btn-default' onclick='look(\""+row.id+"\")'>查看订单</button>  " +
+                       "<button type='button' class='btn btn-warning' onclick='cancel(\""+row.id+"\")'>取消订单</button>"
+                       :(value==1?"<button type='button' class='btn btn-info'    onclick='send(\""+row.id+"\")'>发货</button>  " +
+                           "<button type='button' class='btn btn-default' onclick='look(\""+row.id+"\")'>查看订单</button>":
+                           "<button type='button' class='btn btn-default' onclick='look(\""+row.id+"\")'>查看订单</button>")
+               }}
+       ]
+   })
+</script>
+</html>
