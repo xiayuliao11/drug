@@ -2,10 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.mapper.PurchaseMapper">
 
-    <select id="querySupplierDrugs" parameterType="com.jk.pojo.SupplierDrugs" resultType="com.jk.pojo.SupplierDrugs">
+    <!--查询快速采购列表-->
+    <select id="querySupplierDrugsCount" parameterType="com.jk.pojo.SupplierDrugs" resultType="int">
+        select count(*) from t_supplier_grugs
+        <if test="supplierDrugs.manufacturer!=null and supplierDrugs.manufacturer!=''">
+            where manufacturer = #{supplierDrugs.manufacturer}
+        </if>
+    </select>
+
+    <select id="querySupplierDrugsPage" resultType="com.jk.pojo.SupplierDrugs">
         select t.*,t.drug_name drugName,t.purchase_price purchasePrice,t.validity_period validityPeriod,t.package_quantity packageQuantity,t.box_count boxCount from t_supplier_grugs t
             <if test="supplierDrugs.manufacturer!=null and supplierDrugs.manufacturer!=''">
-                where t.manufacturer like '%${supplierDrugs.manufacturer}%'
+                where t.manufacturer = #{supplierDrugs.manufacturer}
             </if>
+        limit #{start},#{rows}
     </select>
+
+    <!--查询购物车列表-->
+    <select id="queryShoppingCartCount" parameterType="com.jk.pojo.ShoppingCart" resultType="int">
+        select count(*) from shopping_cart
+    </select>
+
+    <select id="queryShoppingCartPage" resultType="com.jk.pojo.ShoppingCart">
+        select t.*,t.unit_price unitPrice from shopping_cart t
+        limit #{start},#{rows}
+    </select>
+
+    <!--采购订单-->
+    <select id="queryPurchaseOrder" parameterType="com.jk.pojo.PurchaseOrder" resultType="com.jk.pojo.PurchaseOrder">
+            select t.*,t.order_number orderNumber,t.order_time orderTime,t.unit_price unitPrice,t.actual_payment actualPayment from purchase_order t where 1=1
+                <if test="purchaseOrder.orderNumber!=null and purchaseOrder.orderNumber!=''">
+                     and t.order_number=#{purchaseOrder.orderNumber}
+                </if>
+                <if test="purchaseOrder.manufacturer!=null and purchaseOrder.manufacturer!=''">
+                     and  t.manufacturer=#{purchaseOrder.manufacturer}
+                </if>
+                <if test="purchaseOrder.status!=null and purchaseOrder.status!=''">
+                     and  t.manufacturer=#{purchaseOrder.status}
+                </if>
+    </select>
+
+    <!--根据id查询相应的采购信息-->
+    <select id="queryToCart" parameterType="int" resultType="com.jk.pojo.SupplierDrugs">
+          select t.drug_name drugName,t.purchase_price purchasePrice,t.specifications from t_supplier_grugs t where t.id=#{id}
+    </select>
+
+    <!--加入购物车-->
+    <insert id="addToCart" parameterType="com.jk.pojo.ShoppingCart">
+            insert into shopping_cart(count,name,specifications,unit_price,subtotal) values(#{count},#{name},#{specifications},#{unitPrice},#{subtotal})
+    </insert>
 </mapper>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入jquery -->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <!-- 引入bootstrap的css、js -->
+    <link rel="stylesheet" href="/bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="/bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入table的css、js -->
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <!-- 引入bootbox.js -->
+    <script type="text/javascript" src="/js/bootstrap-bootbox/bootbox.js"></script>
+
+</head>
+
+<body>
+<div id="toolbar">
+    <table>
+        <tr>
+            <td>供应商家：</td>
+            <td><select id="manufacturer" style="width: 200px" onchange="searchSupplierBusiness()" class="form-control">
+
+            </select></td>
+        </tr>
+    </table>
+</div>
+<table class="table" id="myTable"></table>
+</body>
+<script>
+    $(function(){
+        initTable();//初始化表格
+        initSupplierBusiness();
+    })
+    //初始化快速采购表格
+    function initTable(){
+        $("#myTable").bootstrapTable({
+            toolbar:'#toolbar',
+            url:"/querySupplierDrugs",
+            pagination:true, //开启分页
+            pageList:[1,2,3,4,5,10,15],//分页组件
+            pageNumber:1,
+            pageSize:2,//默认每页条数
+            sidePagination:'server',//分页方式：client客户端分页，server服务端分页
+            striped:true,//条纹表格
+            queryParams:function(){
+                return {
+                    page:this.pageNumber,
+                    rows:this.pageSize,
+                    manufacturer:$("#manufacturer").val()
+                };
+            },
+            columns:[
+                {field:"drugName",title:"药品名称",formatter:function(value,row,index){
+                        return "<font color='red'>"+value+"</font>"
+                    }},
+                {field:"manufacturer",title:"生产厂家"},
+                {field:"purchasePrice",title:"采购价",formatter:function(value,row,index){
+                        return "<font color='red'>"+value+"</font>"
+                    }},
+                {field:"specifications",title:"规格"},
+                {field:"validityPeriod",title:"有效期限"},
+                {field:"packageQuantity",title:"包装数量"},
+                {field:"boxCount",title:"盒",formatter:function(value,row,index){
+                        var html = "<button style='background: cadetblue' onclick='aadBoxCount("+row.id+")'>+</button>";
+                            html += "<input id='con"+row.id+"' size='1px' value='"+value+"'/>";
+                            html += "<button style='background: cadetblue'  onclick='cutBoxCount("+row.id+")'>-</button>";
+                        return html;
+                    }},
+                {field:"stock",title:"库存",formatter:function(value,row,index){
+                        if(value > 500){
+                        return "库存>500";
+                        }else{
+                            return value;
+                        }
+                    }},
+                {field:"tools",title:"操作",formatter:function(value,row,index){
+                        return "<button type='button' class='btn btn-primary' onclick='addToCart("+row.boxCount+","+row.id+")'>加入购物车</button>";
+                    }}
+            ]
+        })
+    }
+
+
+     //供应商下拉框查询
+    function initSupplierBusiness(){
+        $.ajax({
+            url:"/querySuppliers",
+            type:'post',
+            data:{},
+            dataType:'json',
+            success:function(data){
+               var html = "<option value=''>--请选择--</option>";
+               for (var i = 0; i < data.length; i++) {
+                    html += "<option value='"+data[i].manufacturer+"'>"+data[i].manufacturer+"</option>"
+               }
+                $("#manufacturer").html(html);
+            },error:function(){
+                alert("失败了");
+            }
+        });
+    }
+    //条件查询
+    function searchSupplierBusiness(){
+        $('#myTable').bootstrapTable('refresh');
+    };
+    //加盒数
+    function aadBoxCount(id){
+        var boxCount = $("#con"+id+"").val();
+        boxCount++;
+        $("#con"+id+"").val(boxCount)
+    };
+    //减盒数
+    function cutBoxCount(id){
+        var boxCount = $("#con"+id+"").val();
+        if(boxCount>=2){
+            boxCount--;
+            $("#con"+id+"").val(boxCount)
+        }
+    };
+    function addToCart(id){
+        var boxCount = $("#con"+id+"").val();
+        $.ajax({
+            url:'/addToCart',
+            type:'post',
+            data:{id:id,boxCount:boxCount},
+            dataType:'json',
+            success:function(data){
+                alert("成功加入购物车")
+            }
+        })
+    }
+</script>
+</html>
