@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="/js/jquery-2.1.1.min.js"></script>
+
+    <script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="/layer/layer.js"></script>
+
+</head>
+<script type="text/javascript">
+    $(function () {
+
+        initTable();
+        cleate();
+        $('#myTab li:eq(0) a').tab('show');
+    })
+
+    //-----------------------------------------------------查询开始
+    function initTable() {
+
+        $("#table").bootstrapTable({
+           // url:'/getIntegral',
+            url:"http://192.168.101.22:5001/getIntegral",
+            striped: true,  //表格显示条纹，默认为false
+            toolbar: '#toolbar',  //把表单和调查的部分结合到一起
+            pagination: true, // 在表格底部显示分页组件，默认false
+            pageList: [1, 2, 3, 4, 5, 6, 8, 10], // 设置页面可以显示的数据条数
+            pageSize: 6, // 页面数据条数
+            pageNumber: 1, // 首页页码
+            clickToSelect: true, //是否启用点击选中行
+            sidePagination: 'server', // 设置为服务器端分页(!!!!)
+            //  search: true,     //搜索框
+            searchTimeOut: 2000,
+            queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
+                console.log(params)
+                return { //这里return值就是请求 url属性时携带的参数
+                    pageSize: params.limit, // 每页要显示的数据条数
+                    offset: params.offset, // 每页显示数据的开始行号
+                    // sear_name:params.search,  //自动搜索框
+/*
+                    procurer:$("#procurer").val(), //调查时发送的参数
+
+                    state:$("#numbers option:selected").val(),*/
+                    //    state:$("input[type='radio']:checked").val(), //调查时发送的参数
+
+                }
+            },
+            columns:[
+                {field:'fx',title:'fx',checkbox:true,align:'center',valign:'middle'},
+                {field:'id',title:'id',align:'center',valign:'middle'},
+
+                {field:'exchangeId',title:'兑换单ID',align:'center',valign:'middle'},
+                {field:'exchangeGoodname',title:'兑换商品名称',align:'center',valign:'middle'},
+
+                {field:'exchangeNumber',title:'兑换数量',align:'center',valign:'middle'},
+                {field:'goodType',title:'商品类型',align:'center',valign:'middle',formatter:function (value,row,index) {
+                        if (value==1) {
+                            return "实物商品";
+                        }else
+                            return "虚拟商品";
+                    }},
+                {field:'inventoryNumber',title:'库存结余',align:'center',valign:'middle'},
+                {field:'exchangeTotal',title:'兑换积分',align:'center',valign:'middle'},
+
+                /*    {field:'tdate',title:'时间',align:'center',valign:'middle'},*/
+                {field:'exchangeTime',title:'退货时间',align:'center',valign:'middle',formatter:function(value,row,index){
+                        return new Date(value).toLocaleDateString().replace(/\//g, "-") + " " + new Date(value).toTimeString().substr(0, 8)
+                    }},
+                {field:'dispatchingState',title:'配送单状态',align:'center',valign:'middle',formatter:function (value,row,index) {
+                        if (value==1) {
+                            return "交易完成";
+                        }if (value==2) {
+                            return "待配送";
+                        }
+                        if (value==3) {
+                            return "待收货";
+                        }
+                    }},
+
+                {field:'cz',title:'操作',align:'center',valign:'middle',formatter:function (value,row,index) {
+                        var content="";
+                            content+="  <a href='javascript:void(0)' onclick=updateItem('"+row.id+"')>查看</a>";
+                            return content;
+                        }
+                    },
+            ],
+            onLoadSuccess: function(){
+                console.info("加载成功");
+            },
+            onLoadError: function(){
+                console.info("加载数据失败");
+            }
+        });
+    }
+    //----------------------------------------------查询结束
+    //----------------------------------------------修改开始
+    function updateItem(id){
+
+        $.ajax({
+           // url:"/updateItem",
+            url:"http://192.168.101.22:5001/updateItem",
+            data:{id:id},
+            success:function(result){
+                add();
+               $("#exchangeId").html(result.exchangeId);
+                $("#exchangeGoodname").html(result.exchangeGoodname);
+                $("#exchangeNumber").html(result.exchangeNumber);
+
+                if (result.goodType==1){
+                    $("#goodType").html("实物商品");
+                } else {
+                    $("#goodType").html("虚拟商品");
+                }
+                $("#inventoryNumber").html(result.inventoryNumber);
+                $("#exchangeTotal").html(result.exchangeTotal);
+
+                var tt=
+                    new Date(result.exchangeTime).toLocaleDateString().replace(/\//g, "-") + " "+
+                    new Date(result.exchangeTime).toTimeString().substr(0,8);
+                $("#exchangeTime").html(tt);
+
+                /*   $("[name='name']").val(result.name);  */
+                if (result.dispatchingState==1){
+                    $("#dispatchingState").html("交易完成");
+                }
+                if (result.dispatchingState==2)
+                {
+                    $("#dispatchingState").html("待配送");
+                }
+                else {
+                    $("#dispatchingState").html("待收货");
+                }
+            },
+            error:function(){
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+    //----------------------------------------------修改结束
+    //----------------------------------------------新增开始
+    function add(){
+
+        bootbox.dialog({
+            size: "big",
+            title:'商品兑换详情',
+            message:getUI("chakanjifen"),
+            closeButton:true,
+            //className:'add-dialog',
+            buttons:{
+                'success':{
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:"/addgoodsun",
+                            type:"POST",
+                            data:$("#form").serialize(),
+                            success:function(result){
+                                $('#table').bootstrapTable('refresh');
+                            },
+                            error:function(){
+                              //  alert("ajax访问失败了,查看控制台");
+                            }
+                        });
+                    }
+                },
+                'cancel':{
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback":function(){
+                    }
+                }
+            }
+        })	}
+
+    function getUI(url){
+        var content ="" ;
+        $.ajax({
+          //  url:"toView?name=/"+url,
+            url:"http://192.168.101.22:5001/toView?name=/"+url,
+            async:false,
+            success:function(result){
+                content= result;   //不能在这return的原因是因为调的是getUrl这个方法,不是success这个方法
+            },
+            error:function(){
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+        return content;
+    }
+    //----------------------------------------------新增结束
+
+
+
+
+
+    //----------------------------清楚表单的数据
+    function cleate(){
+
+        $("#table1").bootstrapTable({
+           // url:'/getIntegralGain',
+            url:"http://192.168.101.22:5001/getIntegralGain",
+            striped: true,  //表格显示条纹，默认为false
+            toolbar: '#toolbar',  //把表单和调查的部分结合到一起
+            pagination: true, // 在表格底部显示分页组件，默认false
+            pageList: [1, 2, 3, 4, 5, 6, 8, 10], // 设置页面可以显示的数据条数
+            pageSize: 6, // 页面数据条数
+            pageNumber: 1, // 首页页码
+            clickToSelect: true, //是否启用点击选中行
+            sidePagination: 'server', // 设置为服务器端分页(!!!!)
+            //  search: true,     //搜索框
+            searchTimeOut: 2000,
+            queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
+                console.log(params)
+                return { //这里return值就是请求 url属性时携带的参数
+                    pageSize: params.limit, // 每页要显示的数据条数
+                    offset: params.offset, // 每页显示数据的开始行号
+
+                }
+            },
+            columns:[
+                {field:'fx',title:'fx',checkbox:true,align:'center',valign:'middle'},
+                {field:'id',title:'id',align:'center',valign:'middle'},
+                {field:'behavior',title:'行为',align:'center',valign:'middle'},
+                {field:'gain',title:'获得积分',align:'center',valign:'middle'},
+                {field:'balanceE',title:'积分余额',align:'center',valign:'middle'},
+
+                /*    {field:'tdate',title:'时间',align:'center',valign:'middle'},*/
+                {field:'tdate',title:'获取时间',align:'center',valign:'middle',formatter:function(value,row,index){
+                        return new Date(value).toLocaleDateString().replace(/\//g, "-") + " " + new Date(value).toTimeString().substr(0, 8)
+                    }},
+
+            ],
+            onLoadSuccess: function(){
+                console.info("加载成功");
+            },
+            onLoadError: function(){
+                console.info("加载数据失败");
+            }
+        });
+    }
+    //----------------------------清楚表单的数据
+</script>
+<body>
+
+
+
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#home" data-toggle="tab">积分兑换记录</a>
+        </li>
+        <li><a href="#ios" data-toggle="tab">积分获取记录</a></li>
+
+    </ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="home">
+        <table id="table"></table>
+    </div>
+    <div class="tab-pane fade" id="ios">
+        <table id="table1"></table>
+    </div>
+
+
+</div>
+
+</body>
+</html>

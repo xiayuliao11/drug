@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.OrderMapper">
+
+    <!-- 分页查询-->
+    <select id="findCount" resultType="int">
+        select count(*) from t_sale
+    </select>
+    <select id="findPage" resultType="com.jk.pojo.SaleBean">
+        select t.id,t.lower_time as lowerTime,t.payment_time as paymentTime,t.activity,t.address,t.count,t.extension,t.money,t.name,t.status from t_sale  t
+        limit #{start},#{rows}
+    </select>
+
+
+</mapper>
+ 

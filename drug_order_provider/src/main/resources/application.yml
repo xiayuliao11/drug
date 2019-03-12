@@ -1,0 +1,20 @@
+server:
+  port: 2000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
+spring:
+  application:
+    name: provider
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.101.55:3306/drug?characterEncoding=utf-8
+    username: root
+    password: root
+  thymeleaf:
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+mybatis:
+  mapper-locations: classpath:OrderMapper/*.xml

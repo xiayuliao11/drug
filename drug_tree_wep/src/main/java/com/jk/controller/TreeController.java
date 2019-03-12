@@ -33,5 +33,6 @@ public class TreeController {
     @RequestMapping("getTree")
     public List<TreeBean> getTree(){
         List<TreeBean> tree = treeServiceDamo.getTree();
-        return tree;}
+        return tree;
+    }
 }

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 引入jquery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 引入bootstrap的css、js -->
+	<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+	<script type="text/javascript"src="bootstrap3/js/bootstrap.js"></script>
+		<!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.min.css">
+    <script src="js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>店铺风格！</title>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">龟芳龟腚</a>
+        </div>
+        <div class="navbar-right">
+            <a class="navbar-brand" href="#">Xyp!</a>
+        </div>
+    </div>
+</nav>
+<div style="width:550px">
+    <form id="From" >
+        <div class="row">
+            <div class="col-md-4">
+                <label for="shop" style="color: #9fa6ab">店铺名称：</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="shop" id="shop">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="name" style="color: #00ee00">店铺联系人：</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="name" id="name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="phone" style="color: #0e90d2">客服电话：</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="phone" id="phone">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="img" style="color: #b52b27">店铺LOGO：</label>
+            </div>
+            <div class="col-md-8">
+                <input type="hidden" id="showImg" name="img" />
+                <input type="file" multiple class="projectfile" accept="image/*" name="img" id="img">
+            </div>
+        </div>
+    </form>
+</div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        </div>
+        <div class="navbar-right">
+            <button type="button" class="btn btn-info glyphicon glyphicon glyphicon-plus" onclick="add()">提交</button>
+        </div>
+    </div>
+</nav>
+</body>
+<script>
+    $(function(){
+        uploadImg()
+    })
+    //上传图片
+    function uploadImg(url){
+        $('#img').fileinput({
+            initialPreview:url,
+            //初始化图片配置：
+            initialPreviewConfig: [
+                {key: 1, showDelete: false}
+            ],
+            //是否初始化图片显示
+            initialPreviewAsData: true,
+            language: 'zh', //设置语言
+            uploadUrl: 'http://192.168.101.37:1999/shopImg', //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            showUpload: true, //是否显示上传按钮
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            maxFileCount: 2, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount:true,
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+
+        }).on('fileuploaded', function(event, data, previewId, index) {
+            var imgval = $('#showImg').val();
+            //if(imgval == null || imgval == "" || imgval == undefined){
+            imgval = "http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response.responseText;
+            $('#showImg').val(imgval);
+        });
+    }
+//新增
+function  add() {
+    $.ajax({
+        url: 'http://192.168.101.37:1999/saveShop',
+        type: 'post',
+        data: $("#From").serialize(),
+        success:function () {
+            alert("添加店铺成功！")
+        }
+    })
+}
+</script>
+</html>

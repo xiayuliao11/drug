@@ -7,11 +7,17 @@ eureka:
 spring:
   application:
     name: order-feign
-  main:
+  main:    #可以多个使用生产者
     allow-bean-definition-overriding: true
+  data:
+    mongodb:
+       host: 127.0.0.1
+       port: 27017
+       database: meng
 
-    thymeleaf:
-      encoding: UTF-8
-      servlet:
-        content-type: text/html
+
+
+    #mongodb
+     # application:
+     #   name: pring-boot-mongodb
 

@@ -8,7 +8,16 @@ spring:
   application:
     name: order-feign
 
-    thymeleaf:
-      encoding: UTF-8
-      servlet:
-        content-type: text/html
+thymeleaf:
+  encoding: UTF-8
+  servlet:
+     content-type: text/html
+ribbon:
+  ReadTimeout: 120000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+
+
+

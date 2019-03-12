@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建地址</title>
+    <style type="text/css">
+        .myrow{
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+<body>
+<form id="myForm">
+    <input type="hidden" name="id" id="id">
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="consignee">收货人</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="consignee" name="consignee" placeholder="请输入收货人名字">
+        </div>
+        <div class="col-md-2">
+            <label for="detailedAddress">详细地址</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="detailedAddress" name="detailedAddress" placeholder="请输入详细地址">
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="provinceId">所在省</label>
+        </div>
+        <div class="col-md-4">
+            <select id="provinceId" name="provinceId"></select>
+        </div>
+        <div class="col-md-2">
+            <label for="cityid">所在市</label>
+        </div>
+        <div class="col-md-4">
+            <select id="cityid" name="cityid"></select>
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="postcode">邮编</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="postcode" name="postcode" placeholder="请输入邮编">
+        </div>
+        <div class="col-md-2">
+            <label for="phone">电话</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control date" id="phone" name="phone" placeholder="请输入电话">
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    $(function(){
+        initAreaSelecet(0,'provinceId');
+    })
+    $("#provinceId").change(function(){
+        var id = $(this).val();
+        initAreaSelecet(id,'cityid')
+    })
+    function initAreaSelecet(pid,obj){
+        $.ajax({
+            url:'/findAreaList',
+            type:'post',
+            data:{
+                id:pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html = "<option value='-1'>请选择</option>";
+                for(var i = 0; i<data.length;i++){
+                    html += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            }
+        })
+    }
+</script>
+</html>

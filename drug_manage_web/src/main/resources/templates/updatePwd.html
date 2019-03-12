@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>安全设置</title>
+    <!-- juquery的js -->
+    <script src="/js/jquery-1.9.1.min.js"></script>
+    <!-- bootstrap布局js,css -->
+    <link rel="stylesheet" href="/bootstrap3/css/bootstrap.min.css">
+    <script src="/bootstrap3/js/bootstrap.min.js"></script>
+    <!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.min.css">
+    <script src="/js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+</head>
+<style>
+    .myrow {
+        margin-bottom: 10px
+    }
+</style>
+<body>
+<form id="userFrom">
+    <input type="hidden" name="id"  value="1">
+    <div class="row myrow">
+        <div class="col-md-3"></div>
+        <div class="col-md-2">
+            <label for="userPwd">原密码：</label>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="userPwd" name="userPwd">
+        </div>
+        <div class="col-md-4"><span id="show"></span></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3"></div>
+        <div class="col-md-2">
+            <label for="userNewPwd">新密码：</label>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="userNewPwd" name="userNewPwd">
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3"></div>
+        <div class="col-md-2">
+            <label for="password">确认密码：</label>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" id="password" >
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-4"></div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-info" id="updatePwd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</form>
+<script>
+    $("#updatePwd").click(function() {
+        var userNewPwd = $("#userNewPwd").val();
+        var password = $("#password").val();
+        if (password != userNewPwd) {
+            alert('两次密码不一致');
+            return;
+        }
+        $.ajax({
+            url: '/updateUserPwd',
+            type: 'post',
+            data: $("#userFrom").serialize(),
+            dataType: 'json',
+            success: function (data) {
+                if (data ==false) {
+                    $("#show").html("<span style='color: red'>原密码错误！</span>")
+                } else {
+                    $("#show").html("")
+                    $("#userPwd").val("")
+                    $("#userNewPwd").val("")
+                    $("#password").val("")
+                    alert("修改成功");
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>
