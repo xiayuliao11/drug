@@ -59,7 +59,7 @@
                         return "<font color='red'>"+value+"</font>"
                     }},
                 {field:"tools",title:"操作",formatter:function(value,row,index){
-                        return "<a class='navbar-brand glyphicon glyphicon-trash'></a>";
+                        return "<a class='navbar-brand glyphicon glyphicon-trash' onclick='deleteOrder("+row.id+")'></a>";
                     }}
             ]
         })
@@ -88,6 +88,40 @@
             }
         });
     }
-
+    //单删
+    function deleteOrder(id){
+        bootbox.confirm({
+            message: "你确定要删除吗?",
+            buttons: {
+                confirm: {
+                    label: '确定',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '取消',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    $.ajax({
+                        url:'http://192.168.101.9:6001/deleteOrder',
+                        type:'post',
+                        data:{
+                            "id":id
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            if(data){
+                                $('#myTable').bootstrapTable('refresh');
+                            }else{
+                                alert("删除失败!")
+                            }
+                        }
+                    })
+                }
+            }
+        });
+    }
 </script>
 </html>
