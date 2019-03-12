@@ -17,7 +17,7 @@ public class PurchaseControllerServer implements PurchaseServiceApi {
     private PurchaseMapper purchaseMapper;
 
     @Override
-    @RequestMapping("querySupplierDrugs")
+    @GetMapping("querySupplierDrugs")
     public HashMap<String, Object> querySupplierDrugs(Integer page,Integer rows, @RequestBody SupplierDrugs supplierDrugs) {
         HashMap<String, Object> map = new HashMap<>();
         int total = purchaseMapper.querySupplierDrugsCount(supplierDrugs); //总条数
@@ -35,7 +35,7 @@ public class PurchaseControllerServer implements PurchaseServiceApi {
     }
 
     @Override
-    @RequestMapping("queryShoppingCart")
+    @GetMapping("queryShoppingCart")
     public HashMap<String, Object> queryShoppingCart(Integer page, Integer rows,@RequestBody ShoppingCart shoppingCart) {
         HashMap<String, Object> map = new HashMap<>();
         int total = purchaseMapper.queryShoppingCartCount(shoppingCart); //总条数

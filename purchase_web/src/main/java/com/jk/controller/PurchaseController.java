@@ -6,8 +6,7 @@ import com.jk.pojo.SupplierDrugs;
 import com.jk.service.PurchaseServiceWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,9 +50,9 @@ public class PurchaseController {
      * @param supplierDrugs
      * @return
      */
-    @RequestMapping("querySupplierDrugs")
+    @GetMapping("querySupplierDrugs")
     @ResponseBody
-    public HashMap<String, Object> querySupplierDrugs(Integer page, Integer rows, SupplierDrugs supplierDrugs){
+    public HashMap<String, Object> querySupplierDrugs(@RequestParam("page") Integer page, @RequestParam("rows")Integer rows, @RequestBody SupplierDrugs supplierDrugs){
         return purchaseServiceWeb.querySupplierDrugs(page,rows,supplierDrugs);
     }
 
@@ -74,9 +73,9 @@ public class PurchaseController {
      * @param shoppingCart
      * @return
      */
-    @RequestMapping("queryShoppingCart")
+    @GetMapping("queryShoppingCart")
     @ResponseBody
-    public HashMap<String, Object> queryShoppingCart(Integer page, Integer rows, ShoppingCart shoppingCart){
+    public HashMap<String, Object> queryShoppingCart(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows,@RequestBody ShoppingCart shoppingCart){
         return purchaseServiceWeb.queryShoppingCart(page,rows,shoppingCart);
     }
 
@@ -87,7 +86,7 @@ public class PurchaseController {
      */
     @RequestMapping("queryPurchaseOrder")
     @ResponseBody
-    public List<PurchaseOrder> queryPurchaseOrder(PurchaseOrder purchaseOrder){
+    public List<PurchaseOrder> queryPurchaseOrder(@RequestBody PurchaseOrder purchaseOrder){
         return purchaseServiceWeb.queryPurchaseOrder(purchaseOrder);
     }
 

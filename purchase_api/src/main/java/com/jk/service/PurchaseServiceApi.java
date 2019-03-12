@@ -11,16 +11,16 @@ import java.util.List;
 public interface PurchaseServiceApi {
 
     @GetMapping("querySupplierDrugs")
-    HashMap<String, Object> querySupplierDrugs(@RequestParam("page") Integer page,@RequestParam("rows") Integer rows, SupplierDrugs supplierDrugs);
+    HashMap<String, Object> querySupplierDrugs(@RequestParam("page") Integer page,@RequestParam("rows") Integer rows,@RequestBody SupplierDrugs supplierDrugs);
 
     @GetMapping("querySuppliers")
     List<SupplierDrugs> querySuppliers();
 
     @GetMapping("queryShoppingCart")
-    HashMap<String, Object> queryShoppingCart(@RequestParam("page") Integer page,@RequestParam("rows") Integer rows, ShoppingCart shoppingCart);
+    HashMap<String, Object> queryShoppingCart(@RequestParam("page") Integer page,@RequestParam("rows") Integer rows,@RequestBody ShoppingCart shoppingCart);
 
     @GetMapping("queryPurchaseOrder")
-    List<PurchaseOrder> queryPurchaseOrder(PurchaseOrder purchaseOrder);
+    List<PurchaseOrder> queryPurchaseOrder(@RequestBody PurchaseOrder purchaseOrder);
 
     @GetMapping("queryToCart")
     SupplierDrugs queryToCart(@RequestParam("id")Integer id);
