@@ -1,6 +1,8 @@
 package com.jk.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class UserBean {
 
     private Integer id;  //用户ID
