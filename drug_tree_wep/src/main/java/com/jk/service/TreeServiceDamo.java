@@ -1,4 +1,4 @@
-package com.jk.treeservice;
+package com.jk.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 

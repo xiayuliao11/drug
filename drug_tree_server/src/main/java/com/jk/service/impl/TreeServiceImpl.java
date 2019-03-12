@@ -1,11 +1,12 @@
-package com.jk.treeservice.impl;
+package com.jk.service.impl;
 
 import com.jk.mapper.TreeMapper;
 import com.jk.pojo.TreeBean;
-import com.jk.treeservice.TreeServiceService;
+import com.jk.service.TreeServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class TreeServiceImpl implements TreeServiceService {
      * 获得左侧树
      * @return
      */
-    @ResponseBody
+    /*@ResponseBody
     @Override
     public List<TreeBean> getTree() {
         List<TreeBean> list = mapper.getTree(0);
@@ -35,5 +36,28 @@ public class TreeServiceImpl implements TreeServiceService {
             }
 
         }
+    }*/
+    @Override
+    @ResponseBody
+    public List<TreeBean> getTree() {
+        int pid=0;
+        List<TreeBean> list = findNodes(pid);
+        return list;
+    }
+    private List<TreeBean> findNodes(int pid) {
+        List<TreeBean> list = mapper.getTree(pid);
+        for (TreeBean tree : list) {
+            Integer id = tree.getId();
+            List<TreeBean> nodes = findNodes(id);
+            if(nodes.size()<=0){
+                //无子节点
+                tree.setSelectable(true);
+            }else{
+                //有子节点
+                tree.setSelectable(false);
+                tree.setNodes(nodes);
+            }
+        }
+        return list;
     }
 }
