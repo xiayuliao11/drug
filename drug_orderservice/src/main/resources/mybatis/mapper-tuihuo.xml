@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.OrderMapper">
+
+
+
+
+  <!--  List<GoodsReturned> getGoodsReturned(@Param("t") GoodsReturned t);-->
+   <select id="getGoodsReturned" resultType="GoodsReturned">
+select id,sales_return_commddtiy salesReturnCommddtiy,sales_return_time salesReturnTime,quantity,
+  procurer,sales_return_price salesReturnPrice,sales_return_state state
+  from goods_returned_note where 1=1
+     <if test="state!=null and state!=-1">
+       and sales_return_state =#{state}
+     </if>
+     <if test="procurer !=null and procurer !=''">
+       and procurer  like '%${procurer}%'
+     </if>
+     <if test="datesta!=null">
+       and sales_return_time  &gt;=#{datesta}
+     </if>
+     <if test="dateend">
+       and sales_return_time  &lt;=#{dateend}
+     </if>
+   </select>
+
+  <!--  List<Demand> getDemand(Demand t);-->
+    <select id="getDemand" resultType="Demand">
+        select * from demand
+    </select>
+
+</mapper>

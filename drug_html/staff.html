@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 引入jquery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 引入bootstrap的css、js -->
+	<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+	<script type="text/javascript"src="bootstrap3/js/bootstrap.js"></script>
+		<!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.min.css">
+    <script src="js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>客服设置！</title>
+</head>
+    <button type='button' class='btn btn-success' onclick='addStaff()'>添加客服</button>
+   <table id="table" class="table"></table>
+</body>
+<script>
+    //查询销售列表
+   $("#table").bootstrapTable({
+       url:"http://192.168.101.37:1999/findStaff",
+       queryParams:function(){
+           return {};
+       },
+       columns:[
+           {field:"id",title:"ID"},
+           {field:"name",title:"客服名字"},
+           {field:"qq",title:"QQ号码"},
+           {field:"time",title:"时间"},
+           {field:"status",title:"状态",formatter:function(value,row,index){
+               return value==0?"停用":"启用"
+           }},
+           {field:"status",title:"YN",formatter:function(value,row,index){
+                   return value==0?"<button type='button' class='btn btn-default' onclick='start(\""+row.id+"\")'>启用</button>":"<button type='button' class='btn btn-default' onclick='shop(\""+row.id+"\")'>停用</button>"
+           }},
+           {field:"123",title:"操作",formatter:function(value,row,index){
+                var html="<button type='button' class='btn btn-warning' onclick='delOne("+row.id+")'>删除</button>  ";
+                    html+="<button type='button' class='btn btn-success' onclick='update("+row.id+")'>编辑</button>";
+                return html;
+               }},
+       ]
+   })
+
+//启用
+function  start(id){
+    $.ajax({
+        url:'http://192.168.101.37:1999/start',
+        type:'post',
+        data:{id:id},
+        dataType:'json',
+        success:function(data){
+            $('#table').bootstrapTable('refresh');
+        }
+    })
+}
+//停用
+function  shop(id){
+    $.ajax({
+        url:'http://192.168.101.37:1999/shop',
+        type:'post',
+        data:{id:id},
+        dataType:'json',
+        success:function(data){
+            $('#table').bootstrapTable('refresh');
+        }
+    })
+}
+//删除
+function delOne(id){
+   $.ajax({
+       url:'http://192.168.101.37:1999/delOne',
+       type:'DELETE',
+       data:{id:id},
+       dataType:'json',
+       success:function(data){
+           $('#table').bootstrapTable('refresh');
+   }
+   })
+}
+var res;
+function createAddContent(url){
+    $.ajax({
+        url:url,
+        async:false,
+        success:function(data){
+            res = data;
+        }
+    });
+    return res;
+}
+//新增
+function addStaff(){
+    bootbox.dialog({
+        title:'添加',
+        message: createAddContent("http://192.168.101.37:1999/toAdd"),
+        closeButton: true,//是否显示关闭按钮
+        buttons : {
+            "success" : {
+                "label" : "<i class='icon-ok'></i> 保存",
+                "className" : "btn-sm btn-success",
+                "callback" : function() {
+                    $.ajax({
+                        url:'http://192.168.101.37:1999/saveStaff',
+                        dataType:'json',
+                        type:'post',
+                        data:$("#From").serialize(),
+                        success:function(){
+                            $('#table').bootstrapTable('refresh');
+                        }
+                    });
+                }
+            },
+            "cancel" : {
+                "label" : "<i class='icon-info'></i> 取消",
+                "className" : "btn-sm btn-danger",
+                "callback" : function() {
+                }
+            }
+        }
+
+    });
+}
+//修改回显
+function update(id){
+bootbox.dialog({
+    title:'修改',
+    message: createAddContent("http://192.168.101.37:1999/toUpdate"),
+    closeButton: true,
+    buttons : {
+        "success" : {
+            "label" : "<i class='glyphicon glyphicon-ok'></i> 保存",
+            "className" : "btn-sm btn-success",
+            "callback" : function() {
+                $.ajax({
+                    url:'http://192.168.101.37:1999/saveStaff',
+                    type:'post',
+                    data:$("#From").serialize(),
+                    success:function(data){
+                        bootbox.alert({
+                            message: '修改数据成功',
+                            className: 'bb-alternate-modal',
+                            buttons: {
+                                ok: {
+                                    label: '确定',
+                                    className: 'btn-success'
+                                }
+                            },
+                        });
+                        $('#table').bootstrapTable('refresh');
+             }
+                });
+            }
+        },
+        "cancel" : {
+            "label" : "<i class='glyphicon glyphicon-remove'></i> 取消",
+            "className" : "btn-sm btn-danger",
+            "callback" : function() {
+            }
+        }
+    }
+});
+$.ajax({
+    url:"http://192.168.101.37:1999/updateById",
+    data:{id:id},
+    async:false,
+    success:function(data){
+        $("#id").val(data.id);
+        $("#name").val(data.name);
+        $("#qq").val(data.qq);
+        $("#status").val(data.status);
+    }
+})
+}
+</script>
+</html>

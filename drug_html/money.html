@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 引入jquery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 引入bootstrap的css、js -->
+	<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+	<script type="text/javascript"src="bootstrap3/js/bootstrap.js"></script>
+		<!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.min.css">
+    <script src="js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>退钱！</title>
+</head>
+   <table id="table" class="table"></table>
+</body>
+<script>
+//查询列表
+   $("#table").bootstrapTable({
+       url:"http://192.168.101.37:1999/findReturned",
+       queryParams:function(){
+           return {};
+       },
+       columns:[
+           {field:"orderNumber",title:"订单号"},
+           {field:"salesReturnCommddtiy",title:"退款商品"},
+           {field:"salesReturnTime",title:"退款时间"},
+           {field:"proposer",title:"申请人"},
+           {field:"salesReturnPrice",title:"退货金额",formatter:function(value,row,index){
+                   return "<font color='red'>"+value+"</font>";
+               }},
+       ]
+   })
+</script>
+</html>

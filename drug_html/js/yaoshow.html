@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="/js/jquery-2.1.1.min.js"></script>
+
+    <script src="/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="/layer/layer.js"></script>
+
+</head>
+<script type="text/javascript">
+    $(function () {
+
+        initTable();
+    })
+
+    //-----------------------------------------------------查询开始
+    function initTable() {
+
+        $("#table").bootstrapTable({
+            //url:'/getDrugShortage',
+            url:"http://192.168.101.22:5001/getDrugShortage",
+
+            striped: true,  //表格显示条纹，默认为false
+            toolbar: '#toolbar',  //把表单和调查的部分结合到一起
+            pagination: true, // 在表格底部显示分页组件，默认false
+            pageList: [1, 2, 3, 4, 5, 6, 8, 10], // 设置页面可以显示的数据条数
+            pageSize: 6, // 页面数据条数
+            pageNumber: 1, // 首页页码
+            clickToSelect: true, //是否启用点击选中行
+            sidePagination: 'server', // 设置为服务器端分页(!!!!)
+            //  search: true,     //搜索框
+            searchTimeOut: 2000,
+            queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
+                console.log(params)
+                return { //这里return值就是请求 url属性时携带的参数
+                    pageSize: params.limit, // 每页要显示的数据条数
+                    offset: params.offset, // 每页显示数据的开始行号
+                    // sear_name:params.search,  //自动搜索框
+                  //  state:$("#numbers option:selected").val(),   //获取下拉列表框的值
+                    //    state:$("input[type='radio']:checked").val(), //调查时发送的参数
+                }
+            },
+            columns:[
+                {field:'fx',title:'fx',checkbox:true,align:'center',valign:'middle'},
+                {field:'id',title:'id',align:'center',valign:'middle'},
+
+                {field:'commddtiyName',title:'商品名称',align:'center',valign:'middle'},
+                {field:'manufacturer',title:'生产厂家',align:'center',valign:'middle'},
+
+                {field:'specification',title:'规格',align:'center',valign:'middle'},
+                {field:'territory',title:'代理区域',align:'center',valign:'middle'},
+
+                {field:'linkman',title:'联系人',align:'center',valign:'middle'},
+                {field:'phone',title:'联系电话',align:'center',valign:'middle'},
+
+
+                {field:'cz',title:'操作',align:'center',valign:'middle',formatter:function (value,row,index) {
+                        var content="";
+
+                            content+="  <a href='javascript:void(0)' onclick=updateItem("+row.id+")>修改</a>";
+                            content+="   <a href='javascript:void(0)' onclick=deleteByid("+row.id+",'"+row.commddtiyName+"')>删除</a>";
+                            return content;
+
+                    }},
+            ],
+            onLoadSuccess: function(){
+                console.info("加载成功");
+            },
+            onLoadError: function(){
+                console.info("加载数据失败");
+            }
+        });
+    }
+    //----------------------------------------------查询结束
+
+    //----------------------------------------------新增开始
+    function add(){
+
+        bootbox.dialog({
+            size: "big",
+            title:'缺药登记报表',
+            message:getUI("addyao"),
+            closeButton:true,
+            //className:'add-dialog',
+            buttons:{
+                'success':{
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                           // url:"/addDrugShortage",
+                            url:"http://192.168.101.22:5001/addDrugShortage",
+                            type:"POST",
+                            data:$("#form").serialize(),
+                            success:function(result){
+                                $('#table').bootstrapTable('refresh');
+                            },
+                            error:function(){
+                                alert("ajax访问失败了,查看控制台");
+                            }
+                        });
+                    }
+                },
+                'cancel':{
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback":function(){
+                    }
+                }
+            }
+        })	}
+
+    function getUI(url){
+        var content ="" ;
+        $.ajax({
+            //url:"toView?name=/"+url,
+            url:"http://192.168.101.22:5001/toView?name=/"+url,
+            async:false,
+            success:function(result){
+                content= result;   //不能在这return的原因是因为调的是getUrl这个方法,不是success这个方法
+            },
+            error:function(){
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+        return content;
+    }
+    //----------------------------------------------新增结束
+    //-----------------------------------------------删除开始
+    function deleteByid(id,phone){
+        bootbox.confirm({
+            title : "删除药品",
+            message: "你确定要删除“"+phone+"”的这个药品发布吗?",
+            buttons: {
+                confirm: {
+                    label: "确定"
+                },
+                cancel:{
+                    label:"取消"
+                }
+            },
+            callback: function(result) {
+                if(result) {
+                    deleteItem(id);
+                }else{
+                    return;
+                }
+            }
+        })
+    }
+    function deleteItem(ids){
+        $.ajax({
+            url:"/delDrugShortage?ids="+ids,
+            success:function(){
+                $('#table').bootstrapTable('refresh');
+            }
+        })
+    }
+    //-----------------------------------------------删除结束
+</script>
+<body>
+<div id="toolbar">
+    <button onclick="add()" class="btn btn-success">发布缺药登记</button>
+</div>
+<table id="table"></table>
+</body>
+</html>
