@@ -412,7 +412,7 @@
     })
     function initAreaSelect(pid,obj){
         $.ajax({
-            url:'http://localhost:3002/findDrugType',
+            url:'http://192.168.101.46:3002/findDrugType',
             type:'post',
             data:{
                 id:pid
@@ -432,7 +432,7 @@
     }
     function initAreaSelectQu(pid,obj){
         $.ajax({
-            url:'http://localhost:3002/findDrugType',
+            url:'http://192.168.101.46:3002/findDrugType',
             type:'post',
             data:{
                 id:pid
@@ -452,7 +452,7 @@
     }
     function initAgentiaSelect(){
         $.ajax({
-            url:'http://localhost:3002/findAgentia',
+            url:'http://192.168.101.46:3002/findAgentia',
             type:'get',
             data:{},
             dataType:'json',
