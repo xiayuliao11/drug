@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="/bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="/bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入bootstrap的css、js -->
+    <link rel="stylesheet" href="/bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="/bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入table的css、js -->
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <!-- 引入bootbox的js -->
+    <script type="text/javascript" src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <!-- 引入日期的css、js -->
+    <link rel="stylesheet" href="/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!-- 引入文件上传的css、js -->
+    <link rel="stylesheet" href="/js/bootstrap-fileinput/css/fileinput.css">
+    <script type="text/javascript" src="/js/bootstrap-fileinput/js/fileinput.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-fileinput/js/locales/zh.js"></script>
+</head>
+<body>
+<button type="button" class=" btn btn-info" style="float:right"  onclick="openAdd()">发布代理需求</button>
+<table class="table" id="myTable"></table>
+</body>
+<script>
+
+    $(function(){
+        initTable();//初始化表格
+    })
+
+    //初始化表格
+    function initTable(){
+        //列表展示
+        $("#myTable").bootstrapTable({
+            toolbar:'#toolbar',
+            url:'../queryProduct',//获取数据地址
+            striped:true,//条纹表格
+            columns:[
+                {field:'productsName',title:'代理产品名称'},
+                {field:'productsDistrict',title:'代理区域'},
+                {field:'productsDetail',title:'代理需求'},
+                {field:'productsLinkman',title:'联系人'},
+                {field:'productsPhone',title:'联系电话'},
+                {field:'xx',title:'操作',align:'center',
+                    formatter:function(value,row,index){
+                        var html = "<a href='javascript:deleteOne("+row.productsId+")'>删除<a/>|";
+                        html += "<a href='javascript:openUpdate("+row.productsId+")'>修改<a/>";
+                        return html;
+                    }
+                }
+            ]
+        });
+    }
+
+    var res;
+    function createAddContent(url){
+        $.ajax({
+            url:url,
+            async:false,
+            success:function(data){
+                res = data;
+            }
+        });
+        return res;
+    }
+    //打开新增弹框
+    function openAdd(){
+        bootbox.dialog({
+            title:'添加',
+            message: createAddContent("../toAgencyList"),//跳转路径的方法
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                "success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'../saveAgency',//新增方法
+                            type:'post',
+                            data:$("#agencyFrom").serialize(),
+                            success:function(data){
+                                if (data) {
+                                    $('#myTable').bootstrapTable('refresh');
+                                }else {
+                                    bootbox.alert("失败！")
+                                }
+                            }
+                        });
+                    }
+                },
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+
+                    }
+                }
+            }
+
+        });
+    }
+
+    //单删
+    function deleteOne(productsId){
+        bootbox.confirm({
+            message: "你确定要删除吗?",
+            buttons: {
+                confirm: {
+                    label: '确定',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '取消',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    $.ajax({
+                        url:'/deleteAgency',
+                        type:'post',
+                        data:{
+                            ids:productsId
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            if(data){
+                                $('#myTable').bootstrapTable('refresh');
+                            }else{
+                                bootbox.alert("删除失败！")
+                            }
+                        }
+                    })
+                }
+            }
+        });
+    }
+
+    //打开修改弹框
+    function openUpdate(productsId){
+        bootbox.dialog({
+            title:'修改',
+            message: createAddContent("toUpdateAgencyList"),
+            closeButton: true,//是否显示关闭按钮
+            buttons : {
+                "success" : {
+                    "label" : "<i class='icon-ok'></i> 保存",
+                    "className" : "btn-sm btn-success",
+                    "callback" : function() {
+                        $.ajax({
+                            url:'/saveAgency',
+                            type:'post',
+                            data:$("#agencyFrom").serialize(),
+                            success:function(data){
+                                if(data){
+                                    $('#myTable').bootstrapTable('refresh');
+                                }else{
+                                    bootbox.alert("修改失败！")
+                                }
+                            }
+                        });
+                    }
+                },
+                "cancel" : {
+                    "label" : "<i class='icon-info'></i> 取消",
+                    "className" : "btn-sm btn-danger",
+                    "callback" : function() {
+
+                    }
+                }
+            }
+
+        });
+        //回显数据
+        $.ajax({
+            url:'/findAgencyById',
+            type:'get',
+            async:false,//同步
+            data:{productsId:productsId},
+            success:function(data){
+                $("#productsId").val(data.productsId);
+                $("#productsName").val(data.productsName);
+                $("#productsDistrict").val(data.productsDistrict);
+                $("#productsDetail").val(data.productsDetail);
+                $("#productsLinkman").val(data.productsLinkman);
+                $("#productsPhone").val(data.productsPhone)
+            }
+        });
+    }
+
+
+
+
+</script>
+</html>

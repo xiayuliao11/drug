@@ -4,7 +4,7 @@ package com.jk.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor   //有参构造方法
 @NoArgsConstructor    //无参构造方法
-@Document(collection="goods_evaluate")
+//@Document(collection="goods_evaluate")
 public class GoodsEvaluate{
     //主键ID
     private String id;
