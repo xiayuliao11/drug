@@ -202,6 +202,7 @@
 </body>
 <script>
     $("#saveAttract").click(function(){
+        $("#details").html(editor.html());
         $.ajax({
             url: 'http://192.168.101.46:3002/saveAttract',
             type: 'post',
@@ -226,7 +227,6 @@
         initAreaSelect(0,'bigClassify');
         initAreaSelecet(0,'provinceId');
         uploadImg()
-		$("#details").html(editor.html());
     })
     $("#bigClassify").change(function(){
         var id = $(this).val();
