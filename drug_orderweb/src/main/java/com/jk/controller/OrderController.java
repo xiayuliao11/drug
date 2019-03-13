@@ -230,4 +230,28 @@ public class OrderController {
         SendPage list=orderServiceFeign.getDemand(map);
         return list;
     }
+
+
+    //查询药品类型的
+    @ResponseBody
+    @RequestMapping(value = "getDaugType",method = RequestMethod.GET)
+    public List<DaugType> getDaugType(Integer pid){
+        List<DaugType> list=orderServiceFeign.getDaugType(pid);
+        return list;
+    }
+    //查询地区
+    @ResponseBody
+    @RequestMapping(value ="getRegionType",method = RequestMethod.GET)
+    public List <RegionType> getRegionType(Integer id){
+        List<RegionType> list=orderServiceFeign.getRegionType(id);
+        return list;
+    }
+  //新增求购药品登记
+  @ResponseBody
+  @RequestMapping(value ="addDemand",method = RequestMethod.POST)
+  public String addDemand(Demand t){
+      orderServiceFeign.addDemand(t);
+      return "1";
+  }
+
 }
