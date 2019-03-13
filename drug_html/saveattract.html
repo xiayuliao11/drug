@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>招商管理</title>
+    <!-- 引入jquery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- 引入bootstrap的css、js -->
+	<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+	<script type="text/javascript"src="bootstrap3/js/bootstrap.js"></script>
+		<!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.min.css">
+    <script src="js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <!-- bootstrap时间插件的js,css -->
+    <link rel="stylesheet" href="js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <script src="js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!-- bootstrap图片上传的js、css -->
+    <link rel="stylesheet" href="js/bootstrap-fileinput/css/fileinput.css">
+    <script src="js/bootstrap-fileinput/js/fileinput.js"></script>
+    <script  src="js/bootstrap-fileinput/js/locales/zh.js"></script>
+	<!--文本框样式-->
+	 <script src="js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+    <link rel="stylesheet" href="js/kindeditor-4.1.10/themes/qq/qq.css">
+    <style>
+        .myrow {
+            margin-bottom: 10px
+        }
+    </style>
+</head>
+<body>
+<form id="myForm">
+    <input type="hidden" id="productId" name="id">
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label >所属分类</label>
+        </div>
+        <div class="col-md-2">
+            <select  class="form-control" id="bigClassify" name="bigClass"></select>
+        </div>
+        <div class="col-md-2">
+            <select  class="form-control" id="centreClassify" name="centreClass"></select>
+        </div>
+        <div class="col-md-2">
+            <select  class="form-control" id="smallClassify" name="smallClass"></select>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="headline">招商标题</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="headline" name="headline">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="overTime">过期时间</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control date" id="overTime" name="overTime">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label >招商区域</label>
+        </div>
+        <div class="col-md-2">
+            <select id="provinceId" class="form-control" name="provinceId"></select>
+        </div>
+        <div class="col-md-2"><select id="cityid" class="form-control" name="cityid"></select></div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="investment"><font color="red">投资额度</font></label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="investment" name="investment">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="cashDeposit"><font color="red">需交保证金</font></label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="cashDeposit" name="cashDeposit">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="productName">商品名称</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="productName" name="productName">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="specifications">规格</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="specifications" name="specifications">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label ><font color="red"></font>国药准字</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="approvalNumber" name="approvalNumber">
+
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="manufacturer">生产厂家</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="manufacturer" name="manufacturer">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="drugNumber">药品编号</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="drugNumber" name="drugNumber">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label >件装数</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="packagesNumber" name="packagesNumber">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label >商标</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="trademark" name="trademark">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="">医保类型</label>
+        </div>
+        <div class="col-md-4">
+            <input type="checkbox"  id="healthType" name="healthType" value="1">国家医保
+        </div>
+        <div class="col-md-5">
+            基药目录：
+            <input type="checkbox"  id="catalogue" name="catalogue" value="1">国家基药
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label >招商图片</label>
+        </div>
+        <div class="col-md-4">
+            <input type="hidden" id="testimg" name="merchantsImg" />
+            <input type="file" multiple class="projectfile" accept="image/*" name="merchantsImg" id="userImg">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-3">
+            <label for="details">招商详细说明</label>
+        </div>
+        <div class="col-md-4">
+            <textarea id="content" ></textarea>
+            <textarea id="details" name="details" style="display:none;"></textarea>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+
+    <div class="row myrow">
+        <div class="col-md-3"></div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-info" id="saveAttract">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+</form>
+</body>
+<script>
+    $("#saveAttract").click(function(){
+        $.ajax({
+            url: 'http://192.168.101.46:3002/saveAttract',
+            type: 'post',
+            data: $("#myForm").serialize(),
+            success: function (data) {
+             alert("成功")
+            },
+            error:function(){
+                alert("错误");
+            }
+        })
+    })
+    $(function(){
+        $('.date').datetimepicker({
+            language: 'zh-CN',//显示中文
+            format: 'yyyy-mm-dd',//显示格式
+            minView: "month",//设置只显示到月份
+            initialDate: new Date(),//初始化当前日期
+            autoclose: true,//选中自动关闭
+            todayBtn: true//显示今日按钮
+        });
+        initAreaSelect(0,'bigClassify');
+        initAreaSelecet(0,'provinceId');
+        uploadImg()
+		$("#details").html(editor.html());
+    })
+    $("#bigClassify").change(function(){
+        var id = $(this).val();
+        initAreaSelect(id,'centreClassify')
+    })
+    $("#centreClassify").change(function(){
+        var ids = $(this).val();
+        initAreaSelectQu(ids,'smallClassify')
+    })
+    function initAreaSelect(pid,obj){
+        $.ajax({
+            url:'http://192.168.101.46:3002/findDrugType',
+            type:'post',
+            data:{
+                id:pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+                alert("错误");
+            }
+        })
+    }
+    function initAreaSelectQu(pid,obj){
+        $.ajax({
+            url:'http://192.168.101.46:3002/findDrugType',
+            type:'post',
+            data:{
+                id:pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+                alert("错误");
+            }
+        })
+    }
+
+    $("#provinceId").change(function(){
+        var id = $(this).val();
+        initAreaSelecet(id,'cityid')
+    })
+    function initAreaSelecet(pid,obj){
+        $.ajax({
+            url:'http://192.168.101.46:3002/findAreaList',
+            type:'post',
+            data:{
+                id:pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html = "<option value='-1'>请选择</option>";
+                for(var i = 0; i<data.length;i++){
+                    html += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            }
+        })
+    }
+    //上传图片
+    function uploadImg(url){
+        $('#userImg').fileinput({
+            initialPreview:url,
+            //初始化图片配置：
+            initialPreviewConfig: [
+                {key: 1, showDelete: false}
+            ],
+            //是否初始化图片显示
+            initialPreviewAsData: true,
+            language: 'zh', //设置语言
+            uploadUrl: 'http://192.168.101.46:3002/uploadUserImg', //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            showUpload: true, //是否显示上传按钮
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            //dropZoneEnabled: false,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 2, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount:true,
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+
+        }).on('fileuploaded', function(event, data, previewId, index) {
+            var imgval = $('#testimg').val();
+            //if(imgval == null || imgval == "" || imgval == undefined){
+            imgval = "http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response.responseText;
+            //}else{
+            //	imgval += ","+"http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response;
+            //}
+            $('#testimg').val(imgval);
+        });
+    }
+	 
+    var editor = null;
+    KindEditor.ready(function(K) {//将编辑器添加到文档中
+        editor = K.create('#content', {
+            cssPath : '<%=request.getContextPath()%>/js/kindeditor/plugins/code/prettify.css',//指定编辑器iframe document的CSS文件，用于设置可视化区域的样式。
+            uploadJson : '<%=request.getContextPath()%>/js/kindeditor/jsp/upload_json.jsp', //指定上传文件的服务器端程序。
+            fileManagerJson : '<%=request.getContextPath()%>/js/kindeditor/jsp/file_manager_json.jsp',//指定浏览远程图片的服务器端程序。
+            allowFileManager : true,  //true时显示浏览远程服务器按钮 ;默认值: false
+            afterCreate : function() {
+                var self = this;
+                K.ctrl(document, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+                K.ctrl(self.edit.doc, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+            }
+        });
+        prettyPrint();
+    });
+</script>
+</html>
