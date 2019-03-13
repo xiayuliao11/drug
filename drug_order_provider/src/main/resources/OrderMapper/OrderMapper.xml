@@ -3,15 +3,143 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.mapper.OrderMapper">
 
-    <!-- 分页查询-->
-    <select id="findCount" resultType="int">
-        select count(*) from t_sale
-    </select>
-    <select id="findPage" resultType="com.jk.pojo.SaleBean">
-        select t.id,t.lower_time as lowerTime,t.payment_time as paymentTime,t.activity,t.address,t.count,t.extension,t.money,t.name,t.status from t_sale  t
-        limit #{start},#{rows}
-    </select>
+    <select id="findStatus" resultType="com.jk.pojo.SaleBean">
+SELECT
+	t.id,
+	t.lower_time AS lowerTime,
+	t.sale_address AS saleAddress,
+	t.payment_time AS paymentTime,
+	t.sale_activity AS saleActivity,
+	t.sale_address assaleAddress,
+	t.sale_extension AS saleExtension,
+	t.sale_money AS saleMoney,
+	t.sale_name AS saleName,
+	t.sale_ount AS saleCount,
+	t.sale_status AS saleStatus
+FROM
+	t_sale t
+		<where>
+			1=1
+			<if test="saleStatus!='' and saleStatus!=0 ">
+				and t.sale_status=#{saleStatus}
+			</if>
+		</where>
 
+   </select>
 
+<!--查询收货-->
+    <select id="findSendgoods" resultType="com.jk.pojo.SaleBean">
+ SELECT
+	t.id,
+	t.lower_time AS lowerTime,
+	t.sale_address AS saleAddress,
+	t.payment_time AS paymentTime,
+	t.sale_activity AS saleActivity,
+	t.sale_address AS assaleAddress,
+	t.sale_extension AS saleExtension,
+	t.sale_money AS saleMoney,
+	t.sale_name AS saleName,
+	t.sale_ount AS saleCount,
+	t.sale_status AS saleStatus
+FROM
+	t_sale t
+WHERE
+	t.sale_status = 2
+	<include refid="where"></include>
+    </select>
+	<sql id="where">
+		<if test="saleName!=null and saleName!=''">
+			and t.sale_name = #{saleName}
+		</if>
+		<if test="saleAddress!=null and saleAddress!=''">
+			and t.sale_status = #{saleAddress}
+		</if>
+		<if test="start!=null and start!=''">
+			and t.lower_time >= #{start}
+		</if>
+		<if test="end!=null and end!=''">
+			and t.lower_time &lt; #{end}
+		</if>
+	</sql>
+<!--查询退款-->
+    <select id="findMoney" resultType="com.jk.pojo.GoodsReturnedBean">
+SELECT
+	g.id,
+	g.order_number AS orderNumber,
+	g.procurer,
+	g.proposer,
+	g.sales_return_commddtiy AS salesReturnCommddtiy,
+	g.sales_return_number AS salesReturnNumber,
+	g.sales_return_price AS salesReturnPrice,
+	g.sales_return_state AS state,
+	g.sales_return_time AS salesReturnTime
+FROM
+	t_returned g
+    </select>
+<!--查询退款-->
+	<select id="selectReturned" resultType="com.jk.pojo.GoodsReturnedBean">
+SELECT
+	g.id,
+	g.order_number AS orderNumber,
+	g.procurer,
+	g.proposer,
+	g.sales_return_commddtiy AS salesReturnCommddtiy,
+	g.sales_return_number AS salesReturnNumber,
+	g.sales_return_price AS salesReturnPrice,
+	g.sales_return_state AS state,
+	g.sales_return_time AS salesReturnTime
+FROM
+	t_returned g
+    </select>
+<!--查询发票-->
+    <select id="findInvoice" resultType="com.jk.pojo.InvoiceBean">
+      select * from t_invoice
+       where 1=1
+			<if test="lowerTime!=null and lowerTime!=''">
+				and lowerTime = #{lowerTime}
+			</if>
+			<if test="invoiceHao!=null and invoiceHao!=''">
+				and invoiceHao = #{invoiceHao}
+			</if>
+			<if test="invoiceName!=null and invoiceName!=''">
+				and invoiceName = #{invoiceName}
+			</if>
+    </select>
+<!--回显退货-->
+	<select id="returnById"  resultType="com.jk.pojo.GoodsReturnedBean">
+		SELECT
+	g.id,
+	g.order_number AS orderNumber,
+	g.procurer,
+	g.proposer,
+	g.sales_return_commddtiy AS salesReturnCommddtiy,
+	g.sales_return_number AS salesReturnNumber,
+	g.sales_return_price AS salesReturnPrice,
+	g.sales_return_state AS state,
+	g.sales_return_time AS salesReturnTime
+FROM
+	t_returned g
+where
+    id=#{id}
+	</select>
+<!--回显订单-->
+	  <select id="lookById"  resultType="com.jk.pojo.SaleBean">
+SELECT
+	t.id,
+	t.lower_time AS lowerTime,
+	t.sale_address AS saleAddress,
+	t.payment_time AS paymentTime,
+	t.sale_activity AS saleActivity,
+	t.sale_address AS assaleAddress,
+	t.sale_extension AS saleExtension,
+	t.sale_money AS saleMoney,
+	t.sale_name AS saleName,
+	t.sale_ount AS saleCount,
+	t.sale_status AS saleStatus
+FROM
+	t_sale t
+WHERE
+     t.id=#{id}
+	  </select>
 </mapper>
  

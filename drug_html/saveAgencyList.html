@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .myrow{
+            margin-bottom:10px
+        }
+    </style>
+</head>
+<body>
+<form id="agencyFrom">
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="productsName">产品名称</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="productsName" name="productsName">
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label >产品类型</label>
+        </div>
+        <div class="col-md-5">
+            <select class="form-control" id="productsType" name="productsType"></select>
+            <select class="form-control" id="productsTyped" name="productsTyped"></select>
+            <select class="form-control" id="productsTyping" name="productsTyping"></select>
+        </div>
+        <div class="col-md-5">
+        </div>
+
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="productsCommonname">产品通用名称</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="productsCommonname" name="productsCommonname">
+        </div>
+        <div class="col-md-2">
+            <label for="productsManufacturer">生产厂家</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="productsManufacturer" name="productsManufacturer">
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="productsBrand">产品品牌</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control " id="productsBrand" name="productsBrand">
+        </div>
+        <div class="col-md-2">
+            <label >代理区域</label>
+        </div>
+        <div class="col-md-4">
+            <select class="form-control" id="productsProvince" name="productsProvince"></select>
+            <select class="form-control" id="productsCity" name="productsCity"></select>
+            <select class="form-control" id="productsDistrict" name="productsDistrict"></select>
+            <!--<input type="text" class="form-control " id="productsDistrict" name="productsDistrict">-->
+
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            销售渠道
+        </div>
+        <div class="col-md-10">
+            <input type="checkbox"  name="productsChannel" value="药品批发企业">药品批发企业
+            <input type="checkbox"  name="productsChannel" value="零售连锁企业">零售连锁企业
+            <input type="checkbox"  name="productsChannel" value="零售药店">零售药店
+            <input type="checkbox"  name="productsChannel" value="医疗机构">医疗机构
+            <input type="checkbox"  name="productsChannel" value="疾病预防控制机构">疾病预防控制机构
+            <input type="checkbox"  name="productsChannel" value="计划生育技术服务机构">计划生育技术服务机构
+            <input type="checkbox"  name="productsChannel" value="医学科研和教学机构">医学科研和教学机构
+            <input type="checkbox"  name="productsChannel" value="军队的医疗机构">军队的医疗机构
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="productsIndate">信息有效期</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control " id="productsIndate" name="productsIndate">
+        </div>
+        <div class="col-md-2">
+            <label for="productsImg">产品图片</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="productsImg" name="productsImg">
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="productsDetail">需求简要描述</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control " id="productsDetail" name="productsDetail">
+        </div>
+        <div class="col-md-2">
+            <label for="productsLinkman">联系人</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="productsLinkman" name="productsLinkman">
+        </div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="productsPhone">联系电话</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control " id="productsPhone" name="productsPhone">
+        </div>
+        <div class="col-md-2">
+            <label for="productsArea">联系地址</label>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="productsArea" name="productsArea">
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    $(function(){
+        initTypeSelect(0,'productsType');
+        initAreaSelect(0,'productsProvince');
+
+    })
+
+    /**
+     * 查询类型(三级联动)
+     */
+    $("#productsType").change(function(){
+        var id = $(this).val();
+        initTypeSelect(id,'productsTyped')
+    })
+    $("#productsTyped").change(function(){
+        var ids = $(this).val();
+        initTypeSelectQu(ids,'productsTyping')
+    })
+    function initTypeSelect(pid,obj){
+        $.ajax({
+            url:'http://192.168.101.4:4002/findDrugType',
+            type:'post',
+            data:{
+                "id":pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+             
+            }
+        })
+    }
+    function initTypeSelectQu(pid,obj){
+        $.ajax({
+            url:'http://192.168.101.4:4002/findDrugType',
+            type:'post',
+            data:{
+                "id":pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+            }
+        })
+    }
+
+    /**
+     *  查询地区(三级联动)
+     */
+    $("#productsProvince").change(function(){
+        var id = $(this).val();
+        initAreaSelect(id,'productsCity')
+    })
+    $("#productsCity").change(function(){
+        var ids = $(this).val();
+        initAreaSelectQu(ids,'productsDistrict')
+    })
+    function initAreaSelect(pid,obj){
+        $.ajax({
+            url:'http://192.168.101.4:4002/findDrugArea',
+            type:'post',
+            data:{
+                "id":pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+               
+            }
+        })
+    }
+    function initAreaSelectQu(pid,obj){
+        $.ajax({
+            url:'http://192.168.101.4:4002/findDrugArea',
+            type:'post',
+            data:{
+                "id":pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+               
+            }
+        })
+    }
+
+</script>
+</html>

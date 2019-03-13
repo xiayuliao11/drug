@@ -236,9 +236,16 @@
             type:'post',
             data:$("#enterpriseForm").serialize(),
             success:function(data){
-                bootbox.alert("新增成功！");
+                if(data){
+                    alert("新增成功！");
+                    location.reload();
+                }else{
+                    alert("新增失败！信息没有按照格式来");
+                    return
+                }
+
                 //$('#myTable').bootstrapTable('refresh');
-                location.reload();
+                //location.reload();
                 //alert("成功！");
             }
         });
