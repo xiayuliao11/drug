@@ -2,9 +2,7 @@ package com.jk.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.jk.constant.ConstanType;
-import com.jk.pojo.AreaBean;
-import com.jk.pojo.SiteBean;
-import com.jk.pojo.UserBean;
+import com.jk.pojo.*;
 import com.jk.service.ManageService;
 import com.jk.service.PortsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +57,8 @@ public class PortController implements ManageService {
      */
     @Override
     @ResponseBody
-    public String saveSite(@RequestBody SiteBean siteBean) {
-        return portsService.saveSite(siteBean);
+    public void saveSite(@RequestBody SiteBean siteBean) {
+         portsService.saveSite(siteBean);
     }
 
     /**
@@ -105,5 +103,99 @@ public class PortController implements ManageService {
     @ResponseBody
     public SiteBean findSiteList(@RequestParam("id") Integer id) {
         return portsService.findSiteList(id);
+    }
+
+    /**
+     * 查看商品
+     * @param productBean
+     * @return
+     */
+    @Override
+    @ResponseBody
+    public List<ProductBean> findProductPage(ProductBean productBean) {
+        return portsService.findProductPage(productBean);
+    }
+
+    /**
+     * 上架
+     * @param ids
+     */
+    @Override
+    @ResponseBody
+    public void batchDownById(Integer[] ids) {
+        portsService.batchDownById(ids);
+    }
+
+    /**
+     * 下架
+     * @param ids
+     */
+    @Override
+    @ResponseBody
+    public void batchUpById(Integer[] ids) {
+        portsService.batchUpById(ids);
+    }
+
+    /**
+     * 新增商品
+     * @param productBean
+     * @return
+     */
+    @Override
+    @ResponseBody
+    public Boolean saveProduct(ProductBean productBean) {
+        return portsService.saveProduct(productBean);
+    }
+
+    /**
+     * 查看
+     * @param id
+     * @return
+     */
+    @Override
+    @ResponseBody
+    public ProductBean findProduct(Integer id) {
+        return portsService.findProduct(id);
+    }
+
+    /**
+     * 删除商品
+     * @param id
+     */
+    @Override
+    @ResponseBody
+    public void delProduct(Integer id) {
+        portsService.delProduct(id);
+    }
+
+    /**
+     * 查看商品分类
+     * @param id
+     * @return
+     */
+    @Override
+    @ResponseBody
+    public List<DrugTypeBean> findDrugType(Integer id) {
+        return portsService.findDrugType(id);
+    }
+
+    /**
+     * 二级联动
+     * @return
+     */
+    @Override
+    @ResponseBody
+    public List<AgentiaBean> findAgentia() {
+        return portsService.findAgentia();
+    }
+
+    /**
+     * 招商新增
+     * @param attractBean
+     */
+    @Override
+    @ResponseBody
+    public void saveAttract(@RequestBody AttractBean attractBean) {
+        portsService.saveAttract(attractBean);
     }
 }

@@ -1,9 +1,8 @@
 package com.jk.service;
 
+import com.jk.constant.ConstanType;
 import com.jk.mapper.PortMapper;
-import com.jk.pojo.AreaBean;
-import com.jk.pojo.SiteBean;
-import com.jk.pojo.UserBean;
+import com.jk.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -17,8 +16,6 @@ public class PortServiceImpl implements PortsService {
 
     @Autowired
     private PortMapper portMapper;
-
-
 
     /**
      * 用户查询
@@ -46,14 +43,14 @@ public class PortServiceImpl implements PortsService {
      * @return
      */
     @Override
-    public String saveSite(SiteBean siteBean) {
+    public void saveSite(SiteBean siteBean) {
         if (siteBean.getId()!=null){
             portMapper.updateSite(siteBean);
         }else {
             portMapper.saveSite(siteBean);
             System.out.println("siteBean = [" + siteBean + "]");
         }
-        return null;
+
     }
 
     /**
@@ -101,4 +98,91 @@ public class PortServiceImpl implements PortsService {
     public SiteBean findSiteList(Integer id) {
         return portMapper.findSiteList(id);
     }
+     /**
+     * 商品查询
+     * @param page
+     * @param rows
+     * @return
+     */
+    @Override
+    public List<ProductBean> findProductPage(ProductBean productBean) {
+        List<ProductBean> list = portMapper.findProductPage(productBean);
+        return list;
+    }
+
+    @Override
+    public void batchDownById(Integer[] ids) {
+        portMapper.batchDownById(ids);
+    }
+
+    /**
+     * 下架
+     * @param ids
+     */
+    @Override
+    public void batchUpById(Integer[] ids) {
+        portMapper.batchUpById(ids);
+    }
+
+    /**
+     * 新增商品
+     * @param productBean
+     */
+    @Override
+    public Boolean saveProduct(ProductBean productBean) {
+        if (productBean.getProductId()!=null) {
+            portMapper.updateProduct(productBean);
+        } else {
+            portMapper.saveProduct(productBean);
+        }
+      return true;
+    }
+
+    /**
+     * 商品回显
+     * @param id
+     * @return
+     */
+    @Override
+    public ProductBean findProduct(Integer id) {
+        return portMapper.findProduct(id);
+    }
+
+    /**
+     * 删除商品
+     * @param id
+     */
+    @Override
+    public void delProduct(Integer id) {
+        portMapper.delProduct(id);
+    }
+
+    /**
+     * 分类查询
+     * @param id
+     * @return
+     */
+    @Override
+    public List<DrugTypeBean> findDrugType(Integer id) {
+        return portMapper.findDrugType(id);
+    }
+
+    /**
+     * 剂型查询
+     * @return
+     */
+    @Override
+    public List<AgentiaBean> findAgentia() {
+        return portMapper.findAgentia();
+    }
+
+    /**
+     * 招商管理
+     * @param attractBean
+     */
+    @Override
+    public void saveAttract(AttractBean attractBean) {
+        portMapper.saveAttract(attractBean);
+    }
+
 }

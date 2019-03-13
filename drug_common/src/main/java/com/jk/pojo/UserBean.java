@@ -1,10 +1,11 @@
 package com.jk.pojo;
 
+import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class UserBean {
+public class UserBean implements Serializable {
 
+    private static final long serialVersionUID = 2025021531786005462L;
     private Integer id;  //用户ID
     private String  userName; //用户名
     private String  userPwd;  //用户密码

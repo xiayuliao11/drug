@@ -19,15 +19,16 @@
         <br>
     <div id="toolbar">
         <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default" onclick="allOrder('')">全部订单</button>
-            <button type="button" class="btn btn-default" onclick='toPay(1)'>待支付</button>
-            <button type="button" class="btn btn-default" onclick='applyRefund(2)'>待发货</button>
-            <button type="button" class="btn btn-default" onclick='receivingGoods(3)'>待收货</button>
-            <button type="button" class="btn btn-default" onclick='evaluates(4)'>已完成</button>
-            <button type="button" class="btn btn-default" onclick='deleteOrder(5)'>已关闭</button>
+            <button type="button" class="btn btn-default" onclick="searchPurchaseOrder('')">全部订单</button>
+            <button type="button" class="btn btn-default" onclick='searchPurchaseOrder(1)'>待支付</button>
+            <button type="button" class="btn btn-default" onclick='searchPurchaseOrder(2)'>待发货</button>
+            <button type="button" class="btn btn-default" onclick='searchPurchaseOrder(3)'>待收货</button>
+            <button type="button" class="btn btn-default" onclick='searchPurchaseOrder(4)'>已完成</button>
+            <button type="button" class="btn btn-default" onclick='searchPurchaseOrder(5)'>已关闭</button>
         </div><br><br>
         <table>
             <tr>
+                <td><input type="hidden" id="searchStatus"></td>
                 <td><label for="orderNumber">订单号</label></td>
                 <td><input type="text" class="form-control" id="orderNumber" ></td>
                 <td><label for="manufacturer">供应商</label></td>
@@ -46,11 +47,12 @@
         initSupplierBusiness();
     })
     //条件查询
-    function searchPurchaseOrder(){
+    function searchPurchaseOrder(status){
+        $("#searchStatus").val(status);
         $('#myTable').bootstrapTable('refresh');
     };
     //初始化快速采购表格
-    function initTable(status){
+    function initTable(){
         $("#myTable").bootstrapTable({
             toolbar:'#toolbar',
             url:"http://192.168.101.9:6001/queryPurchaseOrder",
@@ -66,7 +68,7 @@
                     rows:this.pageSize,*/
                     "manufacturer":$("#manufacturer").val(),
                     "orderNumber":$("#orderNumber").val(),
-                    "status":status
+                    "status":$("#searchStatus").val()
                 };
             },
             columns:[
@@ -79,7 +81,23 @@
                 {field:"actualPayment",title:"实付款",formatter:function(value,row,index){
                         return "<font color='red'>"+value+"</font>"
                     }},
-                {field:"status",title:"订单状态"},
+                {field:"status",title:"订单状态",formatter:function(value,row,index){
+                        if(value==1){
+                            return "待支付";
+                        }
+                        if(value==2){
+                            return "待发货";
+                        }
+                        if(value==3){
+                            return "待收货";
+                        }
+                        if(value==4){
+                            return "待评价";
+                        }
+                        if(value==5){
+                            return "交易关闭";
+                        }
+                    }},
                 {field:"tools",title:"操作",formatter:function(value,row,index){
                         if(row.status==1){
                             var html =  "<button type='button' class='btn btn-primary'>去支付</button>";
@@ -120,38 +138,10 @@
                 }
                 $("#manufacturer").html(html);
             },error:function(){
-                alert("失败了");
             }
         });
     }
-    //六个状态查询
-    function allOrder(status){
-        initTable(status)
-    }
-    function toPay(status){
-        initTable(status);
-        $('#myTable').bootstrapTable('refresh');
-        /*$.ajax({
-            url:'/queryPurchaseOrder',
-            type:'post',
-            data:{status:status},
-            dataType:'json',
-            success:{
-            }
-        })*/
-    }
-    function applyRefund(status){
-        initTable(status);
-    }
-    function receivingGoods(status){
-        initTable(status);
-    }
-    function evaluates(status){
-        initTable(status);
-    }
-    function deleteOrder(status){
-        initTable(status);
-    }
+
 
 </script>
 </html>

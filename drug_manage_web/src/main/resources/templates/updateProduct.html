@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑</title>
+
+
+</head>
+<style type="text/css">
+    .myrow{
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+<form id="myForm">
+    <input type="hidden" id="productId" name="productId">
+    <div class="row myrow">
+        <div class="col-md-4"></div>
+        <div class="col-md-5"><b>商品基本信息</b></div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="">商品分类</label>
+        </div>
+        <div class="col-md-5">
+            <select  class="form-control" id="bigClassify" name="bigClass"></select>
+            <select  class="form-control" id="centreClassify" name="centreClass"></select>
+            <select  class="form-control" id="smallClassify" name="smallClass"></select>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="productName">商品名称</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="productName" name="productName">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="cargoNumber"><font color="red">商品助记码</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="cargoNumber" name="cargoNumber">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="approvalNumber">批准文号</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="approvalNumber" name="approvalNumber">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="manufacturer">生产厂家</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="manufacturer" name="manufacturer">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="drugNumber">药品编号</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="drugNumber" name="drugNumber">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="commodityName"><font color="red">商品别名</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="commodityName" name="commodityName">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="specifications">商品规格</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="specifications" name="specifications">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label ><font color="red"></font>是否拆零售</label>
+        </div>
+        <div class="col-md-5">
+            <input type="radio"  name="market" value="1">是
+            <input type="radio"  name="market" value="2">否
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="centreQuantity"><font color="red">中包装数量</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="centreQuantity" name="centreQuantity">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="bigQuantity"><font color="red">大包装数量</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="bigQuantity" name="bigQuantity">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label ><font color="red">商品销售控制</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="radio"  name="control" value="1"><font color="red">普通药品</font>
+            <input type="radio"  name="control" value="2"><font color="red">医院专供</font>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label ><font color="red">审核状态</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="radio"  name="auditStatus" value="1">待审核
+            <input type="radio"  name="auditStatus" value="2">已通过
+            <input type="radio"  name="auditStatus" value="3">未通过
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-4"></div>
+        <div class="col-md-5"><b>效期和库存</b></div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="parturitionTime">生产日期</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control date" id="parturitionTime" name="parturitionTime">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="expirationDate">保质期</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control date" id="expirationDate" name="expirationDate">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="validity">有效期</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="validity" name="validity">个月
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="marketPrice">市场价格</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="marketPrice" name="marketPrice">元
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="commodityPrices">商品价格</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="commodityPrices" name="commodityPrices">元
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="commodityStocks">商品库存</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="commodityStocks" name="commodityStocks">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-4"></div>
+        <div class="col-md-5"><b>商品详情</b></div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="">商品图片</label>
+        </div>
+        <div class="col-md-5">
+
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="commoditVideo"><font color="red">商品展示视频</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="text"  class="form-control" id="commoditVideo" name="commoditVideo" value="http://">
+
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <hr>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="">采购商类型</label>
+        </div>
+        <div class="col-md-5">
+            <input type="checkbox"  name="purchaserType" value="1">医院
+            <input type="checkbox"  name="purchaserType" value="2">卫生院
+            <input type="checkbox"  name="purchaserType" value="3">诊所
+            <input type="checkbox"  name="purchaserType" value="4">药店
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="">商品资质</label>
+        </div>
+        <div class="col-md-5">
+
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="agentiaId" ><font color="red">商品剂型</font></label>
+        </div>
+        <div class="col-md-5">
+            <select id="agentiaId" class="form-control" name="agentiaId"></select>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="catalogue"><font color="red">基药目录</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="checkbox"   id="catalogue" name="catalogue" value="1">国家基药
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="healthType"><font color="red">医保类型</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="checkbox"  id="healthType" name="healthType" value="1">国家医保
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for=""><font color="red">是否处方</font></label>
+        </div>
+        <div class="col-md-5">
+            <input type="radio"  name="prescription" value="1">RX
+            <input type="radio"  name="prescription" value="2">OTC
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="ingredient">主要成分</label>
+        </div>
+        <div class="col-md-5">
+            <textarea name="ingredient" class="form-control" id="ingredient" rows="" cols=""></textarea>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="drugFunction">主治功能</label>
+        </div>
+        <div class="col-md-5">
+            <textarea name="drugFunction" class="form-control" id="drugFunction" rows="" cols=""></textarea>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="drugTaboo">禁忌</label>
+        </div>
+        <div class="col-md-5">
+            <textarea name="drugTaboo" class="form-control" id="drugTaboo" rows="" cols=""></textarea>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="adverseReaction">不良反应</label>
+        </div>
+        <div class="col-md-5">
+            <textarea name="adverseReaction" class="form-control" id="adverseReaction" rows="" cols=""></textarea>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="detail">详细描述</label>
+        </div>
+        <div class="col-md-5">
+            <textarea id="detail" name="detail" ></textarea>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="attention">注意事项</label>
+        </div>
+        <div class="col-md-5">
+            <textarea name="attention" class="form-control" id="attention" rows="" cols=""></textarea>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="drugInteractions">药物相互作用</label>
+        </div>
+        <div class="col-md-5">
+            <textarea name="drugInteractions" class="form-control" id="drugInteractions" rows="" cols=""></textarea>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="measure">用法用量</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text" id="measure" class="form-control" name="measure">
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="">店铺推荐</label>
+        </div>
+        <div class="col-md-5">
+            <input type="checkbox" name="recommend" value="1">新品上架   （新品上架的商品将在我的店铺新品专区中出现）	<br>
+            <input type="checkbox" name="recommend" value="2">商品推荐    （推荐商品将在我的店铺推荐商品中出现）
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="InventorWarning">库存警告数量</label>
+        </div>
+        <div class="col-md-5">
+            <input type="text"  id="InventorWarning" size="5"  name="InventorWarning"> 库存低于该值时系统将会发布库存警告
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+    <div class="row myrow">
+        <div class="col-md-2">
+            <label for="freight">是否为免运费产品</label>
+        </div>
+        <div class="col-md-5">
+            <input type="checkbox"  id="freight" name="freight">打勾表示此商品不会产生运费花销，否则按照正常运费计算
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+</form>
+<script>
+    $(function(){
+        $('.date').datetimepicker({
+            language: 'zh-CN',//显示中文
+            format: 'yyyy-mm-dd',//显示格式
+            minView: "month",//设置只显示到月份
+            initialDate: new Date(),//初始化当前日期
+            autoclose: true,//选中自动关闭
+            todayBtn: true//显示今日按钮
+        });
+    })
+    $(function(){
+        initAgentiaSelect()
+        initAreaSelect(0,'bigClassify');
+    })
+    $("#bigClassify").change(function(){
+        var id = $(this).val();
+        initAreaSelect(id,'centreClassify')
+    })
+    $("#centreClassify").change(function(){
+        var ids = $(this).val();
+        initAreaSelectQu(ids,'smallClassify')
+    })
+    function initAreaSelect(pid,obj){
+        $.ajax({
+            url:'/findDrugType',
+            type:'post',
+            data:{
+                id:pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+                alert("错误");
+            }
+        })
+    }
+    function initAreaSelectQu(pid,obj){
+        $.ajax({
+            url:'/findDrugType',
+            type:'post',
+            data:{
+                id:pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+                alert("错误");
+            }
+        })
+    }
+    function initAgentiaSelect(){
+        $.ajax({
+            url:'findAgentia',
+            type:'get',
+            data:{},
+            dataType:'json',
+            success:function(data){
+                var html="<option value='-1'>请选择</option>";
+                for(var i=0;i<data.length;i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#agentiaId").html(html);
+            },
+            error:function(){
+                alert("加载失败")
+            }
+        })
+    }
+</script>
+</body>
+</html>

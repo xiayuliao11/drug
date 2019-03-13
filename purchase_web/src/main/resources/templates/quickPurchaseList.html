@@ -59,7 +59,7 @@
                     }},
                 {field:"manufacturer",title:"生产厂家"},
                 {field:"purchasePrice",title:"采购价",formatter:function(value,row,index){
-                        return "<font color='red'>"+value+"</font>"
+                        return "<font color='red'>¥"+value+"</font>"
                     }},
                 {field:"specifications",title:"规格"},
                 {field:"validityPeriod",title:"有效期限"},
@@ -78,7 +78,7 @@
                         }
                     }},
                 {field:"tools",title:"操作",formatter:function(value,row,index){
-                        return "<button type='button' class='btn btn-primary' onclick='addToCart("+row.boxCount+","+row.id+")'>加入购物车</button>";
+                        return "<button type='button' class='btn btn-primary' onclick='addToCart("+row.id+")'>加入购物车</button>";
                     }}
             ]
         })
@@ -99,7 +99,6 @@
                }
                 $("#manufacturer").html(html);
             },error:function(){
-                alert("失败了");
             }
         });
     }
@@ -130,6 +129,7 @@
             dataType:'json',
             success:function(data){
                 alert("成功加入购物车")
+                $('#myTable').bootstrapTable('refresh');
             }
         })
     }

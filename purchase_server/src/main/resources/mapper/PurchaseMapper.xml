@@ -12,9 +12,9 @@
 
     <select id="querySupplierDrugsPage" resultType="com.jk.pojo.SupplierDrugs">
         select t.*,t.drug_name drugName,t.purchase_price purchasePrice,t.validity_period validityPeriod,t.package_quantity packageQuantity,t.box_count boxCount from t_supplier_grugs t
-            <if test="supplierDrugs.manufacturer!=null and supplierDrugs.manufacturer!=''">
-                where t.manufacturer = #{supplierDrugs.manufacturer}
-            </if>
+        <if test="supplierDrugs.manufacturer!=null and supplierDrugs.manufacturer!=''">
+            where t.manufacturer = #{supplierDrugs.manufacturer}
+        </if>
         limit #{start},#{rows}
     </select>
 
@@ -30,25 +30,30 @@
 
     <!--采购订单-->
     <select id="queryPurchaseOrder" parameterType="com.jk.pojo.PurchaseOrder" resultType="com.jk.pojo.PurchaseOrder">
-            select t.*,t.order_number orderNumber,t.order_time orderTime,t.unit_price unitPrice,t.actual_payment actualPayment from purchase_order t where 1=1
-                <if test="purchaseOrder.orderNumber!=null and purchaseOrder.orderNumber!=''">
-                     and t.order_number=#{purchaseOrder.orderNumber}
-                </if>
-                <if test="purchaseOrder.manufacturer!=null and purchaseOrder.manufacturer!=''">
-                     and  t.manufacturer=#{purchaseOrder.manufacturer}
-                </if>
-                <if test="purchaseOrder.status!=null and purchaseOrder.status!=''">
-                     and  t.manufacturer=#{purchaseOrder.status}
-                </if>
+        select t.*,t.order_number orderNumber,t.order_time orderTime,t.unit_price unitPrice,t.actual_payment actualPayment from purchase_order t where 1=1
+        <if test="purchaseOrder.orderNumber!=null and purchaseOrder.orderNumber!=''">
+            and t.order_number=#{purchaseOrder.orderNumber}
+        </if>
+        <if test="purchaseOrder.manufacturer!=null and purchaseOrder.manufacturer!=''">
+            and  t.manufacturer=#{purchaseOrder.manufacturer}
+        </if>
+        <if test="purchaseOrder.status!=null and purchaseOrder.status!=''">
+            and  t.status=#{purchaseOrder.status}
+        </if>
     </select>
 
     <!--根据id查询相应的采购信息-->
     <select id="queryToCart" parameterType="int" resultType="com.jk.pojo.SupplierDrugs">
-          select t.drug_name drugName,t.purchase_price purchasePrice,t.specifications from t_supplier_grugs t where t.id=#{id}
+          select t.manufacturer,t.drug_name drugName,t.purchase_price purchasePrice,t.specifications from t_supplier_grugs t where t.id=#{id}
     </select>
 
     <!--加入购物车-->
     <insert id="addToCart" parameterType="com.jk.pojo.ShoppingCart">
             insert into shopping_cart(count,name,specifications,unit_price,subtotal) values(#{count},#{name},#{specifications},#{unitPrice},#{subtotal})
+    </insert>
+
+    <!--加入采购订单-->
+    <insert id="addPurchaseOrder" parameterType="com.jk.pojo.PurchaseOrder">
+            insert into purchase_order(order_number,order_time,manufacturer,name,unit_price,count,actual_payment,status) values(#{orderNumber},#{orderTime},#{manufacturer},#{name},#{unitPrice},#{count},#{actualPayment},#{status})
     </insert>
 </mapper>

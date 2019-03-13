@@ -59,7 +59,7 @@
                     }},
                 {field:"manufacturer",title:"生产厂家"},
                 {field:"purchasePrice",title:"采购价",formatter:function(value,row,index){
-                        return "<font color='red'>"+value+"</font>"
+                        return "<font color='red'>¥"+value+"</font>"
                     }},
                 {field:"specifications",title:"规格"},
                 {field:"validityPeriod",title:"有效期限"},
@@ -99,7 +99,6 @@
                }
                 $("#manufacturer").html(html);
             },error:function(){
-                alert("失败了");
             }
         });
     }

@@ -1,10 +1,8 @@
 package com.jk.service;
 
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.jk.pojo.AreaBean;
-import com.jk.pojo.SiteBean;
-import com.jk.pojo.UserBean;
+
+import com.jk.pojo.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -30,7 +28,7 @@ public interface ManageService {
      * 地址管理新增
      */
     @PostMapping("saveSite")
-    String saveSite(@RequestBody SiteBean siteBean);
+    void saveSite(@RequestBody SiteBean siteBean);
 
     /**
      * 查看地址信息
@@ -61,4 +59,61 @@ public interface ManageService {
      */
     @GetMapping("findSiteList")
     SiteBean findSiteList(@RequestParam("id") Integer id);
+
+    /**
+     * 商品查询
+     */
+    @PostMapping("findProductPage")
+    List<ProductBean> findProductPage(ProductBean productBean);
+    /**
+     * 批量上架
+     * @param ids
+     */
+    @GetMapping("batchDownById")
+    void batchDownById(@RequestParam("ids") Integer[] ids);
+
+    /**
+     * 批量下架
+     * @param ids
+     */
+    @GetMapping("batchUpById")
+    void batchUpById(@RequestParam("ids") Integer[] ids);
+
+    /**
+     * 推广商品
+     * @param productBean
+     */
+    @PostMapping("saveProduct")
+    Boolean  saveProduct(@RequestBody ProductBean productBean);
+
+    /**
+     * 商品查看
+     * @return
+     */
+    @GetMapping("findProduct")
+    ProductBean findProduct(@RequestParam("id") Integer id);
+
+    /**
+     * 删除商品
+     * @param id
+     */
+    @DeleteMapping("delProduct")
+    void delProduct(@RequestParam("id") Integer id);
+
+    /**
+     * 查看分类
+     * @return
+     */
+    @PostMapping("findDrugType")
+    List<DrugTypeBean> findDrugType(@RequestParam("id")Integer id);
+    /**
+     * 查看剂型
+     */
+    @GetMapping("finAgentia")
+    List<AgentiaBean> findAgentia();
+    /**
+     * 招商管理
+     */
+    @PostMapping("saveAttract")
+    void saveAttract(@RequestBody AttractBean attractBean);
 }
