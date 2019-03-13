@@ -28,6 +28,7 @@
         </div><br><br>
         <table>
             <tr>
+                <td><input type="hidden" id="searchStatus"></td>
                 <td><label for="orderNumber">订单号</label></td>
                 <td><input type="text" class="form-control" id="orderNumber" ></td>
                 <td><label for="manufacturer">供应商</label></td>
@@ -46,12 +47,12 @@
         initSupplierBusiness();
     })
     //条件查询
-    function searchPurchaseOrder(){
+    function searchPurchaseOrder(status){
         $("#searchStatus").val(status);
         $('#myTable').bootstrapTable('refresh');
     };
     //初始化快速采购表格
-    function initTable(status){
+    function initTable(){
         $("#myTable").bootstrapTable({
             toolbar:'#toolbar',
             url:"http://192.168.101.9:6001/queryPurchaseOrder",
