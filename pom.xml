@@ -10,6 +10,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>drug_common</module>
+        <module>drug_manage_api</module>
+        <module>drug_manage_server</module>
+        <module>drug_eureka</module>
+        <module>drug_manage_web</module>
         <module>drug_tree_service_api</module>
         <module>drug_tree_wep</module>
         <module>drug_eureka</module>

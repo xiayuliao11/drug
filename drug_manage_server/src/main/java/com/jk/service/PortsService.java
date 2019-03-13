@@ -1,9 +1,7 @@
 package com.jk.service;
 
 
-import com.jk.pojo.AreaBean;
-import com.jk.pojo.SiteBean;
-import com.jk.pojo.UserBean;
+import com.jk.pojo.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +12,7 @@ public interface PortsService {
 
     Boolean updateUserPwd(UserBean userBean);
 
-    String saveSite(SiteBean siteBean);
+    void saveSite(SiteBean siteBean);
 
     HashMap<String, Object> findSitePage(Integer page, Integer rows);
 
@@ -23,4 +21,22 @@ public interface PortsService {
     List<AreaBean> findAreaList(Integer id);
 
     SiteBean findSiteList(Integer id);
+
+    List<ProductBean> findProductPage(ProductBean productBean);
+
+    void batchDownById(Integer[] ids);
+
+    void batchUpById(Integer[] ids);
+
+    Boolean saveProduct(ProductBean productBean);
+
+    ProductBean findProduct(Integer id);
+
+    void delProduct(Integer id);
+
+    List<DrugTypeBean> findDrugType(Integer id);
+
+    List<AgentiaBean> findAgentia();
+
+    void saveAttract(AttractBean attractBean);
 }
