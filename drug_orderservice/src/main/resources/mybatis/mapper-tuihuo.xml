@@ -29,4 +29,10 @@ select id,sales_return_commddtiy salesReturnCommddtiy,sales_return_time salesRet
         select * from demand
     </select>
 
+ <!--   void addDemand(Demand t);-->
+    <insert id="addDemand">
+        insert into demand(commddtiyName,tyida,tyidb,tyidc,manufacturer,commddtiyBrand,qya,qyb,qyc,validity,img,describ,linkman,phone,site,state)
+        values(#{commddtiyName},#{tyida},#{tyidb},#{tyidc},#{manufacturer},#{commddtiyBrand},#{qya},#{qyb},#{qyc},#{validity},#{img},#{describ},#{linkman},#{phone},#{site},#{state})
+    </insert>
+
 </mapper>
