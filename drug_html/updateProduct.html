@@ -397,11 +397,10 @@
             autoclose: true,//选中自动关闭
             todayBtn: true//显示今日按钮
         });
-    })
-    $(function(){
-        initAgentiaSelect()
+		 initAgentiaSelect()
         initAreaSelect(0,'bigClassify');
     })
+    
     $("#bigClassify").change(function(){
         var id = $(this).val();
         initAreaSelect(id,'centreClassify')

@@ -21,11 +21,15 @@
     <link rel="stylesheet" href="/js/bootstrap-fileinput/css/fileinput.css">
     <script src="/js/bootstrap-fileinput/js/fileinput.js"></script>
     <script  src="/js/bootstrap-fileinput/js/locales/zh.js"></script>
+
     <style>
         .myrow {
             margin-bottom: 10px
         }
     </style>
+    <script src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+    <link rel="stylesheet" href="/js/kindeditor-4.1.10/themes/qq/qq.css">
+
 </head>
 <body>
 <form id="myForm">
@@ -172,9 +176,8 @@
             <label >招商图片</label>
         </div>
         <div class="col-md-4">
-
-            <input type="text" id="testimg" name="merchantsImg" />
-            <input type="file" multiple class="projectfile" accept="image/*" name="merchantsImg" id="headImg">
+            <input type="hidden" id="testimg" name="merchantsImg" />
+            <input type="file" multiple class="projectfile" accept="image/*" name="merchantsImg" id="userImg">
         </div>
         <div class="col-md-5"></div>
     </div>
@@ -183,7 +186,8 @@
             <label for="details">招商详细说明</label>
         </div>
         <div class="col-md-4">
-            <textarea name="details" class="form-control" id="details" rows="" cols=""></textarea>
+            <textarea id="content" ></textarea>
+            <textarea id="details" name="details" style="display:none;"></textarea>
         </div>
         <div class="col-md-5"></div>
     </div>
@@ -199,40 +203,14 @@
 </body>
 <script>
     $("#saveAttract").click(function(){
-  /*      var  bigClassify = $("#bigClassify").val();
-        var  centreClassify = $("#centreClassify").val();
-        var  smallClassify = $("#smallClassify").val();
-        var  headline = $("#headline").val();
-        var  overTime = $("#overTime").val();
-        var  provinceId = $("#provinceId").val();
-        var  cityid = $("#cityid").val();
-        var  investment = $("#investment").val();
-        var  cashDeposit = $("#cashDeposit").val();
-        var  productName = $("#productName").val();
-        var  specifications = $("#specifications").val();
-        var  approvalNumber = $("#approvalNumber").val();
-        var  manufacturer = $("#manufacturer").val();
-        var  drugNumber = $("#drugNumber").val();
-        var  packagesNumber = $("#packagesNumber").val();
-        var  trademark = $("#trademark").val();
-        var  healthType = $("#healthType").val();
-        var  catalogue = $("#catalogue").val();
-        var  testimg = $("#testimg").val();
-        var  details = $("#details").val();
-        alert(details)*/
+        $("#details").html(editor.html());
         $.ajax({
             url: '/saveAttract',
             type: 'post',
-            /*contentType:'application/json',*/
             data: $("#myForm").serialize(),
-            /*data:JSON.stringify({'bigClassify':bigClassify,'centreClassify':centreClassify,'smallClassify':smallClassify,
-                'headline':headline,'overTime':overTime,'provinceId':provinceId,
-                'cityid':cityid,'investment':investment,'cashDeposit':cashDeposit,
-                'productName':productName,'specifications':specifications,'approvalNumber':approvalNumber,
-                'manufacturer':manufacturer,'drugNumber':drugNumber,'packagesNumber':packagesNumber,'trademark':trademark
-                ,'healthType':healthType,'catalogue':catalogue,'testimg':testimg,'details':details}),*/
             success: function (data) {
-             alert("成功")
+             bootbox.alert("成功")
+
             },
             error:function(){
                 alert("错误");
@@ -250,6 +228,8 @@
         });
         initAreaSelect(0,'bigClassify');
         initAreaSelecet(0,'provinceId');
+        uploadImg()
+
     })
     $("#bigClassify").change(function(){
         var id = $(this).val();
@@ -323,7 +303,7 @@
     }
     //上传图片
     function uploadImg(url){
-        $('#headImg').fileinput({
+        $('#userImg').fileinput({
             initialPreview:url,
             //初始化图片配置：
             initialPreviewConfig: [
@@ -360,5 +340,26 @@
             $('#testimg').val(imgval);
         });
     }
+    var editor = null;
+    KindEditor.ready(function(K) {//将编辑器添加到文档中
+        editor = K.create('#content', {
+            cssPath : '<%=request.getContextPath()%>/js/kindeditor/plugins/code/prettify.css',//指定编辑器iframe document的CSS文件，用于设置可视化区域的样式。
+            uploadJson : '<%=request.getContextPath()%>/js/kindeditor/jsp/upload_json.jsp', //指定上传文件的服务器端程序。
+            fileManagerJson : '<%=request.getContextPath()%>/js/kindeditor/jsp/file_manager_json.jsp',//指定浏览远程图片的服务器端程序。
+            allowFileManager : true,  //true时显示浏览远程服务器按钮 ;默认值: false
+            afterCreate : function() {
+                var self = this;
+                K.ctrl(document, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+                K.ctrl(self.edit.doc, 13, function() {
+                    self.sync();
+                    document.forms['example'].submit();
+                });
+            }
+        });
+        prettyPrint();
+    });
 </script>
 </html>
