@@ -19,20 +19,20 @@
 <table class="table" id="myTable"></table>
     <div style="background: #d4d4d4;margin-left: 20px;margin-top: 20px;margin-right: 20px;height: 70px;">
         <div style="margin-left: 30px;width: 600px;height: 40px;padding-top:25px;float: left">
-            共<font color='red' id="gg"></font>件商品
+            共<font color='red' id="allCount"></font>件商品
         </div>
         <div style="width: 400px;height: 40px;float: left;padding-top:25px;">
-            消费总金额 <font color='red'>¥</font>
+            消费总金额 <font color='red' id="allMoney">¥</font>
         </div>
         <div style="width: 400px;height: 40px;float: left;padding-top:25px;">
             <button style="margin-left: 200px" type="button" class="btn btn-primary">立即付款</button>
         </div>
     </div>
-            <button style="margin-left: 200px" type="button" class="btn btn-primary" id="delete1">凉凉</button>
 </body>
 <script>
     $(function(){
         initTable();//初始化表格
+        initConsumption();
     })
     //初始化快速采购表格
     function initTable(){
@@ -59,10 +59,70 @@
                         return "<font color='red'>"+value+"</font>"
                     }},
                 {field:"tools",title:"操作",formatter:function(value,row,index){
-                        return "<a class='navbar-brand glyphicon glyphicon-trash'></a>";
+                        return "<a class='navbar-brand glyphicon glyphicon-trash' onclick='deleteOrder("+row.id+")'></a>";
                     }}
             ]
         })
+    }
+    //总金额
+    function initConsumption(){
+        $.ajax({
+            url:"/queryConsumption",
+            type:'post',
+            data:{},
+            dataType:'json',
+            success:function(data){
+                var html = "<option value=''>--请选择--</option>";
+                var count = 0;
+                var allMoney = 0;
+                for (var i = 0; i < data.length; i++) {
+                    html += "<option  value='"+data[i].subtotal+"'>"+data[i].subtotal+"</option>"
+                    count++;
+                    allMoney+=data[i].subtotal;
+                }
+                $("#allMoney").html("¥"+allMoney)
+                $("#allCount").html(count)
+                $("#money").html(html);
+            },error:function(){
+                alert("失败了");
+            }
+        });
+    }
+    //单删
+    function deleteOrder(id){
+        bootbox.confirm({
+            message: "你确定要删除吗?",
+            buttons: {
+                confirm: {
+                    label: '确定',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '取消',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    $.ajax({
+                        url:'/deleteOrder',
+                        type:'post',
+                        data:{
+                            id:id
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            if(data){
+                                initConsumption();
+                                $('#myTable').bootstrapTable('refresh');
+                            }else{
+                                alert("删除失败!")
+                            }
+                        }
+                    })
+                }
+            }
+        });
     }
 
 </script>
