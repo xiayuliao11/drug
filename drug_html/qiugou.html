@@ -60,14 +60,14 @@
                 {field:'phone',title:'联系电话',align:'center',valign:'middle'},
 
 
-                {field:'cz',title:'操作',align:'center',valign:'middle',formatter:function (value,row,index) {
+              /*  {field:'cz',title:'操作',align:'center',valign:'middle',formatter:function (value,row,index) {
                         var content="";
 
                         content+="  <a href='javascript:void(0)' onclick=updateItem("+row.id+")>修改</a>";
                         content+="   <a href='javascript:void(0)' onclick=deleteByid("+row.id+",'"+row.commddtiyName+"')>删除</a>";
                         return content;
 
-                    }},
+                    }},*/
             ],
             onLoadSuccess: function(){
                 console.info("加载成功");
@@ -84,8 +84,8 @@
 
         bootbox.dialog({
             size: "big",
-            title:'缺药登记报表',
-            message:getUI("add"),
+            title:'发布求购需求',
+            message:getUI("addqiugou"),
             closeButton:true,
             //className:'add-dialog',
             buttons:{
@@ -94,7 +94,8 @@
                     "className" : "btn-sm btn-success",
                     "callback" : function() {
                         $.ajax({
-                            url:"/addDrugShortage",
+                          //  url:"/addDemand",
+                            url:"http://192.168.101.22:5001/addDemand",
                             type:"POST",
                             data:$("#form").serialize(),
                             success:function(result){
@@ -118,7 +119,9 @@
     function getUI(url){
         var content ="" ;
         $.ajax({
-            url:"toView?name=/"+url,
+           // url:"toView?name=/"+url,
+            url:"http://192.168.101.22:5001/toView?name=/"+url,
+
             async:false,
             success:function(result){
                 content= result;   //不能在这return的原因是因为调的是getUrl这个方法,不是success这个方法
