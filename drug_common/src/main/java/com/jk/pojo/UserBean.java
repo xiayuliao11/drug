@@ -1,9 +1,7 @@
 package com.jk.pojo;
 
+import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-public class UserBean {
 
 public class UserBean implements Serializable {
 
