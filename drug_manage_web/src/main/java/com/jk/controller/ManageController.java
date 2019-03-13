@@ -2,20 +2,22 @@ package com.jk.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.jk.constant.ConstanType;
-import com.jk.pojo.AreaBean;
-import com.jk.pojo.SiteBean;
-import com.jk.pojo.UserBean;
+import com.jk.pojo.*;
 import com.jk.service.ManageService;
 import com.jk.service.ManageServiceFeign;
+import com.jk.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class ManageController {
@@ -42,20 +44,20 @@ public class ManageController {
     @ResponseBody
      public HashMap<String,Object> findSitePage(Integer page, Integer rows){
         HashMap<String, Object> sitePage = new HashMap<>();
-        String cacheKey=ConstanType.CACHE_SITE;
+        String cacheKey=ConstanType.DEPOSIT_CACHE_SITE;
         Boolean hasKey = redisTemplate.hasKey(cacheKey);
-       /* if (hasKey) {
+        if (hasKey) {
             //从缓存中取出来
-            //System.out.println("走缓存");
+            System.out.println("走缓存");
             sitePage = (HashMap<String, Object>) redisTemplate.opsForValue().get(cacheKey);
         } else {
             sitePage = manageServiceFeign.findSitePage(page, rows);
             //存入缓存
             System.out.println("走数据库");
-            System.out.println("page = [" +sitePage+ "]");
             redisTemplate.opsForValue().set(cacheKey,sitePage);
-        }*/
-        sitePage = manageServiceFeign.findSitePage(page, rows);
+            redisTemplate.expire(cacheKey,30, TimeUnit.SECONDS);
+        }
+       // sitePage = manageServiceFeign.findSitePage(page, rows);
         return sitePage;
      }
     /**
@@ -81,8 +83,8 @@ public class ManageController {
      */
     @PostMapping("saveSite")
     @ResponseBody
-    public String saveSite(SiteBean siteBean){
-        return  manageServiceFeign.saveSite(siteBean);
+    public void saveSite(SiteBean siteBean){
+          manageServiceFeign.saveSite(siteBean);
     }
 
     /**
@@ -112,8 +114,117 @@ public class ManageController {
     @PostMapping("findAreaList")
     @ResponseBody
     public List<AreaBean> findAreaList(Integer id){
-        System.out.println("id = [" + id + "]");
         return manageServiceFeign.findAreaList(id);
+    }
+
+    /**
+     * 商品查询
+     * @param page
+     * @param rows
+     * @return
+     */
+    @PostMapping("findProductPage")
+    @ResponseBody
+    public List<ProductBean> findProductPage(ProductBean productBean){
+        System.out.println("商品 = [" + productBean.getCargoNumber() + "]");
+        return manageServiceFeign.findProductPage(productBean);
+    }
+
+    /**
+     * 推广商品
+     * @param productBean
+     */
+    @PostMapping("saveProduct")
+    @ResponseBody
+    public Boolean saveProduct(ProductBean productBean){
+
+        return manageServiceFeign.saveProduct(productBean);
+    }
+    /**
+     * 批量上架
+     * @param ids
+     */
+    @GetMapping("batchDownById")
+    @ResponseBody
+    public void batchDownById(Integer[] ids){
+        manageServiceFeign.batchDownById(ids);
+    }
+
+    /**
+     * 商品查看
+     */
+    @GetMapping("findProduct")
+    @ResponseBody
+    public ProductBean findProduct(Integer id){
+        System.out.println("ids = [" + id + "]");
+            return manageServiceFeign.findProduct(id);
+    }
+    /**
+     * 删除商品
+     */
+    @DeleteMapping("delProduct")
+    @ResponseBody
+    public void delProduct(Integer id){
+        manageServiceFeign.delProduct(id);
+    }
+    /**
+     * 批量下架
+     * @param ids
+     */
+    @GetMapping("batchUpById")
+    @ResponseBody
+    public void batchUpById(Integer[] ids){
+        manageServiceFeign.batchUpById(ids);
+    }
+
+    /**
+     * 查看分类
+     * @return
+     */
+    @PostMapping("findDrugType")
+    @ResponseBody
+    public List<DrugTypeBean> findDrugType(Integer id){
+         return manageServiceFeign.findDrugType(id);
+    }
+
+    /**
+     * 查看剂型
+     * @return
+     */
+    @GetMapping("findAgentia")
+    @ResponseBody
+    public List<AgentiaBean> finAgentia(){
+        return manageServiceFeign.findAgentia();
+    }
+
+    /**
+     * 招商新增
+     * @param attractBean
+     */
+    @PostMapping("saveAttract")
+    @ResponseBody
+    public void saveAttract(AttractBean attractBean){
+        System.out.println("attractBean = [" + attractBean + "]");
+        manageServiceFeign.saveAttract(attractBean);
+    }
+    /**
+     * 图片上传
+     * @param img
+     * @param request
+     * @return
+     */
+    @RequestMapping("shopImg")
+    @ResponseBody
+    public HashMap<String, String> uploadUserImg(MultipartFile img, HttpServletRequest request) {
+        HashMap<String, String> result = new HashMap<>();
+        String fileUpload = FileUtil.fileUploadBootStrap(img, request);
+        result.put("img", fileUpload);
+        return result;
+    }
+    //跳转查看页面
+    @GetMapping("toFindProduct")
+    public String toFindProduct(){
+        return "selectProduct";
     }
     //跳转修改密码页面
     @GetMapping("toSelectPwd")
@@ -129,5 +240,20 @@ public class ManageController {
     @GetMapping("toSelectStie")
     public String toSelectStie(){
         return "stielist";
+    }
+    //跳转查询地址页面
+    @GetMapping("toSelectProduct")
+    public String toSelectProduct(){
+        return "productlist";
+    }
+    //跳转查询地址页面
+    @GetMapping("toAddProduct")
+    public String toAddProduct(){
+        return "updateProduct";
+    }
+    //跳转新增页面
+    @GetMapping("toAddAttract")
+    public String toAddAttract(){
+        return "saveAttract";
     }
 }

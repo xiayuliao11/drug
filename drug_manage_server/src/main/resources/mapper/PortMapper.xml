@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.mapper.PortMapper">
+
     <select id="findSiteCount" resultType="int">
          select count(*) from t_site
     </select>
@@ -16,5 +17,67 @@ LEFT JOIN drug_area city ON s.cityid = city.id
 LEFT JOIN drug_area province ON s.provinceId = province.id
 limit #{start},#{rows}
     </select>
+    <sql id="productWhere">
+        <where>
+            <if test="cargoNumber!=null and cargoNumber!='' ">
+                and cargoNumber =#{cargoNumber}
+            </if>
+            <if test="productName!=null and productName!='' ">
+                and productName =#{productName}
+            </if>
+        </where>
+    </sql>
+    <select id="findProductPage" resultType="com.jk.pojo.ProductBean">
+        select * from drug_product
+        <include refid="productWhere"></include>
+    </select>
+    <update id="batchDownById" parameterType="int">
+        update drug_product set goodsState=2 where productId in
+        <foreach collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <update id="batchUpById" parameterType="int">
+        update drug_product set goodsState=1 where productId in
+        <foreach collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <insert id="saveProduct" parameterType="com.jk.pojo.ProductBean">
+INSERT INTO drug_product (
+	adverseReaction,approvalNumber,attention,
+	auditStatus,bigQuantity,cargoNumber,catalogue,centreQuantity,commoditImages,
+	commoditVideo,commodityName,commodityPrices,commodityStocks,control,detail,drugFunction,
+	drugInteractions,drugNumber,drugTaboo,drugToxicology,expirationDate,goodsState,
+	healthType,ingredient,InventorWarning,manufacturer,market,marketPrice,
+	measure,overdose,parturitionTime,prescription,productName,purchaserType,
+    qualification,recommend,specifications,validity,freight,bigClass,centreClass,smallClass,
+    agentiaId
+) VALUES(
+    #{adverseReaction},#{approvalNumber},#{attention},#{auditStatus},#{bigQuantity},
+    #{cargoNumber},#{catalogue},#{centreQuantity},#{commoditImages},#{commoditVideo},#{commodityName},
+    #{commodityPrices},#{commodityStocks},#{control},#{detail},#{drugFunction},#{drugInteractions},#{drugNumber},
+    #{drugTaboo},#{drugToxicology},#{expirationDate},1,#{healthType},#{ingredient},
+    #{InventorWarning},#{manufacturer},#{market},#{marketPrice},#{measure},#{overdose},#{parturitionTime},
+    #{prescription},#{productName},#{purchaserType},#{qualification},#{recommend},#{specifications},
+    #{validity},#{freight},#{bigClass},#{centreClass},#{smallClass},#{agentiaId}
+)
+    </insert>
+    <update id="updateProduct" parameterType="com.jk.pojo.ProductBean">
+      update drug_product set  adverseReaction=#{adverseReaction},approvalNumber=#{approvalNumber},attention=#{attention},auditStatus=#{auditStatus},bigQuantity=#{bigQuantity},
+    cargoNumber=#{cargoNumber},catalogue=#{catalogue},centreQuantity=#{centreQuantity},commoditImages=#{commoditImages},commoditVideo=#{commoditVideo},commodityName=#{commodityName},
+    commodityPrices=#{commodityPrices},commodityStocks=#{commodityStocks},control=#{control},detail=#{detail},drugFunction=#{drugFunction},drugInteractions=#{drugInteractions},drugNumber=#{drugNumber},
+    drugTaboo=#{drugTaboo},drugToxicology=#{drugToxicology},expirationDate=#{expirationDate},healthType=#{healthType},ingredient=#{ingredient},
+    InventorWarning=#{InventorWarning},manufacturer=#{manufacturer},market=#{market},marketPrice=#{marketPrice},measure=#{measure},overdose=#{overdose},parturitionTime=#{parturitionTime},
+    prescription=#{prescription},productName=#{productName},purchaserType=#{purchaserType},qualification=#{qualification},recommend=#{recommend},specifications=#{specifications},
+    validity=#{validity},freight=#{freight},bigClass=#{bigClass},centreClass=#{centreClass},smallClass=#{smallClass},agentiaId=#{agentiaId}
+    where productId=#{productId}
+    </update>
+    <insert id="saveAttract" parameterType="com.jk.pojo.AttractBean">
+    insert into t_attract_consult(headline,overTime,productName,specifications,approvalNumber,
+    manufacturer,drugNumber,packagesNumber,merchantsImg,bigClass,centreClass,smallClass,provinceId,cityid,trademark,healthType,details,cashDeposit,investment,catalogue)
+    values (#{headline},#{overTime},#{productName},#{specifications},#{approvalNumber},
+    #{manufacturer},#{drugNumber},#{packagesNumber},#{merchantsImg},#{bigClass},#{centreClass},#{smallClass},#{provinceId},#{cityid},#{trademark},#{healthType},#{details},
+    #{cashDeposit},#{investment},#{catalogue})
+    </insert>
 </mapper>
- 

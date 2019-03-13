@@ -113,6 +113,7 @@
                         dataType:'json',
                         success:function(data){
                             if(data){
+                                initConsumption();
                                 $('#myTable').bootstrapTable('refresh');
                             }else{
                                 alert("删除失败!")
