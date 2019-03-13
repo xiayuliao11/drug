@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入bootstrap的css、js -->
+    <link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入table的css、js -->
+    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="js/bootstrap-table/bootstrap-table.js"></script>
+    <script type="text/javascript" src="js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <!-- 引入bootbox的js -->
+    <script type="text/javascript" src="js/bootstrap-bootbox/bootbox.js"></script>
+    <!-- 引入日期的css、js -->
+    <link rel="stylesheet" href="js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <script type="text/javascript" src="js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!-- 引入文件上传的css、js -->
+    <link rel="stylesheet" href="js/bootstrap-fileinput/css/fileinput.css">
+    <script type="text/javascript" src="js/bootstrap-fileinput/js/fileinput.js"></script>
+    <script type="text/javascript" src="js/bootstrap-fileinput/js/locales/zh.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li class="active">企业基础信息</li>
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <li class="active">
+        <font color="red">批发商开通采购中心中不显示企业资质在销售中心模块下显示企业资质</font>
+    </li>
+</ol>
+<form id="enterpriseForm">
+    <div class="row myrow">
+        <div class="col-md-1">
+            <label for="enterpriseType">*企业类型：</label>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="enterpriseType">
+                <option value="单体药店">单体药店</option>
+                <option value="连锁药店">连锁药店</option>
+                <option value="医院">医院</option>
+                <option value="诊所">诊所</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row myrow"  style="margin-top: 4px">
+        <div class="col-md-1">
+            <label for="businessNumber">执照注册号</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" name="businessNumber" placeholder="请与执照上的填写一致">
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row myrow" style="margin-top: 4px">
+        <div class="col-md-1">
+            <label for="enterpriseName">*企业名称：</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" name="enterpriseName" >
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row myrow" style="margin-top: 4px">
+        <div class="col-md-1">
+            <label for="enterpriseLinkman">*联系人：</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" name="enterpriseLinkman" >
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row myrow" style="margin-top: 4px">
+        <div class="col-md-1">
+            <label for="enterprisePhone">*联系电话：</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" name="enterprisePhone" >
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row myrow" style="margin-top: 4px">
+        <div class="col-md-1">
+            <label >*所属区域：</label>
+        </div>
+        <div class="col-md-2">
+           <!-- <select class="form-control" id="area" name="enterpriseArea">
+            </select>-->
+            <input type="text" class="form-control" name="enterpriseArea" >
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row myrow" style="margin-top: 4px">
+        <div class="col-md-1">
+            <label for="enterpriseAddress">详细地址：</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" name="enterpriseAddress" >
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row myrow" style="margin-top: 4px">
+        <div class="col-md-1">
+            <label for="purchasingArea">*采购区域：</label>
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" id="purchasingArea" name="purchasingArea">
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <br>
+    <ol class="breadcrumb">
+        <li class="active">企业资质信息</li>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <li class="active">
+            （企业资质内容同首营资质平台资质）
+        </li>
+    </ol>
+    <br>
+    <div class="row myrow" style="margin-top: 4px">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    企业营业执照
+                </div>
+                <div class="panel-body">
+                    证书编号：<input type="text" class="form-control" name="certificateNumber"><br>
+                    发证日期：<input type="text" class="form-control date" name="openingDate"><br>
+                    有效期：<input type="text" class="form-control" name="validityDate"><br>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--<div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">药品经营许可证</div>
+                <div class="panel-body">
+                    <input type="hidden" id="testimg" name="certificateImg" />
+                    <input type="file" multiple class="projectfile" accept="image/*" name="img" id="certificateImg">
+                </div>
+            </div>
+        </div>-->
+        <!--<div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">GSP证书</div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>-->
+
+    <!--<div class="row myrow" style="margin-top: 4px">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    工商年检
+                </div>
+                <div class="panel-body">
+                    Panel content
+                </div>
+            </div>
+        </div>-->
+       <!-- <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">一般纳税人资格证明</div>
+                <div class="panel-body">
+                    <input type="hidden" id="testimg" name="certificateImg" />
+                    <input type="file" multiple class="projectfile" accept="image/*" name="img" id="certificateImg">
+                </div>
+            </div>
+        </div>-->
+
+        <!--<div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">发票详版</div>
+                <div class="panel-body">
+                    <div class="row myrow" style="margin-top: 4px">
+                        <div class="col-md-3">
+                            <label for="enterprisePhone">联系电话:</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="enterprisePhone" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+   <!-- </div>-->
+
+
+</form>
+<button type="button" class="btn btn-primary glyphicon glyphicon-search" onclick="save()">新增</button>
+</body>
+<script>
+    /*function save(){
+        $("#enterpriseForm").form('submit',{
+            url:'/saveEnterprise',
+            success:function(data){
+                location.reload();
+                alert("成功");
+            }
+        })
+    }*/
+
+     function save() {
+        $.ajax({
+            url:'http://169.254.37.239:4002/saveEnterprise',
+            type:'post',
+            data:$("#enterpriseForm").serialize(),
+            success:function(data){
+			if(data){
+			alert("新增成功！");
+			location.reload();
+			}else{
+				alert("新增失败！信息没有按照格式来");
+				return
+			}
+                
+                //$('#myTable').bootstrapTable('refresh');
+                
+                //alert("成功！");
+            }
+        });
+    }
+
+    $(function(){
+        //新增上传图片
+        $('.date').datetimepicker({
+            language: 'zh-CN',//显示中文
+            //format: 'yyyy-mm-dd hh:ii:ss',//显示格式
+            format: 'yyyy-mm-dd',//显示格式
+            minView: "month",//设置只显示到月份
+            initialDate: new Date(),//初始化当前日期
+            autoclose: true,//选中自动关闭
+            todayBtn: true//显示今日按钮
+        });
+    })
+</script>
+</html>
