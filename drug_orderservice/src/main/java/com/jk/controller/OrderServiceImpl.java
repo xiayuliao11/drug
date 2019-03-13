@@ -3,9 +3,7 @@ package com.jk.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.jk.mapper.OrderMapper;
-import com.jk.pojo.Demand;
-import com.jk.pojo.GoodsReturned;
-import com.jk.pojo.SendPage;
+import com.jk.pojo.*;
 import com.jk.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,5 +57,22 @@ public class OrderServiceImpl implements OrderService {
 
         SendPage sendPage = new SendPage(sum.size(), list);
         return sendPage;
+    }
+
+    @ResponseBody
+    public List<DaugType> getDaugType(Integer pid) {
+        List<DaugType>   list=orderMapper.getDaugType(pid);
+        return list;
+    }
+
+    @ResponseBody
+    public List<RegionType> getRegionType(Integer id) {
+        List <RegionType>   list=orderMapper.getRegionType(id);
+        return list;
+    }
+
+    @ResponseBody
+    public void addDemand(@RequestBody Demand t) {
+        orderMapper.addDemand(t);
     }
 }
