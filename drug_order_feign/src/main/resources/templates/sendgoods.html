@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-bootbox/bootbox.js"></script>
+<link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
+<script type="text/javascript" src="/js/bootstrap3/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<link rel="stylesheet" href="/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+<script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.js"></script>
+<script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<link rel="stylesheet" href=/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css>
+<script type="text/javascript" src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/ja vascript" src="/js/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/bootstrap-fileinput/js/fileinput.js"></script>
+<script src="/js/bootstrap-fileinput/js/locales/zh.js"></script>
+<link rel="stylesheet" href="/js/bootstrap-fileinput/css/fileinput.css">
+<head>
+    <meta charset="UTF-8">
+    <title>发货管理！</title>
+</head>
+<div id="toolbar" style="margin-top:10px">
+    <form class="form-inline" style="margin-left:10px">
+        <div class="form-group">
+            <label for="saleName">商品名称</label>
+            <input type="text" class="form-control" id="saleName" name="saleName" placeholder="请输入商品名称">
+        </div>
+        <div class="form-group" style="margin-left:10px">
+            <label for="saleAddress">采购商</label>
+            <input type="text" class="form-control" id="saleAddress" name="saleAddress" placeholder="请输入采购商">
+        </div>
+        <div class="form-group" style="margin-left:10px">
+            <label for="lowerTime">下单时间</label>
+            <input type="text" class="form-control date" id="start" name="start" placeholder="请输入开始时间">
+            <input type="text" class="form-control date" id="end" name="end" placeholder="请输入结束时间">
+        </div>
+        <div style="margin-left:10px">
+            <button type="button" class="btn btn-primary glyphicon glyphicon-search" onclick="search()">搜索</button>
+        </div>
+    </form>
+</div>
+    <table id="table" class="table"></table>
+</body>
+<script>
+    $(function(){
+        initTime()
+    })
+//查询销售列表
+   $("#table").bootstrapTable({
+       url:"findSendgoods",
+       toolbar:"#toolbar",
+       striped:true,//条纹表格
+       queryParams:function(){
+           return {
+           saleName:$("#saleName").val(),
+           saleAddress:$("#saleAddress").val(),
+           start:$("#start").val(),
+           end:$("#end").val()
+           };
+       },
+       columns:[
+           {field:"saleName",title:"商品名称"},
+           {field:"saleAddress",title:"采购商"},
+           {field:"123",title:"商品规格",formatter:function(value,row,index){
+                   return  '10袋/盒';
+           }},
+           {field:"456",title:"批准文号",formatter:function(value,row,index){
+                   return  '国准字X921';
+           }},
+           {field:"saleCount",title:"购买数量"},
+           {field:"saleMoney",title:"单价"},
+           {field:"789",title:"合计",formatter:function (value,row,index){
+                   return  row.saleCount*row.saleMoney;
+           }},
+           {field:"lowerTime",title:"下单时间"},
+           {field:"paymentTime",title:"支付时间"}
+       ]
+   })
+//搜索
+    function search(){
+        $('#table').bootstrapTable('refresh');
+    }
+//日期
+function initTime(){
+    $('.date').datetimepicker({
+        language: 'zh-CN',//显示中文
+        //format: 'yyyy-mm-dd hh:ii:ss',//显示格式
+        format: 'yyyy-mm-dd',//显示格式
+        minView: "month",//设置只显示到月份
+        initialDate: new Date(),//初始化当前日期
+        autoclose: true,//选中自动关闭
+        todayBtn: true//显示今日按钮
+    });
+}
+</script>
+</html>

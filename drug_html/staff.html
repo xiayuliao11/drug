@@ -51,9 +51,9 @@ function  start(id){
         data:{id:id},
         dataType:'json',
         success:function(data){
-            $('#table').bootstrapTable('refresh');
         }
     })
+    $('#table').bootstrapTable('refresh');
 }
 //停用
 function  shop(id){
@@ -63,9 +63,9 @@ function  shop(id){
         data:{id:id},
         dataType:'json',
         success:function(data){
-            $('#table').bootstrapTable('refresh');
         }
     })
+    $('#table').bootstrapTable('refresh');
 }
 //删除
 function delOne(id){
@@ -75,9 +75,9 @@ function delOne(id){
        data:{id:id},
        dataType:'json',
        success:function(data){
-           $('#table').bootstrapTable('refresh');
    }
    })
+    $('#table').bootstrapTable('refresh');
 }
 var res;
 function createAddContent(url){
@@ -107,9 +107,9 @@ function addStaff(){
                         type:'post',
                         data:$("#From").serialize(),
                         success:function(){
-                            $('#table').bootstrapTable('refresh');
                         }
                     });
+                    $('#table').bootstrapTable('refresh');
                 }
             },
             "cancel" : {

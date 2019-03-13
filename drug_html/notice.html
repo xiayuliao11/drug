@@ -40,7 +40,6 @@
             }}
         ]
     })
-
     //上线
     function  up(id){
         $.ajax({
@@ -49,9 +48,9 @@
             data:{id:id},
             dataType:'json',
             success:function(data){
-                $('#table').bootstrapTable('refresh');
             }
         })
+        $('#table').bootstrapTable('refresh');
     }
     //下线
     function  down(id){
@@ -61,9 +60,9 @@
             data:{id:id},
             dataType:'json',
             success:function(data){
-                $('#table').bootstrapTable('refresh');
             }
         })
+        $('#table').bootstrapTable('refresh');
     }
     //删除
     function delNotice(id){
@@ -73,9 +72,10 @@
             data:{id:id},
             dataType:'json',
             success:function(data){
-                $('#table').bootstrapTable('refresh');
+
             }
         })
+        $('#table').bootstrapTable('refresh');
     }
     var res;
     function createAddContent(url){
