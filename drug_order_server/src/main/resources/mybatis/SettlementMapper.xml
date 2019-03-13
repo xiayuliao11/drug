@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.wxy.SettlementMapper">
+    <resultMap id="settlementMap" type="com.jk.pojo.SettlementBean">
+
+        <id column="settlementId" property="settlementId"></id>
+        <result column="settlementNumber" property="settlementNumber"></result>
+        <result column="settlementName" property="settlementName"></result>
+        <result column="settlementSpecifications" property="settlementSpecifications"></result>
+        <result column="settlementEnterprise" property="settlementEnterprise"></result>
+        <result column="settlementPrice" property="settlementPrice"></result>
+        <result column="settlementPayment" property="settlementPayment"></result>
+        <result column="settlementPromotion" property="settlementPromotion"></result>
+        <result column="settlementCommission" property="settlementCommission"></result>
+        <result column="settlementMoney" property="settlementMoney"></result>
+        <result column="settlementState" property="settlementState"></result>
+    </resultMap>
+
+
+
+    <select id="settlementList" resultMap="settlementMap" parameterType="com.jk.pojo.SettlementBean">
+     select * from drug_settlement t
+
+        <include refid="settlementWhere"></include>
+    </select>
+
+    <sql id="settlementWhere">
+        <where>
+            <if test="settlementBean.settlementNumber != null and settlementBean.settlementNumber !='' ">
+                and t.settlementNumber = #{settlementBean.settlementNumber}
+            </if>
+            <if test="settlementBean.settlementName != null and settlementBean.settlementName != '' ">
+                and t.settlementName = #{settlementBean.settlementName}
+            </if>
+            <if test="settlementBean.settlementEnterprise != null and settlementBean.settlementEnterprise != '' ">
+                and t.settlementEnterprise = #{settlementBean.settlementEnterprise}
+            </if>
+            <if test="settlementBean.settlementState != null and settlementBean.settlementState != '' and settlementBean.settlementState != -1 ">
+                and t.settlementState = #{settlementBean.settlementState}
+            </if>
+        </where>
+    </sql>
+
+
+
+
+</mapper>
