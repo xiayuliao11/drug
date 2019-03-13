@@ -1,7 +1,9 @@
 package com.jk.mapper;
 
+import com.jk.pojo.DaugType;
 import com.jk.pojo.Demand;
 import com.jk.pojo.GoodsReturned;
+import com.jk.pojo.RegionType;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -42,4 +44,11 @@ public interface OrderMapper {
     List<GoodsReturned> getGoodsReturnedss(@Param("t") GoodsReturned t);
 
     List<Demand> getDemand(Demand t);
+
+    @Select("select * from drug_type where pid=#{pid}")
+    List<DaugType> getDaugType(Integer pid);
+    @Select("select * from drug_area where pid=#{id}")
+    List<RegionType> getRegionType(Integer id);
+
+    void addDemand(Demand t);
 }

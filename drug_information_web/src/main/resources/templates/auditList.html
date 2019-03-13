@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="/bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="/bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入bootstrap的css、js -->
+    <link rel="stylesheet" href="/bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="/bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入table的css、js -->
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <!-- 引入bootbox的js -->
+    <script type="text/javascript" src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <!-- 引入日期的css、js -->
+    <link rel="stylesheet" href="/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <!-- 引入文件上传的css、js -->
+    <link rel="stylesheet" href="/js/bootstrap-fileinput/css/fileinput.css">
+    <script type="text/javascript" src="/js/bootstrap-fileinput/js/fileinput.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-fileinput/js/locales/zh.js"></script>
+</head>
+<body>
+    <table class="table" id="myTable"></table>
+</body>
+    <script>
+        $(function(){
+            initAuditTable();//初始化表格
+        })
+
+        //初始化表格
+        function initAuditTable(){
+            //列表展示
+            $("#myTable").bootstrapTable({
+                toolbar:'#toolbar',
+                url:'../queryAudit',//获取数据地址
+                striped:true,//条纹表格
+                columns:[
+                    {field:'auditId',title:'ID'},
+                    {field:'auditType',title:'需审核类型'},
+                    {field:'auditTime',title:'审核日期'},
+                    {field:'auditInfo',title:'审核内容'},
+                    {field:'auditStatus',title:'审核状态'},
+                    {field:'xx',title:'操作',align:'center',
+                        formatter:function(value,row,index){
+                            var html = "<a href='javascript:deleteOne("+row.productsId+")'>删除<a/>|";
+                            html += "<a href='javascript:openUpdate("+row.productsId+")'>修改<a/>";
+                            return html;
+                        }
+                    }
+                ]
+            });
+        }
+
+    </script>
+</html>

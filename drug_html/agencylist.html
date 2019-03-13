@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
     <link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
     <script type="text/javascript" src="bootstrap3/js/bootstrap.js"></script>
     <!-- 引入bootstrap的css、js -->
@@ -80,7 +80,7 @@
                         $.ajax({
                             url:'http://169.254.37.239:4002/saveAgency',//新增方法
                             type:'post',
-                            data:JSON.stringify($("#agencyFrom").serialize()),
+                            data:$("#agencyFrom").serialize(),
                             success:function(data){
                                 if (data) {
                                     $('#myTable').bootstrapTable('refresh');
@@ -153,7 +153,7 @@
                         $.ajax({
                             url:'http://192.168.101.4:4002/saveAgency',
                             type:'post',
-                            data:JSON.stringify($("#agencyFrom").serialize()),
+                            data:$("#agencyFrom").serialize(),
                             success:function(data){
                                 if(data){
                                     $('#myTable').bootstrapTable('refresh');

@@ -54,5 +54,5 @@ public class Demand {
     //联系地址
     private String site;
     //审核状态
-    private String state;
+    private Integer state=0;
 }

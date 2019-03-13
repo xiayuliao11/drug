@@ -38,7 +38,7 @@
             and  t.manufacturer=#{purchaseOrder.manufacturer}
         </if>
         <if test="purchaseOrder.status!=null and purchaseOrder.status!=''">
-            and  t.manufacturer=#{purchaseOrder.status}
+            and  t.status=#{purchaseOrder.status}
         </if>
     </select>
 

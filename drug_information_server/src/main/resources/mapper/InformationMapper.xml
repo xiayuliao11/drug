@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.InformationMapper">
+    <resultMap type="com.jk.pojo.EnterpriseBean" id="entMap">
+        <id column="enterprise_id" property="enterpriseId"/>
+        <result column="enterprise_type" property="enterpriseType"/>
+        <result column="enterprise_name" property="enterpriseName"/>
+        <result column="business_number" property="businessNumber"/>
+        <result column="enterprise_linkman" property="enterpriseLinkman"/>
+        <result column="enterprise_phone" property="enterprisePhone"/>
+        <result column="enterprise_area" property="enterpriseArea"/>
+        <result column="enterprise_address" property="enterpriseAddress"/>
+        <result column="purchasing_area" property="purchasingArea"/>
+        <result column="enterprise_district" property="enterpriseDistrict"/>
+    </resultMap>
+
+    <!--查询树-->
+    <select id="queryTree" parameterType="com.jk.pojo.TreeBean" resultType="com.jk.pojo.TreeBean">
+        select * from  t_tree
+    </select>
+
+    <!--新增企业基础信息-->
+    <insert id="saveEnterprise" parameterType="com.jk.pojo.EnterpriseBean">
+        insert into t_enterprise(enterprise_type,enterprise_name,business_number ,enterprise_linkman ,enterprise_phone ,enterprise_area ,enterprise_address ,purchasing_area ,certificate_number,opening_date,validity_date )
+        values (#{enterpriseType},#{enterpriseName},#{businessNumber},#{enterpriseLinkman},#{enterprisePhone},#{enterpriseArea},#{enterpriseAddress},#{purchasingArea},#{certificateNumber},#{openingDate},#{validityDate})
+
+    </insert>
+
+    <!--新增代理信息-->
+    <insert id="saveAgency" parameterType="com.jk.pojo.ProductsBean">
+        insert into t_products(products_name,products_type,products_commonname,products_manufacturer,products_brand,products_district,products_channel,products_indate,products_img,products_detail,products_linkman,products_phone,products_area,products_typed,products_typing)
+        values (#{productsName},#{productsType},#{productsCommonname},#{productsManufacturer},#{productsBrand},#{productsDistrict},#{productsChannel},#{productsIndate},#{productsImg},#{productsDetail},#{productsLinkman},#{productsPhone},#{productsArea},#{productsTyped},#{productsTyping})
+
+    </insert>
+
+    <!--查询审核列表-->
+    <select id="queryAudit" parameterType="com.jk.pojo.AuditBean" resultType="com.jk.pojo.AuditBean">
+        select audit_id auditId,audit_type auditType,audit_time auditTime,audit_info auditInfo,audit_status auditStatus,userId,administratorId from  t_audit
+    </select>
+
+    <!--查询代理信息-->
+    <select id="queryProduct" parameterType="com.jk.pojo.ProductsBean" resultType="com.jk.pojo.ProductsBean">
+        select products_id productsId,products_name productsName,products_district productsDistrict,products_detail productsDetail,products_linkman productsLinkman,products_phone productsPhone from  t_products
+    </select>
+
+    <!--删除代理信息-->
+    <delete id="deleteAgency" parameterType="int">
+        delete from t_products where products_id =#{ids}
+    </delete>
+
+    <!--修改代理信息-->
+    <update id="updateAgency" parameterType="com.jk.pojo.ProductsBean">
+        update t_products set products_name = #{productsName},products_district = #{productsDistrict},products_detail = #{productsDetail},products_linkman = #{productsLinkman},products_phone = #{productsPhone} where products_id =#{productsId}
+    </update>
+
+    <!--回显代理信息-->
+    <select id="findAgencyById" parameterType="int" resultType="com.jk.pojo.ProductsBean">
+        select  products_id productsId, products_name productsName,products_district productsDistrict,products_detail productsDetail,products_linkman productsLinkman,products_phone productsPhone from  t_products where  products_id = #{productsId}
+    </select>
+
+
+</mapper>

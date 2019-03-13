@@ -17,50 +17,145 @@
 <link rel="stylesheet" href="/js/bootstrap-fileinput/css/fileinput.css">
 <head>
     <meta charset="UTF-8">
-    <title>sale！</title>
+    <title>销售订单！</title>
 </head>
-<body>
-
-   <table id="table" class="table"></table>
+<ol class="breadcrumb">
+    <li class="active">
+        <input type="hidden" id="seach" value="0">
+        <button class="btn btn-primary" type="button" onclick="seach(0)">
+            全部订单信息<span class="badge"></span>
+        </button>
+        <button class="btn btn-primary" type="button" onclick="seach(1)">
+            待发货<span class="badge"></span>
+        </button>
+        <button class="btn btn-primary" type="button" onclick="seach(2)">
+            配送中<span class="badge"></span>
+        </button>
+        <button class="btn btn-primary" type="button" onclick="seach(3)">
+            待收货<span class="badge"></span>
+        </button>
+        <button class="btn btn-primary" type="button" onclick="seach(4)">
+            已完成<span class="badge"></span>
+        </button>
+        <button class="btn btn-primary" type="button" onclick="seach(5)">
+            已关闭<span class="badge"></span>
+        </button>
+        <button class="btn btn-primary" type="button" onclick="seach(6)">
+            待支付<span class="badge"></span>
+        </button>
+    </li>
+</ol>
+    <table id="table" class="table"></table>
 </body>
-   <script>
+<script>
+//查询销售列表
    $("#table").bootstrapTable({
-       url:"findList",
-       pagination:true,
-       pageList:[2,4,6,8],
-       pageSize:2,
-       sidePagination:'server',//分页方式：client客户端分页，server服务端分页
+       url:"findStatus",
+       toolbar:'#search',
        striped:true,//条纹表格
        queryParams:function(){
            return {
                page:this.pageNumber,
                rows:this.pageSize,
+               saleStatus:$("#seach").val()
            };
        },
        columns:[
-           {field:"check",checkbox:true},
-           {field:"id",title:"id"},
-           {field:"name",title:"采购商品"},
+           {field:"123",title:"  ",formatter:function(value,row,index){
+                return "<img id=\"u11645_img\" class=\"img \" src=\"/20150916084957170.png\" style='height: 50px'/>";
+           }},
+           {field:"saleName",title:"采购商品"},
            {field:"lowerTime",title:"下单时间"},
            {field:"paymentTime",title:"支付时间"},
-           {field:"address",title:"采购商"},
-           {field:"count",title:"采购数量"},
-           {field:"extension",title:"推广产品",formatter:function(value,row,index){
+           {field:"saleAddress",title:"采购商"},
+           {field:"saleCount",title:"采购数量"},
+           {field:"saleExtension",title:"推广产品",formatter:function(value,row,index){
                return   value==0?"否":"是";
            }},
-           {field:"activity",title:"活动产品",formatter:function(value,row,index){
+           {field:"saleActivity",title:"活动产品",formatter:function(value,row,index){
                return   value==0?"否":"是";
            }},
-           {field:"money",title:"实收款",formatter:function(value,row,index){
+           {field:"saleMoney",title:"实收款",formatter:function(value,row,index){
                return   "<font color='red'>"+value+"</font>";
            }},
-           {field:"status",title:"订单状态",formatter:function(value,row,index){
-               return   value==0?"待支付":"待发货";
+           {field:"saleStatus",title:"订单状态",formatter:function(value,row,index){
+               return   value==1?"待发货":(value==2?"配送中":(value==3?"待收货":(value==4?"已完成":(value==5?"已关闭":(value==6?"待支付":"")))));
            }},
-           {field:"status",title:"操作",formatter:function(value,row,index){
-               return   value==0?"<a href=''>查看订单</a> <a href=''>取消订单</a>":"<a href=''>发货</a>";
-   }}
+           {field:"saleStatus",title:"操作",formatter:function(value,row,index){
+               return   value==6? "<button type='button' class='btn btn-default' onclick='look(\""+row.id+"\")'>查看订单</button>  " +
+                                  "<button type='button' class='btn btn-warning' onclick='cancel(\""+row.id+"\")'>取消订单</button>"
+                       :(value==1?"<button type='button' class='btn btn-info'    onclick='send(\""+row.id+"\")'>发货</button>  " +
+                                  "<button type='button' class='btn btn-default' onclick='look(\""+row.id+"\")'>查看订单</button>":
+                                  "<button type='button' class='btn btn-default' onclick='look(\""+row.id+"\")'>查看订单</button>")
+           }}
        ]
    })
-   </script>
+function seach(status) {
+    $("#seach").val(status);
+    $("#table").bootstrapTable("refresh");
+}
+//发货
+function  send(id){
+       $.ajax({
+       url:'/updateSend',
+       type:'post',
+       data:{id:id},
+       dataType:'json',
+       success:function(data){
+       }
+})
+    $('#table').bootstrapTable('refresh');
+}
+//取消
+function  cancel(id){
+    $.ajax({
+        url:'/updateCancel',
+        type:'post',
+        data:{id:id},
+        dataType:'json',
+        success:function(data){
+        }
+    })
+    $('#table').bootstrapTable('refresh');
+}
+//详情
+var res;
+function createAddContent(url){
+    $.ajax({
+        url:url,
+        async:false,
+        success:function(data){
+            res = data;
+        }
+    });
+    return res;
+}
+function look(id){
+    bootbox.dialog({
+        title:'订单信息',
+        message: createAddContent("/toLook"),
+        closeButton: true,
+        buttons : {
+            "success" : {
+                "label" : "<i class='glyphicon glyphicon-ok'></i>关闭",
+                "className" : "btn-sm btn-success",
+                "callback" : function() {
+                }
+            },
+        }
+    });
+    $.ajax({
+        url:"/lookById",
+        data:{id:id},
+        async:false,
+        success:function(data){
+            $("#id").val(data.id);
+            $("#saleName").val(data.saleName);
+            $("#lowerTime").val(data.lowerTime);
+            $("#saleAddress").val(data.saleAddress);
+            $("#saleCount").val(data.saleCount)
+        }
+    })
+}
+</script>
 </html>

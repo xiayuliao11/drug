@@ -17,10 +17,10 @@
 <link rel="stylesheet" href="/js/bootstrap-fileinput/css/fileinput.css">
 <head>
     <meta charset="UTF-8">
-    <title>shop！</title>
+    <title>店铺风格！</title>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">龟芳龟腚</a>
@@ -66,12 +66,23 @@
             </div>
         </div>
     </form>
-    <button type="button" class="btn btn-info glyphicon glyphicon glyphicon-plus" onclick="add()">提交</button>
 </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        </div>
+        <div class="navbar-right">
+            <button type="button" class="btn btn-info glyphicon glyphicon glyphicon-plus" onclick="add()">提交</button>
+        </div>
+    </div>
+</nav>
 </body>
 <script>
-    //图片
-    function initImg(url){
+    $(function(){
+        uploadImg()
+    })
+    //上传图片
+    function uploadImg(url){
         $('#img').fileinput({
             initialPreview:url,
             //初始化图片配置：
@@ -81,7 +92,7 @@
             //是否初始化图片显示
             initialPreviewAsData: true,
             language: 'zh', //设置语言
-            uploadUrl: 'shopImg', //上传的地址
+            uploadUrl: '/shopImg', //上传的地址
             allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
             showUpload: true, //是否显示上传按钮
             showCaption: false,//是否显示标题
@@ -91,9 +102,11 @@
             validateInitialCount:true,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
             msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
-            }).on('fileuploaded', function(event, data, previewId, index) {
-            var imgval = $('#testimg').val();
-            imgval = "http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response;
+
+        }).on('fileuploaded', function(event, data, previewId, index) {
+            var imgval = $('#showImg').val();
+            //if(imgval == null || imgval == "" || imgval == undefined){
+            imgval = "http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response.responseText;
             $('#showImg').val(imgval);
         });
     }
