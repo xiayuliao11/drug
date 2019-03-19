@@ -19,48 +19,84 @@
     <meta charset="UTF-8">
     <title>！</title>
 </head>
-<div id="toolbar" style="margin-top:10px">
-    <form class="form-inline" style="margin-left:10px">
-        <div class="form-group">
-            <label for="name"></label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="请输入商品名">
-        </div>
-        <div style="margin-left:10px">
-            <button type="button" class="btn btn-primary glyphicon glyphicon-search" onclick="search()">搜索</button>
-        </div>
-    </form>
+<style>
+    .search{
+        height: 50px;
+        width: 1000px;
+        background-color: blue;
+        float: left;
+    }
+</style>
+</head>
+<div class="search">
+    <div class="form-group" style="margin-top: 10px">
+        一级分类：
+        <select name="type"  id="type" style="width: 130px;height: 30px;" onchange="search()">
+            <option value="0" selected >请选择类别</option>
+            <option value="1" >中西药品</option>
+            <option value="2" >医疗器械</option>
+            <option value="3" >滋品保健</option>
+            <option value="4" >草药专区</option>
+        </select>
+    </div>
+</div>
+<input type="hidden" id="count">
+排序：<a href="javascript:findCount(1)">数量</a>|<a href="javascript:findCount(2)">日期</a>
+<div class="location-now" style="margin-left: 650px">
+    <div class="location-text"  id="toolbar" style="margin-top:10px">
+        <form class="form-inline" style="margin-left:10px">
+            <div class="form-group">
+                <input type="text" class="form-control" id="name" style="width: 130px;height: 30px;" name="name" placeholder="请输入商品名">
+                <button type="button" class="btn btn-primary glyphicon glyphicon-search" onclick="search()">搜索</button>
+            </div>
+        </form>
+    </div>
 </div>
     <table id="table" class="table"></table>
-</body>
+
 <script>
+    $(function(){
+        init()
+    })
 //查询销售列表
-       $("#table").bootstrapTable({
-       url:"findSupply",
-           pagination:true,
-           pageList:[2,4,6,8],
-           pageSize:4,
-           sidePagination:'server',//分页方式：client客户端分页，server服务端分页
-           striped:true,//条纹表格
-       queryParams:function(){
-           return {
-               page:this.pageNumber,
-               rows:this.pageSize,
-               name:$("#name").val()
-           };
-       },
-       columns:[
-           {field:"name",title:"商品名称"},
-           {field:"specification",title:"规格"},
-           {field:"phone",title:"联系电话"},
-           {field:"linkman",title:"联系人"},
-           {field:"count",title:"数量"},
-           {field:"type",title:"分类"},
-           {field:"time",title:"发布时间"},
-       ]
-   })
+     function   init() {
+         $("#table").bootstrapTable({
+             url: "http://192.168.101.108:1999/findSupply",
+             pagination: true,
+             pageList: [2,4,6,8],
+             pageSize: 4,
+             sidePagination: 'server',//分页方式：client客户端分页，server服务端分页
+             striped: true,//条纹表格
+             queryParams: function () {
+                 return {
+                     page: this.pageNumber,
+                     rows: this.pageSize,
+                     name: $("#name").val(),
+                     type: $("#type").val(),
+                     count:$("#count").val()
+                 };
+             },
+             columns: [
+                 {field: "name", title: "商品名称"},
+                 {field: "specification", title: "规格"},
+                 {field: "phone", title: "联系电话"},
+                 {field: "linkman", title: "联系人"},
+                 {field: "count", title: "数量"},
+                 {field: "type", title: "分类", formatter: function (value, row, index) {
+                         return value == 1 ? "中西药品" : (value == 2 ? "医疗器械" : value == 3 ? "滋品保健" : value == 4 ? "草药专区" : "");
+                 }},
+                 {field: "time", title: "发布时间"},
+             ]
+         })
+     }
 //搜索
 function search(){
     $('#table').bootstrapTable('refresh');
+}
+//数量
+function findCount(count) {
+    $("#count").val(count);
+    $("#table").bootstrapTable("refresh");
 }
 </script>
 </html>
