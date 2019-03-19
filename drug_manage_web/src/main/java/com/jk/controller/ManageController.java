@@ -5,7 +5,7 @@ import com.jk.pojo.*;
 import com.jk.service.ManageServiceFeign;
 import com.jk.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,9 +22,6 @@ public class ManageController {
     @Autowired
     private ManageServiceFeign manageServiceFeign;
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-
     /**
      * 查看用户信息
      */
@@ -39,23 +36,8 @@ public class ManageController {
      */
     @GetMapping("findSitePage")
     @ResponseBody
-     public HashMap<String,Object> findSitePage(Integer page, Integer rows){
-        HashMap<String, Object> sitePage = new HashMap<>();
-        String cacheKey=ConstanType.DEPOSIT_CACHE_SITE;
-        Boolean hasKey = redisTemplate.hasKey(cacheKey);
-        if (hasKey) {
-            //从缓存中取出来
-            System.out.println("走缓存");
-            sitePage = (HashMap<String, Object>) redisTemplate.opsForValue().get(cacheKey);
-        } else {
-            sitePage = manageServiceFeign.findSitePage(page, rows);
-            //存入缓存
-            System.out.println("走数据库");
-            redisTemplate.opsForValue().set(cacheKey,sitePage);
-            redisTemplate.expire(cacheKey,30, TimeUnit.SECONDS);
-        }
-       // sitePage = manageServiceFeign.findSitePage(page, rows);
-        return sitePage;
+     public List<SiteBean> findSitePage(){
+        return manageServiceFeign.findSitePage();
      }
     /**
      * 修改密码
@@ -92,6 +74,8 @@ public class ManageController {
     @ResponseBody
     public void delById(Integer userId){
         manageServiceFeign.delById(userId);
+      /*  ValueOperations<String, String> vo=redisTemplate.opsForValue();
+        vo.getOperations().delete(userId.toString());*/
     }
 
     /**
@@ -123,7 +107,7 @@ public class ManageController {
     @GetMapping("findProductPage")
     @ResponseBody
     public List<ProductBean> findProductPage(ProductBean productBean){
-        System.out.println("商品 = [" + productBean.getCargoNumber() + "]");
+
         return manageServiceFeign.findProductPage(productBean);
     }
 
@@ -153,7 +137,7 @@ public class ManageController {
     @GetMapping("findProduct")
     @ResponseBody
     public ProductBean findProduct(Integer id){
-        System.out.println("ids = [" + id + "]");
+
             return manageServiceFeign.findProduct(id);
     }
     /**
@@ -201,7 +185,7 @@ public class ManageController {
     @PostMapping("saveAttract")
     @ResponseBody
     public void saveAttract(AttractBean attractBean){
-        System.out.println("attractBean = [" + attractBean + "]");
+
         manageServiceFeign.saveAttract(attractBean);
     }
     /**
@@ -218,6 +202,12 @@ public class ManageController {
         result.put("img", fileUpload);
         return result;
     }
+    @RequestMapping("findAttractPage")
+    @ResponseBody
+    public HashMap<String,Object> findAttractPage(Integer page,Integer rows,AttractBean attractBean){
+        return manageServiceFeign.findAttractPage(page,rows,attractBean);
+    }
+
     //跳转查看页面
     @GetMapping("toFindProduct")
     public String toFindProduct(){
@@ -252,5 +242,10 @@ public class ManageController {
     @GetMapping("toAddAttract")
     public String toAddAttract(){
         return "saveAttract";
+    }
+    //跳转新增页面
+    @GetMapping("toSelectAttract")
+    public String toSelectAttract(){
+        return "attractList";
     }
 }
