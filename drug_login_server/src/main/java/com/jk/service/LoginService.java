@@ -18,4 +18,10 @@ public interface LoginService {
      * @return
      */
     UserBean getUserBeanByPhone(String phone_no);
+
+    /**
+     * 新增注册用户信息
+     * @param userBean
+     */
+    void addUser(UserBean userBean);
 }

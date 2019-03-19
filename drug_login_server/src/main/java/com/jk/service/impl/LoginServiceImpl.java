@@ -36,4 +36,9 @@ public class LoginServiceImpl implements LoginService {
     public UserBean getUserBeanByPhone(String phone_no) {
         return loginMapper.getUserBeanByPhone(phone_no);
     }
+
+    @Override
+    public void addUser(UserBean userBean) {
+        loginMapper.addUser(userBean);
+    }
 }

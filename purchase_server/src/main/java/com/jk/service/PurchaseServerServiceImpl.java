@@ -1,6 +1,7 @@
 package com.jk.service;
 
 import com.jk.mapper.PurchaseMapper;
+import com.jk.pojo.Classification;
 import com.jk.pojo.PurchaseOrder;
 import com.jk.pojo.ShoppingCart;
 import com.jk.pojo.SupplierDrugs;
@@ -25,11 +26,6 @@ public class PurchaseServerServiceImpl implements PurchaseServerService{
     @Override
     public List<ShoppingCart> queryConsumption() {
         return purchaseMapper.queryConsumption();
-    }
-
-    @Override
-    public List<PurchaseOrder> queryPurchaseOrder(PurchaseOrder purchaseOrder) {
-        return purchaseMapper.queryPurchaseOrder(purchaseOrder);
     }
 
     @Override
@@ -64,6 +60,17 @@ public class PurchaseServerServiceImpl implements PurchaseServerService{
     }
 
     @Override
+    public HashMap<String, Object> queryPurchaseOrder(Integer page, Integer rows, PurchaseOrder purchaseOrder) {
+        HashMap<String, Object> map = new HashMap<>();
+        int total = purchaseMapper.queryPurchaseOrderCount(purchaseOrder); //总条数
+        int start = (page-1)*rows;             //开始条数
+        List<SupplierDrugs> list = purchaseMapper.queryPurchaseOrderPage(start,rows,purchaseOrder);
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+
+    @Override
     public HashMap<String, Object> queryShoppingCart(Integer page, Integer rows, ShoppingCart shoppingCart) {
         HashMap<String, Object> map = new HashMap<>();
         int total = purchaseMapper.queryShoppingCartCount(shoppingCart); //总条数
@@ -83,5 +90,20 @@ public class PurchaseServerServiceImpl implements PurchaseServerService{
     public void deleteOrder(Integer id) {
         purchaseMapper.deleteOrder(id);
     }
+
+    @Override
+    public List<Classification> searchBig() {
+        return purchaseMapper.searchBig();
+    }
+
+    @Override
+    public List<Classification> searchSmall(Integer id) {
+        return purchaseMapper.searchSmall(id);
+    }
+    @Override
+    public List<Classification> searchMinimum(Integer id) {
+        return purchaseMapper.searchMinimum(id);
+    }
+
 
 }

@@ -5,4 +5,9 @@
     <select id="getQuery" resultType="com.jk.pojo.UserBean">
       select * from t_userbean where account=#{account} and userPwd=#{userPwd}
 </select>
+    <!--void addUser(UserBean userBean);-->
+    <insert id="addUser">
+      insert into t_userbean(account,userName,userPwd,userPhone,state)VALUES
+      (#{account},#{userName},#{userPwd},#{userPhone},1)
+    </insert>
 </mapper>
