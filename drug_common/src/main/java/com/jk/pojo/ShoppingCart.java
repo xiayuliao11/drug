@@ -1,5 +1,7 @@
 package com.jk.pojo;
 
+import java.math.BigDecimal;
+
 public class ShoppingCart {
 
     //购物车商品id
@@ -9,11 +11,11 @@ public class ShoppingCart {
     //购物车商品规格
     private String specifications;
     //购物车商品单价
-    private double unitPrice;
+    private Integer unitPrice;
     //购物车单个商品数量
     private Integer count;
     //购物车商品小计
-    private Double subtotal;
+    private Integer subtotal;
 
 
     public Integer getId() {
@@ -40,13 +42,7 @@ public class ShoppingCart {
         this.specifications = specifications;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
-    }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
 
     public Integer getCount() {
         return count;
@@ -56,11 +52,19 @@ public class ShoppingCart {
         this.count = count;
     }
 
-    public Double getSubtotal() {
+    public Integer getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Integer unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Integer getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(Double subtotal) {
+    public void setSubtotal(Integer subtotal) {
         this.subtotal = subtotal;
     }
 
