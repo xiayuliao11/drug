@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://www.xb1y.com/index.php/Home/Agent/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>招商代理</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="./招商代理_files/common.css">
+<link rel="stylesheet" href="./招商代理_files/css.css">
+<script src="./招商代理_files/jQuery-2.2.0.min.js.下载"></script>
+<script src="./招商代理_files/layer.js.下载"></script><link rel="stylesheet" href="./招商代理_files/layer.css" id="layui_layer_skinlayercss" style="">
+<!--[if lt IE 9]>
+<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
+<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Agent/favicon.ico" media="screen">
+
+    
+<link rel="stylesheet" href="./招商代理_files/common.css">
+<link rel="stylesheet" href="./招商代理_files/navregister.css">
+
+    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Agent/favicon.ico" media="screen">
+</head>
+<body class="hold-transition skin-blue sidebar-mini" id="app">
+<div class="wrapper">
+    <header class="main-header">
+
+<style>
+.xb-rightbox{width:50px;height:655px;position: fixed;right:0;top:15%;background: #377bee;border-radius: 5px;padding:0 2.5px;box-sizing:border-box;color:#fff;text-align:center;}
+.xb-right_list{color:#fff;margin-top:50px;}
+.xb-right_list img{width:36px;}
+.xb-qq{margin:5px auto;width:20px;height:20px;border-radius:50%;background:#ff5a00;line-height:20px;font-size:12px;}
+</style>
+    <div class="content-wrapper">
+    <section class="content-header">
+        
+
+
+    </section>
+    <section class="content">
+        
+<!--招商代理导航栏目-->
+<!--招商代理导航栏目-->
+<div class="zhaoshang-nav">
+    <div class="zsdaili-navbox">
+        <a href="http://www.xb1y.com/index.php/Home/Agent/index.html" class="zsdaili-index">招商/代理</a>
+        <ul class="zsdaili-nav-list" id="menu">
+            <li><a href="http://localhost:3002/toSelectProduct" class="cur">招商信息</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Agent/agentInfo.html">代理信息</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Agent/gongying.html">供应信息</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Agent/buyerInfo.html">求购信息</a></li>
+        </ul>
+    </div>
+</div>
+<style>
+.cur{ background:#D96C00; font-weight:bold;}	
+</style>
+<script>
+
+//在公共模块下获得当前选中的菜单
+$(function(){
+	var urlstr = location.href;
+	//alert((urlstr + '/').indexOf($(this).attr('href')));
+	
+	 var urlstatus=false;
+	$("#menu a").each(function () {
+		if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+			$(this).addClass('cur'); urlstatus = true;
+		} else {
+			$(this).removeClass('cur');
+		}
+	});
+	if (!urlstatus) {$("#menu a").eq(0).addClass('cur'); } 
+})
+
+ 
+
+</script>
+
+<!--位置导航-->
+<div class="location-now">
+    <div class="location-text">
+        <img src="./招商代理_files/compang_03.png">
+        当前位置： 首页 &gt;  招商/代理
+    </div>
+</div>
+
+<div>
+<iframe src="" name="" width="99.5%" height="590"></iframe>
+</div>
+
+<script>
+    $(function(){
+        $.ajax({
+            'url':"/index.php/Home/AjaxMessage/index.html",
+            type:'get',
+            dataType:'json',
+            success:function(data){
+                if(data.status==1) {
+                    if(data.type===1){
+                    	layer.msg(data.message,{icon:1});
+                    }else{
+                    	layer.alert(data.message,{icon:2});
+                    }
+                }
+            }
+        })
+    })
+
+</script>
+
+</body></html>
