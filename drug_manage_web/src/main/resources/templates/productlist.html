@@ -30,12 +30,12 @@
             <label for="standard">规格：</label>
             <input type="text" class="form-control" id="standard" placeholder="请输入规格">&nbsp;&nbsp;&nbsp;
             <label >商品状态：</label>
-            <input type="radio" class="form-control"  name="goodsStatus">上架
-            <input type="radio" class="form-control" name="goodsStatus">下架&nbsp;&nbsp;&nbsp;
+            <input type="radio" class="form-control"  name="goodsStatus" value="1">上架
+            <input type="radio" class="form-control" name="goodsStatus" value="2">下架&nbsp;&nbsp;&nbsp;
             <label >审核状态：</label>
-            <input type="radio" class="form-control" name="auditStatus">待审核
-            <input type="radio" class="form-control" name="auditStatus">已通过
-            <input type="radio" class="form-control" name="auditStatus">未通过
+            <input type="radio" class="form-control" name="auditStatus" value="1">待审核
+            <input type="radio" class="form-control" name="auditStatus" value="2">已通过
+            <input type="radio" class="form-control" name="auditStatus" value="3">未通过
         </div>
         <button type="button" onclick="searchBtn()" class="btn btn-primary glyphicon glyphicon-search">查询</button>
     </form>
@@ -50,17 +50,20 @@
     function searchBtn(){
         $("#productTable").bootstrapTable('refresh');
 
-
     }
     $("#productTable").bootstrapTable({
         toolbar: '#toolbar',
         url: '/findProductPage',//获取数据地址
-        method: "post",
+        method: "get",
         striped: true,//条纹表格
         queryParams: function () {
             return {
-                cargoNumber:1
-                /*productName: $("#username").val()*/
+                cargoNumber:$("#cargoNo").val(),
+                productName: $("#username").val(),
+                specifications: $("#standard").val(),
+                goodsState:$(":input[name='goodsStatus']:checked").val(),
+                auditStatus:$(":input[name='auditStatus']:checked").val(),
+                approvalNumber:$("#approvalNo").val(),
             }
         },
         columns: [
