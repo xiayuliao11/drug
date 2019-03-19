@@ -112,7 +112,7 @@ public class PortController implements ManageService {
      */
     @Override
     @ResponseBody
-    public List<ProductBean> findProductPage(ProductBean productBean) {
+    public List<ProductBean> findProductPage(@RequestBody  ProductBean productBean) {
         return portsService.findProductPage(productBean);
     }
 

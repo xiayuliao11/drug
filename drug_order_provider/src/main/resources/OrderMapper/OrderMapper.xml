@@ -58,7 +58,7 @@ WHERE
 			and t.lower_time >= #{start}
 		</if>
 		<if test="end!=null and end!=''">
-			and t.lower_time &lt; #{end}
+			and t.lower_time = #{end}
 		</if>
 	</sql>
 <!--查询退款-->
@@ -107,7 +107,7 @@ FROM
     </select>
 <!--回显退货-->
 	<select id="returnById"  resultType="com.jk.pojo.GoodsReturnedBean">
-		SELECT
+SELECT
 	g.id,
 	g.order_number AS orderNumber,
 	g.procurer,
@@ -141,5 +141,22 @@ FROM
 WHERE
      t.id=#{id}
 	  </select>
+<!--查询供应-->
+	<select id="findOrderCount"   resultType="int">
+		select count(*) from t_supply
+	    <include refid="xyp"></include>
+	</select>
+	<select id="list" resultType="com.jk.pojo.SupplyBean">
+		select * from t_supply
+		<include refid="xyp"></include>
+	    limit #{start},#{rows}
+	</select>
+	<sql id="xyp">
+		<where>
+		<if test="bean.name!=null and bean.name!=''">
+			and name = #{bean.name}
+		</if>
+		</where>
+	</sql>
 </mapper>
  

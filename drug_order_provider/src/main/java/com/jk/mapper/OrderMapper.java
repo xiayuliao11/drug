@@ -28,7 +28,7 @@ public interface OrderMapper {
     List<InvoiceBean> findInvoice(InvoiceBean bean);
 
     @Select("select * from t_staff")
-    List<StaffBean> findStaff();
+    List<StaffBean> findStaff(StaffBean bean);
 
     @Update("update t_staff set status=1 where id=#{id}")
     void start(Integer id);
@@ -81,4 +81,11 @@ public interface OrderMapper {
     void updateNotice(NoticeBean bean);
 
     List<SaleBean> findStatus(@Param("saleStatus") Integer saleStatus);
+
+    List<SupplyBean> list(@Param("start") int start, @Param("rows") Integer rows,@Param("bean") SupplyBean bean);
+
+    int findOrderCount(@Param("bean") SupplyBean bean);
+
+    @Select("select * from t_supply")
+    List<SupplyBean> selectTest();
 }

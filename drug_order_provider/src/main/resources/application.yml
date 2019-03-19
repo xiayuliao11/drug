@@ -1,5 +1,5 @@
 server:
-  port: 2000
+  port: 2001
 eureka:
   client:
     serviceUrl:
@@ -9,9 +9,9 @@ spring:
     name: provider
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.101.55:3306/drug?characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/gfgd?characterEncoding=utf-8
     username: root
-    password: root
+    password:
   thymeleaf:
     encoding: UTF-8
     servlet:

@@ -1,9 +1,7 @@
 package com.jk.controller;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.jk.constant.ConstanType;
 import com.jk.pojo.*;
-import com.jk.service.ManageService;
 import com.jk.service.ManageServiceFeign;
 import com.jk.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -123,7 +120,7 @@ public class ManageController {
      * @param rows
      * @return
      */
-    @PostMapping("findProductPage")
+    @GetMapping("findProductPage")
     @ResponseBody
     public List<ProductBean> findProductPage(ProductBean productBean){
         System.out.println("商品 = [" + productBean.getCargoNumber() + "]");
@@ -213,11 +210,11 @@ public class ManageController {
      * @param request
      * @return
      */
-    @RequestMapping("shopImg")
+    @RequestMapping("uploadUserImg")
     @ResponseBody
-    public HashMap<String, String> uploadUserImg(MultipartFile img, HttpServletRequest request) {
+    public HashMap<String, String> uploadUserImg(MultipartFile merchantsImg, HttpServletRequest request) {
         HashMap<String, String> result = new HashMap<>();
-        String fileUpload = FileUtil.fileUploadBootStrap(img, request);
+        String fileUpload = FileUtil.fileUploadBootStrap(merchantsImg, request);
         result.put("img", fileUpload);
         return result;
     }

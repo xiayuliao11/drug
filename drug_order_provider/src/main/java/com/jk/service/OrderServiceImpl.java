@@ -59,8 +59,8 @@ public class OrderServiceImpl  implements OrderService {
     }
 
     @Override
-    public List<StaffBean> findStaff() {
-        return OrderMapper.findStaff();
+    public List<StaffBean> findStaff(StaffBean bean) {
+        return OrderMapper.findStaff(bean);
     }
 
     @Override
@@ -151,6 +151,22 @@ public class OrderServiceImpl  implements OrderService {
     @Override
     public List<SaleBean> findStatus(Integer saleStatus) {
         return OrderMapper.findStatus(saleStatus);
+    }
+
+    @Override
+    public HashMap<String, Object> findSupply(Integer page,Integer rows,SupplyBean  bean) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        int total = OrderMapper.findOrderCount(bean);
+        int start = (page-1)*rows;//开始条数
+        List<SupplyBean> list = OrderMapper.list(start,rows,bean);
+        hashMap.put("total", total);
+        hashMap.put("rows", list);
+        return hashMap;
+    }
+
+    @Override
+    public List<SupplyBean> selectTest() {
+        return OrderMapper.selectTest();
     }
 
 

@@ -74,8 +74,8 @@ public class OrderController implements ServiceApi {
 
     @Override
     @ResponseBody
-    public List<StaffBean> findStaff() {
-        return OrderService.findStaff();
+    public List<StaffBean> findStaff(@RequestBody StaffBean bean) {
+        return OrderService.findStaff(bean);
     }
 
     @Override
@@ -178,6 +178,18 @@ public class OrderController implements ServiceApi {
     @ResponseBody
     public NoticeBean noticeById(@RequestParam("id") Integer id) {
         return OrderService.noticeById(id);
+    }
+
+    @Override
+    @ResponseBody
+    public HashMap<String, Object> findSupply(@RequestParam("page") Integer page,@RequestParam("rows") Integer rows,@RequestBody SupplyBean bean) {
+        return OrderService.findSupply(page,rows,bean);
+    }
+
+    @Override
+    @ResponseBody
+    public List<SupplyBean> selectTest() {
+        return OrderService.selectTest();
     }
 
 

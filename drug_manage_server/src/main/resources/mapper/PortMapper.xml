@@ -25,6 +25,18 @@ limit #{start},#{rows}
             <if test="productName!=null and productName!='' ">
                 and productName =#{productName}
             </if>
+            <if test="specifications!=null and specifications!='' ">
+                and specifications =#{specifications}
+            </if>
+            <if test="approvalNumber!=null and approvalNumber!='' ">
+                and approvalNumber =#{approvalNumber}
+            </if>
+            <if test="goodsState!=null and goodsState!='' ">
+                and goodsState =#{goodsState}
+            </if>
+            <if test="auditStatus!=null and auditStatus!='' ">
+                and auditStatus =#{auditStatus}
+            </if>
         </where>
     </sql>
     <select id="findProductPage" resultType="com.jk.pojo.ProductBean">
