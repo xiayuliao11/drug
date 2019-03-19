@@ -136,4 +136,10 @@ public class LoginController {
            return "0";//检验失败
         }
     }
+    @ResponseBody
+    @RequestMapping("registerUser")
+    public String addUser(UserBean userBean){
+        loginServiceDome.addUser(userBean);
+        return "1";
+    }
 }

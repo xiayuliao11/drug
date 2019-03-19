@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 public interface LoginMapper {
     /**
      * 查询用户是否存在
-     * @param user
+     * @param 
      * @return
      */
     UserBean getQuery(@Param("account") String account,@Param("userPwd") String userPwd);
@@ -17,4 +17,10 @@ public interface LoginMapper {
 
     @Select("select * from t_userbean where userPhone=#{phone_no}")
     UserBean getUserBeanByPhone(@Param("phone_no") String phone_no);
+
+    /**
+     * 新增注册用户信息
+     * @param userBean
+     */
+    void addUser(UserBean userBean);
 }
