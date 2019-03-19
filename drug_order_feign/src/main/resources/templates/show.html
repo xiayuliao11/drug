@@ -46,12 +46,12 @@
     </li>
 </ol>
     <table id="table" class="table"></table>
-</body>
-<script>
-//查询销售列表
-   $("#table").bootstrapTable({
-       url:"findStatus",
+        </body>
+        <script>
        toolbar:'#search',
+//查询销售列表
+       $("#table").bootstrapTable({
+       url:"findStatus",
        striped:true,//条纹表格
        queryParams:function(){
            return {

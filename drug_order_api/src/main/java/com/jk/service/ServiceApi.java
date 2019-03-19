@@ -36,7 +36,7 @@ public interface ServiceApi {
     List<InvoiceBean> findInvoice(InvoiceBean bean);
 
     @GetMapping("findStaff")
-    List<StaffBean> findStaff();
+    List<StaffBean> findStaff(StaffBean bean);
 
     @PostMapping("start")
     void start(@RequestParam("id") Integer id);
@@ -82,4 +82,10 @@ public interface ServiceApi {
 
     @GetMapping("noticeById")
     NoticeBean noticeById(@RequestParam("id") Integer id);
+
+    @PostMapping("findSupply")
+    HashMap<String, Object> findSupply(@RequestParam("page") Integer page,@RequestParam("rows") Integer rows,SupplyBean bean);
+
+    @GetMapping("selectTest")
+    List<SupplyBean> selectTest();
 }
