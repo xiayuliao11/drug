@@ -34,11 +34,11 @@
 
         function twoSearch(){//左侧二级菜单
             $('.des-column-head .item').hover(function(){
-                $(this).addClass('active').find('s').show();//
+                $(this).addClass('active').find('s').hide();
                 $(this).find('.product-wrap').show();
             },function(){
                 $(this).removeClass('active').find('s').show();
-                $(this).find('.product-wrap').show();//
+                $(this).find('.product-wrap').hide();
             });
         };
         function firstMenu(){
