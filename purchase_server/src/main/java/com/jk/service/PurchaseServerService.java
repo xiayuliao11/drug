@@ -1,5 +1,6 @@
 package com.jk.service;
 
+import com.jk.pojo.Classification;
 import com.jk.pojo.PurchaseOrder;
 import com.jk.pojo.ShoppingCart;
 import com.jk.pojo.SupplierDrugs;
@@ -13,7 +14,7 @@ public interface PurchaseServerService {
 
     List<ShoppingCart> queryConsumption();
 
-    List<PurchaseOrder> queryPurchaseOrder(PurchaseOrder purchaseOrder);
+    HashMap<String, Object> queryPurchaseOrder(Integer page, Integer rows, PurchaseOrder purchaseOrder);
 
     SupplierDrugs queryToCart(Integer id);
 
@@ -30,4 +31,10 @@ public interface PurchaseServerService {
     List<PurchaseOrder> queryOrderManufacturer();
 
     void deleteOrder(Integer id);
+
+    List<Classification> searchBig();
+
+    List<Classification> searchSmall(Integer id);
+
+    List<Classification> searchMinimum(Integer id);
 }

@@ -1,5 +1,6 @@
 package com.jk.controller;
 
+import com.jk.pojo.Classification;
 import com.jk.pojo.PurchaseOrder;
 import com.jk.pojo.ShoppingCart;
 import com.jk.pojo.SupplierDrugs;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -102,6 +104,18 @@ public class PurchaseController {
     }
 
     /**
+     * 采购订单查询
+     * @param page
+     * @param rows
+     * @param purchaseOrder
+     * @return
+     */
+    @RequestMapping("queryPurchaseOrder")
+    @ResponseBody
+    public HashMap<String, Object> queryPurchaseOrder(Integer page, Integer rows,PurchaseOrder purchaseOrder){
+        return purchaseServiceWeb.queryPurchaseOrder(page,rows,purchaseOrder);
+    }
+    /**
      * 删除购物车的信息
      * @param id
      * @return
@@ -111,16 +125,6 @@ public class PurchaseController {
     public Boolean deleteOrder(Integer id){
         purchaseServiceWeb.deleteOrder(id);
         return true;
-    }
-    /**
-     * 采购订单查询
-     * @param purchaseOrder
-     * @return
-     */
-    @RequestMapping("queryPurchaseOrder")
-    @ResponseBody
-    public List<PurchaseOrder> queryPurchaseOrder(PurchaseOrder purchaseOrder){
-        return purchaseServiceWeb.queryPurchaseOrder(purchaseOrder);
     }
 
     /**
@@ -144,12 +148,15 @@ public class PurchaseController {
         purchaseServiceWeb.updateSupplierDrugs(id,boxCount);//修改商品库存
 
         //uuid
+        int randomNumber=(int)(Math.random()*(10));//产生2个0-9的随机数
+        int randomNumbers=(int)(Math.random()*(10));
         int machineId = 1;
         int hashCodeV = UUID.randomUUID().toString().hashCode();
         if(hashCodeV < 0) {
             hashCodeV = - hashCodeV;
         }
-        String str = new SimpleDateFormat("yyyyMMdd").format(new Date())+machineId + String.format("%012d", hashCodeV);
+        //18位订单号
+        String str = String.valueOf(randomNumber)+String.valueOf(randomNumbers)+new SimpleDateFormat("yyyyMMdd").format(new Date())+machineId + String.format("%012d", hashCodeV);
 
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setOrderTime(new Date());//时间
@@ -164,4 +171,29 @@ public class PurchaseController {
         return true;
     }
 
+    @RequestMapping("classification")
+    public String classification(){
+        return "classification";
+    }
+    @RequestMapping("classification2")
+    public String classification2(){
+        return "classification2";
+    }
+
+    @RequestMapping("searchBig")
+    @ResponseBody
+    public List<Classification> searchBig(){
+        return purchaseServiceWeb.searchBig();
+    }
+    @RequestMapping("searchSmall")
+    @ResponseBody
+    public List<Classification> searchSmall(Integer id){
+        return purchaseServiceWeb.searchSmall(id);
+    }
+    @RequestMapping("searchMinimum")
+    @ResponseBody
+    public List<Classification> searchMinimum(Integer id){
+        List<Classification> list = purchaseServiceWeb.searchMinimum(id);
+        return list;
+    }
 }
