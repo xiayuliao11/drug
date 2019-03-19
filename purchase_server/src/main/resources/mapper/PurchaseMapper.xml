@@ -29,7 +29,20 @@
     </select>
 
     <!--采购订单-->
-    <select id="queryPurchaseOrder" parameterType="com.jk.pojo.PurchaseOrder" resultType="com.jk.pojo.PurchaseOrder">
+    <select id="queryPurchaseOrderCount" parameterType="com.jk.pojo.PurchaseOrder" resultType="int">
+        select count(*) from purchase_order where 1=1
+        <if test="purchaseOrder.orderNumber!=null and purchaseOrder.orderNumber!=''">
+            and  order_number=#{purchaseOrder.orderNumber}
+        </if>
+        <if test="purchaseOrder.manufacturer!=null and purchaseOrder.manufacturer!=''">
+            and  manufacturer=#{purchaseOrder.manufacturer}
+        </if>
+        <if test="purchaseOrder.status!=null and purchaseOrder.status!=''">
+            and  status=#{purchaseOrder.status}
+        </if>
+    </select>
+
+    <select id="queryPurchaseOrderPage" parameterType="com.jk.pojo.PurchaseOrder" resultType="com.jk.pojo.PurchaseOrder">
         select t.*,t.order_number orderNumber,t.order_time orderTime,t.unit_price unitPrice,t.actual_payment actualPayment from purchase_order t where 1=1
         <if test="purchaseOrder.orderNumber!=null and purchaseOrder.orderNumber!=''">
             and t.order_number=#{purchaseOrder.orderNumber}
@@ -40,7 +53,9 @@
         <if test="purchaseOrder.status!=null and purchaseOrder.status!=''">
             and  t.status=#{purchaseOrder.status}
         </if>
+        limit #{start},#{rows}
     </select>
+
 
     <!--根据id查询相应的采购信息-->
     <select id="queryToCart" parameterType="int" resultType="com.jk.pojo.SupplierDrugs">

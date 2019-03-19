@@ -1,5 +1,6 @@
 package com.jk.mapper;
 
+import com.jk.pojo.Classification;
 import com.jk.pojo.PurchaseOrder;
 import com.jk.pojo.ShoppingCart;
 import com.jk.pojo.SupplierDrugs;
@@ -28,7 +29,6 @@ public interface PurchaseMapper {
 
     List<SupplierDrugs> queryShoppingCartPage(@Param("start") int start, @Param("rows") Integer rows, @Param("shoppingCart") ShoppingCart shoppingCart);
 
-    List<PurchaseOrder> queryPurchaseOrder(@Param("purchaseOrder") PurchaseOrder purchaseOrder);
 
     SupplierDrugs queryToCart(@Param("id") Integer id);
 
@@ -44,4 +44,17 @@ public interface PurchaseMapper {
 
     @Delete("delete from shopping_cart where id=#{id}")
     void deleteOrder(@Param("id") Integer id);
+
+    int queryPurchaseOrderCount(PurchaseOrder purchaseOrder);
+
+    List<SupplierDrugs> queryPurchaseOrderPage(@Param("start") int start, @Param("rows") Integer rows, @Param("purchaseOrder") PurchaseOrder purchaseOrder);
+
+    @Select("select * from t_classification where pid = 0")
+    List<Classification> searchBig();
+
+    @Select("select * from t_classification where pid = #{id}")
+    List<Classification> searchSmall(Integer id);
+
+    @Select("select * from t_classification where pid = #{id}")
+    List<Classification> searchMinimum(Integer id);
 }
