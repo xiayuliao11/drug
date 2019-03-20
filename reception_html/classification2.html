@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <!-- 引入jquery -->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <!-- 引入bootstrap的css、js -->
+    <link rel="stylesheet" href="/bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="/bootstrap3/js/bootstrap.js"></script>
+    <!-- 引入table的css、js -->
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <!-- 引入bootbox.js -->
+    <script type="text/javascript" src="/js/bootstrap-bootbox/bootbox.js"></script>
+</head>
+<body>
+        <div class="des-column">
+            <div class="des-column-list">
+                <div class="hd des-column-head">
+                        <ul id="ul">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+</body>
+    <script>
+        $(function(){
+            firstMenu();
+        })
+
+        function twoSearch(){//左侧二级菜单
+            $('.des-column-head .item').hover(function(){
+                $(this).addClass('active').find('s').hide();
+                $(this).find('.product-wrap').show();
+            },function(){
+                $(this).removeClass('active').find('s').show();
+                $(this).find('.product-wrap').hide();
+            });
+        };
+        function firstMenu(){
+            $.ajax({
+                url:"http://192.168.101.125:6001/searchBig",
+                type:"post",
+                success:function(data){
+                    var tt = ""
+                    $.each(data,function(index,obj){
+                        tt += "<li class='item'>"
+                        tt += "<button type='button' onmouseover='twoMenu("+obj.id+")' style='width: 220px;height: 50px' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+obj.name+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font>&gt;</font></button>";
+                        tt += "<ul class='product-wrap product-wrap001' style='display: none;'>"
+                        tt += "<li>"
+                        tt += "<div class='des-column-link'>"
+                        tt += "</div>"
+                        tt += "</li>"
+                        tt += "</ul>"
+                        tt += "</li>"
+                    });
+                    $("#ul").html(tt);
+                    twoSearch();
+                },
+            })
+        }
+        function twoMenu(id){
+            $.ajax({
+                url:"http://192.168.101.125:6001/searchSmall",
+                type:"post",
+                data:{id:id},
+                success:function(data){
+                    var html = "";
+                    $.each(data,function(index,obj){
+                        html += "<a>"+obj.name+"</a>";
+                    });
+                    $('.des-column-link').html(html);
+                },
+            })
+        }
+        /*function threeMenu(id){
+            $.ajax({
+                url:"/searchMinimum",
+                type:"post",
+                async:"false",
+                data:{id:id},
+                success:function(data){
+                    var html = "";
+                    $.each(data,function(index,obj){
+                        html += "<a>"+obj.name+"</a>";
+                    });
+                    $('.des-column-link').html(html);
+                },
+            })
+        }*/
+    </script>
+</html>
