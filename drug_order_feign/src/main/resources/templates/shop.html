@@ -106,8 +106,8 @@
         }).on('fileuploaded', function(event, data, previewId, index) {
             var imgval = $('#showImg').val();
             //if(imgval == null || imgval == "" || imgval == undefined){
-            imgval = "http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response.responseText;
-            $('#showImg').val(imgval);
+            imgval = "http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response;            $('#showImg').val(imgval);
+            $('#img').val(imgval);
         });
     }
 //新增

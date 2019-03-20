@@ -26,7 +26,7 @@ public interface OrderService {
 
     List<InvoiceBean> findInvoice(InvoiceBean bean);
 
-    List<StaffBean> findStaff();
+    List<StaffBean> findStaff(StaffBean bean);
 
     void start(@RequestParam("id") Integer id);
 
@@ -63,4 +63,8 @@ public interface OrderService {
     void updateNotice(NoticeBean bean);
 
     List<SaleBean> findStatus(Integer saleStatus);
+
+    HashMap<String, Object> findSupply(Integer page,Integer rows,SupplyBean bean);
+
+    List<SupplyBean> selectTest();
 }

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://www.xb1y.com/index.php/Home/Agent/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>招商代理</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="./招商代理_files/common.css">
+<link rel="stylesheet" href="./招商代理_files/css.css">
+<script src="./招商代理_files/jQuery-2.2.0.min.js.下载"></script>
+<script src="./招商代理_files/layer.js.下载"></script><link rel="stylesheet" href="./招商代理_files/layer.css" id="layui_layer_skinlayercss" style="">
+<!--[if lt IE 9]>
+<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
+<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Agent/favicon.ico" media="screen">
+
+    
+<link rel="stylesheet" href="./招商代理_files/common.css">
+<link rel="stylesheet" href="./招商代理_files/navregister.css">
+
+    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Agent/favicon.ico" media="screen">
+</head>
+<body class="hold-transition skin-blue sidebar-mini" id="app">
+  <header class="main-header">
+    <div class="logobox" style="overflow:initial;height:120px;">
+    <div class="logoimg">
+        <a href="../reception_html/slideshow.html">
+            <img src="./首页_files/index_03.png" width="303" height="125">
+        </a>
+    </div>
+   <div class="logobox-rt" style="overflow:initial">
+        <form action="http://www.xb1y.com/index.php/Home/Index/search.html" method="get">
+            <div class="search-box" style="overflow:initial">
+                <input type="text" class="ss-input" name="key" value="" placeholder="请输入关键字进行搜索">
+                <button type="submit">搜索</button>
+				<div class="input-xlbox" id="zhaode">
+					
+						
+					
+				</div>
+            </div>
+        </form>
+		<script>
+			
+			$("body").on("input propertychange",".ss-input",function(){
+				 var name=$(".ss-input").val();
+				  // alert(name);
+				   $.ajax({
+						type:'post',
+						url:"/index.php/Home/Index/see.html",
+						data:{'name':name},
+						success:function(data){
+							if(data.state=='1'){
+								var html="";
+								//console.log(data.temp)
+								for(var i=0;i<data.temp.length;i++){
+									html +="<div class='xl-list' inclick>"+data.temp[i].goods_name +"</div>";
+								}
+								
+							   $("#zhaode").html(html);
+								
+							}
+						}
+					});
+				
+			}) 
+			var text22 = '';
+			$("#zhaode").on('mouseover',"div", function(){
+				 text22 = $(this).html()
+			    //$('.ss-input').val()
+			})
+			$('.ss-input').focus(function(){
+				$('.input-xlbox').show();
+				$('.input-xlbox').css('zIndex','999');
+				$('.input-xlbox').css('opacity','1');
+			});
+			$('.ss-input').blur(function(){
+				$('.input-xlbox').css('zIndex','-1');
+				$('.input-xlbox').css('opacity','0');
+				$(this).val(text22)
+			});
+			
+		</script>
+		<style>
+		.input-xlbox{position: absolute;width:350px;top:41px;left:-1px;background:#fff;border:1px solid #ff912f;display:none;}
+		.xl-list{width:100%;padding:5px;box-sizing:border-box;}
+		.xl-list:hover{background:#f2f2f2}
+		</style>
+        <div style="float:right;">
+					
+			  <a href="#" class="drug-register">
+                <img src="./首页_files/index_06.png"> 缺药登记
+            </a>
+			
+		             <a href="#" class="myshopping">
+                <img src="./首页_files/index_08.png">
+                我的购物车
+            </a> 
+        </div> 
+    </div>
+</div>	
+ <!--导航-->
+<div class="navbar">
+    <div class="navbox">
+        <h3>药品分类</h3>
+        <ul class="navbar-list">
+            <li><a href="../reception_html/slideshow.html">首页</a></li>
+            <li><a href="../reception_html/attract.html">招商/代理</a></li>
+            <li><a href="#">上榜企业</a></li>
+            <li><a href="#">数据中心</a></li>
+            <li><a href="#">资讯平台</a></li>
+            <li><a href="#">医药会展</a></li>
+            <li><a href="#">活动专区</a></li> 
+        </ul>
+    </div>
+</div>
+</header>
+
+<style>
+.xb-rightbox{width:50px;height:655px;position: fixed;right:0;top:15%;background: #377bee;border-radius: 5px;padding:0 2.5px;box-sizing:border-box;color:#fff;text-align:center;}
+.xb-right_list{color:#fff;margin-top:50px;}
+.xb-right_list img{width:36px;}
+.xb-qq{margin:5px auto;width:20px;height:20px;border-radius:50%;background:#ff5a00;line-height:20px;font-size:12px;}
+.a4{
+height: 380px;
+width: 900px;
+background-color: #FFFFFF;
+margin-left: 30px;
+float: left;
+margin-top: 10px;
+}
+</style>
+    <div class="content-wrapper">
+    <section class="content-header">
+        
+
+
+    </section>
+    <section class="content">
+        
+<!--招商代理导航栏目-->
+<!--招商代理导航栏目-->
+<div class="zhaoshang-nav">
+    <div class="zsdaili-navbox">
+        <a href="" class="zsdaili-index">招商/代理</a>
+        <ul class="zsdaili-nav-list" id="menu">
+            <li><a href="http://192.168.101.106:3002/toSelectAttract" target="a" class="cur">招商信息</a></li>
+            <li><a href="http://192.168.101.106:3002/toSelectAttract" target="a">代理信息</a></li>
+            <li><a href="http://192.168.101.108:1999/selectSupply" target="a">供应信息</a></li>
+            <li><a href="">求购信息</a></li>
+        </ul>
+    </div>
+</div>
+<style>
+.cur{ background:#D96C00; font-weight:bold;}	
+</style>
+<script>
+
+//在公共模块下获得当前选中的菜单
+$(function(){
+	var urlstr = location.href;
+	//alert((urlstr + '/').indexOf($(this).attr('href')));
+	
+	 var urlstatus=false;
+	$("#menu a").each(function () {
+		if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+			$(this).addClass('cur'); urlstatus = true;
+		} else {
+			$(this).removeClass('cur');
+		}
+	});
+	if (!urlstatus) {$("#menu a").eq(0).addClass('cur'); } 
+})
+
+ 
+
+</script>
+
+<!--位置导航-->
+<div class="location-now">
+    <div class="location-text">
+        <img src="./招商代理_files/compang_03.png">
+        当前位置： 首页 &gt;  招商/代理
+    </div>
+</div>
+<div style="margin-left: 135px">
+<div class="a4">
+<iframe  frameborder="no" scrolling="no" MARGINWIDTH=50px src="" name="a" height="480" width="99.5%"></iframe>
+</div>
+</div>
+
+<script>
+    $(function(){
+        $.ajax({
+            'url':"/index.php/Home/AjaxMessage/index.html",
+            type:'get',
+            dataType:'json',
+            success:function(data){
+                if(data.status==1) {
+                    if(data.type===1){
+                    	layer.msg(data.message,{icon:1});
+                    }else{
+                    	layer.alert(data.message,{icon:2});
+                    }
+                }
+            }
+        })
+    })
+
+</script>
+
+</body></html>

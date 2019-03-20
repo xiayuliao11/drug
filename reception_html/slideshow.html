@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+     <title>西北医药网-更专业的医药交易服务平台</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="./首页_files/common.css">
+<link rel="stylesheet" href="./首页_files/css.css">
+<script src="./首页_files/jQuery-2.2.0.min.js.下载"></script>
+<script src="./首页_files/layer.js.下载"></script><link rel="stylesheet" href="./首页_files/layer.css" id="layui_layer_skinlayercss" style="">
+<!--[if lt IE 9]>
+<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
+<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
+
+    
+<script type="text/javascript" src="./首页_files/jquery.SuperSlide.2.1.1.js.下载"></script>
+
+    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
+</head>
+ <body>
+  <header class="main-header">
+  <div class="logobox" style="overflow:initial;height:120px;">
+    <div class="logoimg">
+        <a href="../reception_html/slideshow.html">
+            <img src="./首页_files/index_03.png" width="303" height="125">
+        </a>
+    </div>
+   <div class="logobox-rt" style="overflow:initial">
+        <form action="#" method="get">
+            <div class="search-box" style="overflow:initial">
+                <input type="text" class="ss-input" name="key" value="" placeholder="请输入关键字进行搜索">
+                <button type="submit">搜索</button>
+				<div class="input-xlbox" id="zhaode">
+					
+						
+					
+				</div>
+            </div>
+        </form>
+		<script>
+			
+			$("body").on("input propertychange",".ss-input",function(){
+				 var name=$(".ss-input").val();
+				  // alert(name);
+				   $.ajax({
+						type:'post',
+						url:"/index.php/Home/Index/see.html",
+						data:{'name':name},
+						success:function(data){
+							if(data.state=='1'){
+								var html="";
+								//console.log(data.temp)
+								for(var i=0;i<data.temp.length;i++){
+									html +="<div class='xl-list' inclick>"+data.temp[i].goods_name +"</div>";
+								}
+								
+							   $("#zhaode").html(html);
+								
+							}
+						}
+					});
+				
+			}) 
+			var text22 = '';
+			$("#zhaode").on('mouseover',"div", function(){
+				 text22 = $(this).html()
+			    //$('.ss-input').val()
+			})
+			$('.ss-input').focus(function(){
+				$('.input-xlbox').show();
+				$('.input-xlbox').css('zIndex','999');
+				$('.input-xlbox').css('opacity','1');
+			});
+			$('.ss-input').blur(function(){
+				$('.input-xlbox').css('zIndex','-1');
+				$('.input-xlbox').css('opacity','0');
+				$(this).val(text22)
+			});
+			
+		</script>
+		<style>
+		.input-xlbox{position: absolute;width:350px;top:41px;left:-1px;background:#fff;border:1px solid #ff912f;display:none;}
+		.xl-list{width:100%;padding:5px;box-sizing:border-box;}
+		.xl-list:hover{background:#f2f2f2}
+		</style>
+        <div style="float:right;">
+					
+			  <a href="#" class="drug-register">
+                <img src="./首页_files/index_06.png"> 缺药登记
+            </a>
+			
+		             <a href="#" class="myshopping">
+                <img src="./首页_files/index_08.png">
+                我的购物车
+            </a> 
+        </div> 
+    </div>
+</div>	
+ <!--导航-->
+<div class="navbar">
+    <div class="navbox">
+        <h3>药品分类</h3>
+        <ul class="navbar-list">
+            <li><a href="../reception_html/slideshow.html">首页</a></li>
+            <li><a href="../reception_html/attract.html">招商/代理</a></li>
+            <li><a href="#">上榜企业</a></li>
+            <li><a href="#">数据中心</a></li>
+            <li><a href="#">资讯平台</a></li>
+            <li><a href="#">医药会展</a></li>
+            <li><a href="#">活动专区</a></li> 
+        </ul>
+    </div>
+</div>
+</header>
+
+  <!--导航轮播图片-->
+<div class="navpic-slider">
+   
+    <div class="pic-slider">
+        <div id="slideBox" class="slideBox">
+            <div class="hd">
+                <ul>
+                	<li class="">1</li><li class="">2</li><li class="on">3</li>                </ul>
+            </div>
+            <div class="bd">
+                <ul>
+                	<li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="./首页_files/1550650371TiNctCdM.jpg"></a></li><li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="./首页_files/1550650383pPso4LjH.jpg"></a></li><li style="display: list-item; opacity: 0.980956;"><a href="javascript:void(0)" target="_blank"><img src="./首页_files/1550649774NTkn8JSN.jpg"></a></li>                </ul>
+            </div>
+
+            <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+            <a class="prev" href="javascript:void(0)"></a>
+            <a class="next" href="javascript:void(0)"></a>
+
+        </div>
+
+        <script type="text/javascript">
+            jQuery(".slideBox").slide({mainCell:".bd ul",autoPlay:true});
+        </script>
+
+    </div>
+    <div class="navpic-rt">
+         <ul class="navpicrt-top">
+             <li>
+                 <img src="./首页_files/index_14.png">
+                 <p>权威荣誉</p>
+             </li>
+             <li>
+                 <img src="./首页_files/index_16.png">
+                 <p>品牌授权</p>
+             </li>
+             <li>
+                 <img src="./首页_files/index_18.png">
+                 <p>正品保险</p>
+             </li>
+             <li>
+                 <img src="./首页_files/index_24.png">
+                 <p>药监认证</p>
+             </li>
+             <li>
+                 <img src="./首页_files/index_26.png">
+                 <p>退货无忧</p>
+             </li>
+             <li>
+                 <img src="./首页_files/index_27.png">
+                 <p>隐私包装</p>
+             </li>
+         </ul>
+        <p class="navpicrt-tel">400-0097-600</p>
+         <p class="fastshop">
+					<a href="#" style="color: #ffffff;">快速采购</a> 
+					</p>
+        <div class="navpicrt-signin">
+        	              <p>用户登录     |  注册</p>
+              <ul>
+                  <li><a href="#">登录</a></li>
+                  <li><a href="#" style="background-color:#377bee;">注册</a></li>
+              </ul>        </div>
+    </div>
+</div>
+ </body>
+</html>

@@ -148,6 +148,15 @@ public class OrderController {
     public String  selectdhReturned(){
         return  "dhReturned";
     }
+
+    /**
+     * 供应信息
+     * @return
+     */
+    @RequestMapping("selectSupply")
+    public String selectSupply(){
+        return "supply";
+    }
 ///////////////////////////////////////////////////////////////////////////////////
     /**
      * 回显详情
@@ -220,7 +229,6 @@ public class OrderController {
     public List<GoodsReturnedBean> findMoney(){
         return  orderServiceFeign.findMoney();
     }
-
     /**
      * 发票查询
      * @return
@@ -286,8 +294,8 @@ public class OrderController {
      */
     @GetMapping("findStaff")
     @ResponseBody
-    public List<StaffBean> findStaff(){
-      return orderServiceFeign.findStaff();
+    public List<StaffBean> findStaff(StaffBean bean){
+      return orderServiceFeign.findStaff(bean);
     }
     /**
      * 启用
@@ -404,7 +412,24 @@ public class OrderController {
     @ResponseBody
     public void  saveShop(ShopBean bean){
         orderServiceFeign.saveShop(bean);
+    }
 
+    /**
+     * 查询供应
+     * @param page
+     * @param rows
+     * @return
+     */
+    @GetMapping("findSupply")
+    @ResponseBody
+    public HashMap<String,Object> findSupply(@RequestParam("page") Integer page,@RequestParam("rows") Integer rows,SupplyBean bean){
+        return   orderServiceFeign.findSupply(page,rows,bean);
+    }
+
+    @GetMapping("selectTest")
+    @ResponseBody
+    public List<SupplyBean>selectTest(){
+        return orderServiceFeign.selectTest();
     }
 
 }

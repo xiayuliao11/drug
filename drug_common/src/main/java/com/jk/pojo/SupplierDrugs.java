@@ -3,6 +3,7 @@ package com.jk.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -15,7 +16,7 @@ public class SupplierDrugs {
     //生产厂家
     private String manufacturer;
     //采购价
-    private Double purchasePrice;
+    private Integer purchasePrice;
     //规格
     private String specifications;
     //有效期限
@@ -53,11 +54,11 @@ public class SupplierDrugs {
         this.manufacturer = manufacturer;
     }
 
-    public Double getPurchasePrice() {
+    public Integer getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(Double purchasePrice) {
+    public void setPurchasePrice(Integer purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 
