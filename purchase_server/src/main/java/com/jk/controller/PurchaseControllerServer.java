@@ -1,5 +1,6 @@
 package com.jk.controller;
 
+import com.jk.pojo.Classification;
 import com.jk.pojo.PurchaseOrder;
 import com.jk.pojo.ShoppingCart;
 import com.jk.pojo.SupplierDrugs;
@@ -43,8 +44,8 @@ public class PurchaseControllerServer implements PurchaseServiceApi {
 
     @Override
     @RequestMapping("queryPurchaseOrder")
-    public List<PurchaseOrder> queryPurchaseOrder(@RequestBody PurchaseOrder purchaseOrder) {
-        return purchaseServerService.queryPurchaseOrder(purchaseOrder);
+    public HashMap<String, Object> queryPurchaseOrder(Integer page, Integer rows,@RequestBody PurchaseOrder purchaseOrder) {
+        return purchaseServerService.queryPurchaseOrder(page,rows,purchaseOrder);
     }
 
 
@@ -82,6 +83,24 @@ public class PurchaseControllerServer implements PurchaseServiceApi {
     @RequestMapping("deleteOrder")
     public void deleteOrder(Integer id) {
         purchaseServerService.deleteOrder(id);
+    }
+
+    @Override
+    @RequestMapping("searchBig")
+    public List<Classification> searchBig() {
+        return purchaseServerService.searchBig();
+    }
+
+    @Override
+    @RequestMapping("searchSmall")
+    public List<Classification> searchSmall(Integer id) {
+        return purchaseServerService.searchSmall(id);
+    }
+
+    @Override
+    @RequestMapping("searchMinimum")
+    public List<Classification> searchMinimum(Integer id) {
+        return purchaseServerService.searchMinimum(id);
     }
 
 

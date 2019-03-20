@@ -3,6 +3,7 @@ package com.jk.service;
 
 import com.jk.pojo.UserBean;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,4 +27,11 @@ public interface LoginServiceApi {
      */
     @GetMapping("getUserBeanByPhone")
     UserBean getUserBeanByPhone(@RequestParam String phone_no);
+
+    /**
+     * 注册用户信息
+     * @param userBean
+     */
+    @PostMapping("addUser")
+    void addUser(UserBean userBean);
 }

@@ -40,6 +40,16 @@ public class LoginController implements LoginServiceApi {
         return userBeanByPhone;
     }
 
+    /**
+     * 新增用户信息
+     * @param userBean
+     */
+    @Override
+    @ResponseBody
+    public void addUser(@RequestBody UserBean userBean) {
+        loginService.addUser(userBean);
+    }
+
 //    //@Override
 //    @ResponseBody
 //    @GetMapping("getUser")

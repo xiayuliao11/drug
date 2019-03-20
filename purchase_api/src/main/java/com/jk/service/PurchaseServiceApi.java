@@ -1,5 +1,6 @@
 package com.jk.service;
 
+import com.jk.pojo.Classification;
 import com.jk.pojo.PurchaseOrder;
 import com.jk.pojo.ShoppingCart;
 import com.jk.pojo.SupplierDrugs;
@@ -23,7 +24,7 @@ public interface PurchaseServiceApi {
     HashMap<String, Object> queryShoppingCart(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows, ShoppingCart shoppingCart);
 
     @GetMapping("queryPurchaseOrder")
-    List<PurchaseOrder> queryPurchaseOrder(PurchaseOrder purchaseOrder);
+    HashMap<String, Object> queryPurchaseOrder(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows, PurchaseOrder purchaseOrder);
 
     @GetMapping("queryToCart")
     SupplierDrugs queryToCart(@RequestParam("id") Integer id);
@@ -42,4 +43,13 @@ public interface PurchaseServiceApi {
 
     @DeleteMapping("deleteOrder")
     void deleteOrder(@RequestParam("id") Integer id);
+
+    @GetMapping("searchBig")
+    List<Classification> searchBig();
+
+    @GetMapping("searchSmall")
+    List<Classification> searchSmall(@RequestParam("id") Integer id);
+
+    @GetMapping("searchMinimum")
+    List<Classification> searchMinimum(@RequestParam("id") Integer id);
 }

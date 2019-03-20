@@ -3,6 +3,7 @@ package com.jk.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -20,11 +21,11 @@ public class PurchaseOrder {
     //商品名称
     private String name;
     //单价
-    private double unitPrice;
+    private Integer unitPrice;
     //数量
     private Integer count;
     //实付款
-    private double actualPayment;
+    private Integer actualPayment;
     //订单状态 1：待支付 2：待发货 3：待收货 4:待评价 5：交易关闭
     private Integer status;
 
@@ -69,13 +70,6 @@ public class PurchaseOrder {
         this.name = name;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
 
     public Integer getCount() {
         return count;
@@ -85,11 +79,19 @@ public class PurchaseOrder {
         this.count = count;
     }
 
-    public double getActualPayment() {
+    public Integer getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Integer unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Integer getActualPayment() {
         return actualPayment;
     }
 
-    public void setActualPayment(double actualPayment) {
+    public void setActualPayment(Integer actualPayment) {
         this.actualPayment = actualPayment;
     }
 
