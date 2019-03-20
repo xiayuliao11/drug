@@ -7,12 +7,7 @@ eureka:
 spring:
   application:
     name: manage-feign
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    timeout: 1000000
-    max-active: 100
-    max-wait: 100000
+
 
     thymeleaf:
       encoding: UTF-8

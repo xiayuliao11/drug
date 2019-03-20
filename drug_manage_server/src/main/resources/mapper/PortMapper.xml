@@ -3,10 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jk.mapper.PortMapper">
 
-    <select id="findSiteCount" resultType="int">
-         select count(*) from t_site
-    </select>
-
     <select id="findSitePage" resultType="com.jk.pojo.SiteBean">
      SELECT
 	s.*, city. NAME cityName,
@@ -15,21 +11,20 @@ FROM
 	t_site s
 LEFT JOIN drug_area city ON s.cityid = city.id
 LEFT JOIN drug_area province ON s.provinceId = province.id
-limit #{start},#{rows}
     </select>
     <sql id="productWhere">
         <where>
             <if test="cargoNumber!=null and cargoNumber!='' ">
-                and cargoNumber =#{cargoNumber}
+                and cargoNumber like '%${cargoNumber}%'
             </if>
             <if test="productName!=null and productName!='' ">
-                and productName =#{productName}
+                and productName like '%${productName}%'
             </if>
             <if test="specifications!=null and specifications!='' ">
-                and specifications =#{specifications}
+                and specifications like '%${specifications}%'
             </if>
             <if test="approvalNumber!=null and approvalNumber!='' ">
-                and approvalNumber =#{approvalNumber}
+                and approvalNumber like '%${approvalNumber}%'
             </if>
             <if test="goodsState!=null and goodsState!='' ">
                 and goodsState =#{goodsState}
@@ -76,7 +71,7 @@ INSERT INTO drug_product (
 )
     </insert>
     <update id="updateProduct" parameterType="com.jk.pojo.ProductBean">
-      update drug_product set  adverseReaction=#{adverseReaction},approvalNumber=#{approvalNumber},attention=#{attention},auditStatus=#{auditStatus},bigQuantity=#{bigQuantity},
+      update drug_product set  adverseReaction=#{adverseReaction},approvalNumber=#{approvalNumber},attention=#{attention},bigQuantity=#{bigQuantity},
     cargoNumber=#{cargoNumber},catalogue=#{catalogue},centreQuantity=#{centreQuantity},commoditImages=#{commoditImages},commoditVideo=#{commoditVideo},commodityName=#{commodityName},
     commodityPrices=#{commodityPrices},commodityStocks=#{commodityStocks},control=#{control},detail=#{detail},drugFunction=#{drugFunction},drugInteractions=#{drugInteractions},drugNumber=#{drugNumber},
     drugTaboo=#{drugTaboo},drugToxicology=#{drugToxicology},expirationDate=#{expirationDate},healthType=#{healthType},ingredient=#{ingredient},
@@ -87,9 +82,62 @@ INSERT INTO drug_product (
     </update>
     <insert id="saveAttract" parameterType="com.jk.pojo.AttractBean">
     insert into t_attract_consult(headline,overTime,productName,specifications,approvalNumber,
-    manufacturer,drugNumber,packagesNumber,merchantsImg,bigClass,centreClass,smallClass,provinceId,cityid,trademark,healthType,details,cashDeposit,investment,catalogue)
+    manufacturer,drugNumber,packagesNumber,merchantsImg,bigClass,centreClass,smallClass,provinceId,cityid,trademark,healthType,details,cashDeposit,investment,catalogue,createTime)
     values (#{headline},#{overTime},#{productName},#{specifications},#{approvalNumber},
     #{manufacturer},#{drugNumber},#{packagesNumber},#{merchantsImg},#{bigClass},#{centreClass},#{smallClass},#{provinceId},#{cityid},#{trademark},#{healthType},#{details},
-    #{cashDeposit},#{investment},#{catalogue})
+    #{cashDeposit},#{investment},#{catalogue},#{createTime})
     </insert>
+    <select id="findAttractCount" resultType="int">
+          select count(*) from t_attract_consult a
+          <include refid="attractWhere"></include>
+    </select>
+    <sql id="attractWhere">
+        <where>
+            <if test="attractBean.productName!=null and attractBean.productName!='' ">
+                and a.productName =#{attractBean.productName}
+            </if>
+            <if test="attractBean.provinceId!=null and attractBean.provinceId!='' and attractBean.provinceId!=0 ">
+                and a.provinceId =#{attractBean.provinceId}
+            </if>
+            <if test="attractBean.bigClass!=null and attractBean.bigClass!='' and attractBean.bigClass!=0 ">
+                and a.bigClass =#{attractBean.bigClass}
+            </if>
+            <if test="attractBean.centreClass!=null and attractBean.centreClass!='' and attractBean.centreClass!=0 ">
+                and a.centreClass =#{attractBean.centreClass}
+            </if>
+            <if test="attractBean.smallClass!=null and attractBean.smallClass!='' and attractBean.smallClass!=0 ">
+                and a.mallClass =#{attractBean.smallClass}
+            </if>
+        </where>
+    </sql>
+    <select id="findAttractPage" resultType="com.jk.pojo.AttractBean">
+        SELECT
+        a.*, province. NAME provinceName,
+        city. NAME cityName
+        FROM
+        t_attract_consult a
+        LEFT JOIN drug_area province ON a.provinceId = province.id
+        LEFT JOIN drug_area city ON a.cityid = city.id
+        <include refid="attractWhere"></include>
+       <if test="attractBean.createTime==1 and attractBean.createTime!=null ">
+            Order by a.createTime
+        </if>
+        <if test="attractBean.createTime==2 and attractBean.createTime!=null ">
+            Order by a.createTime desc
+        </if>
+        <if test="attractBean.investment==1 and attractBean.investment!=null ">
+            Order by a.investment
+        </if>
+        <if test="attractBean.investment==2 and attractBean.investment!=null ">
+            Order by a.investment desc
+        </if>
+        <if test="attractBean.cashDeposit==1 and attractBean.cashDeposit!=null ">
+            Order by a.cashDeposit
+        </if>
+        <if test="attractBean.cashDeposit==2 and attractBean.cashDeposit!=null ">
+            Order by a.cashDeposit desc
+        </if>
+      limit #{start},#{rows}
+
+    </select>
 </mapper>
