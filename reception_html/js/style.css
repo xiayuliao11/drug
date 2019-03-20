@@ -1,4 +1,4 @@
-/* 公共样式表css */
+﻿/* 公共样式表css */
 html,body {
     color: #333;
     margin: 0;
@@ -194,15 +194,15 @@ a:hover {
     width: 280px;
     height: 420px;
     position: absolute;
-    top: 40px;
-    left: 0;
-    z-index: 10;
+    margin-top: 0px;
+    left: 8.5%;
+    z-index: 1;
     border-bottom: 1px #eee solid;
 }
 
 .des-column-list {
-    width: 280px;
-    height: 420px;
+    width: 230px;
+    height: 386.6px;
     background: #fff;
     float: left;
     position: relative;
@@ -239,7 +239,7 @@ a:hover {
 }
 
 .des-column-head ul {
-    width: 280px;
+    width: 230px;
     background: #fff;
     border-bottom: 1px solid #eee;
 }
@@ -259,7 +259,7 @@ a:hover {
 }
 
 .des-column-link {
-    width: 262px;
+    width: 400px;
     height: 85px;
     overflow: hidden;
     padding-bottom: 300px;
@@ -272,7 +272,8 @@ a:hover {
     display: block;
     float: left;
     color: #666;
-    min-width: 24px;
+    min-width:24px;
+	margin-left:50px;
     zoom: 1;font-size: 13px;
 }
 
@@ -297,10 +298,11 @@ a:hover {
     left: 280px;
     top: 0;
     z-index:-1;
-    height: auto;
+    height: 410px;
     border: 1px #eee solid;
     padding-bottom: 0;
     width: 280px;
+	border-width:3px;
     background: #fff;
     float: left;
 }
@@ -323,6 +325,8 @@ a:hover {
 
 .des-column-head .product-wrap001 {
     top: 0px;
+	width:500px;
+	margin-left:-48px
 }
 .des-column-head .product-wrap002 {
     top: 0px;
