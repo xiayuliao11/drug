@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 public class DrugShortage implements Serializable {
     //主键ID
-    private Integer id;
+    private String id;
     //商品名称
     private String commddtiyName;
     //生产厂家

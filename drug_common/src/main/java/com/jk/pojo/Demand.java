@@ -44,7 +44,7 @@ public class Demand {
     //信息有效期
     private Integer validity;
     //产品图片
-    private String img="空图";
+    private String imgg;
     //需求简要描述
     private String describ;
     //联系人
@@ -54,5 +54,5 @@ public class Demand {
     //联系地址
     private String site;
     //审核状态
-    private Integer state=0;
+    private Integer state;
 }
