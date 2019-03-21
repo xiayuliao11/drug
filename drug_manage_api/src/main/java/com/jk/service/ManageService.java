@@ -32,12 +32,12 @@ public interface ManageService {
 
     /**
      * 查看地址信息
-     * @param page
-     * @param rows
+     * @param
+     * @param
      * @return
      */
     @GetMapping("findSitePage")
-    HashMap<String,Object> findSitePage(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows);
+    List<SiteBean> findSitePage();
 
     /**
      * 删除地址信息
@@ -116,4 +116,7 @@ public interface ManageService {
      */
     @PostMapping("saveAttract")
     void saveAttract(@RequestBody AttractBean attractBean);
+
+    @PostMapping("findAttractPage")
+    HashMap<String,Object> findAttractPage(@RequestParam("page")Integer page,@RequestParam("rows")Integer rows,AttractBean attractBean);
 }

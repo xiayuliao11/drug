@@ -59,16 +59,13 @@ public class PortServiceImpl implements PortsService {
      * @param rows
      * @return
      */
+
     @Override
-    public HashMap<String, Object> findSitePage(Integer page, Integer rows) {
-        HashMap<String,Object> param =  new HashMap<String,Object>();
-        int total=portMapper.findSiteCount();
-        int start=(page-1)*rows;
-        List<SiteBean> list = portMapper.findSitePage(start,rows);
-        param.put("total",total);
-        param.put("rows",list);
-        return param;
+    public List<SiteBean> findSitePage() {
+        List<SiteBean> list = portMapper.findSitePage();
+        return list;
     }
+
 
     /**
      * 删除地址信息
@@ -184,5 +181,17 @@ public class PortServiceImpl implements PortsService {
     public void saveAttract(AttractBean attractBean) {
         portMapper.saveAttract(attractBean);
     }
+
+    @Override
+    public HashMap<String, Object> findAttractPage(Integer page, Integer rows, AttractBean attractBean) {
+        HashMap<String, Object> param = new HashMap<>();
+        int total = portMapper.findAttractCount(attractBean);
+        int start = (page-1)*rows;
+        List<AttractBean> list = portMapper.findAttractPage(start,rows,attractBean);
+        param.put("total",total);
+        param.put("rows",list);
+        return param;
+    }
+
 
 }

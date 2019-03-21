@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- juquery的js -->
+    <script src="/js/jquery-1.9.1.min.js"></script>
+    <!-- bootstrap布局js,css -->
+    <link rel="stylesheet" href="/bootstrap3/css/bootstrap.min.css">
+    <script src="/bootstrap3/js/bootstrap.min.js"></script>
+    <!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.min.css">
+    <script src="/js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <script src="../js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<style>
+    .search{
+        height: 50px;
+        width: 1000px;
+        background-color: #0044cc;
+        float: left;
+    }
+  .move{
+      margin-left: 600px;
+  }
+</style>
+</head>
+<body>
+<div class="search">
+    <div style="margin-top: 10px">
+        选择区域: <select name="provinceId"  id="provinceId" style="width: 130px;height: 30px;" onchange="searchBtn()">
+            <option value="0" selected >请选择类别</option>
+            <option value="1" >北京</option>
+            <option value="2" >河南</option>
+            <option value="3" >广州</option>
+        </select>
+        一级分类：<select id="bigClassify" name="bigClass" onchange="searchBtn()"></select>
+        二级分类：<select   id="centreClassify" name="centreClass" onchange="searchBtn()">
+                   <option value='0' selected>请选择类别</option>
+                  </select>
+        三级分类：<select   id="smallClassify" name="smallClass" onchange="searchBtn()">
+        <option value='0' selected>请选择类别</option>
+        </select>
+    </div>
+</div>
+<div id="toolbar">
+    <form class="form-inline">
+            <div class="form-group " >
+                排序：
+                <select name="dateSort"  id="dateSort" style="width: 130px;height: 30px;"  onChange="change_selected(this,'priceSort','numSort')">
+                    <option value="">发布日期</option>
+                    <option value="1">升序</option>
+                    <option value="2">降序</option>
+                </select>
+                <select name="priceSort"  id="priceSort" style="width: 130px;height: 30px;"  onChange="change_selected(this,'dateSort','numSort')">
+                    <option value="">商品价格</option>
+                    <option value="2">从高到低</option>
+                    <option value="1">从低到高</option>
+                </select>
+                <select name="numSort"  id="numSort" style="width: 130px;height: 30px;"  onChange="change_selected(this,'dateSort','priceSort')">
+                    <option value="">交易数量</option>
+                    <option value="1">升序</option>
+                    <option value="2">降序</option>
+                </select>
+                <div class="move">
+                <input type="text" class="form-control" width="130" height="30" id="productName" placeholder="请输入搜索关键字">
+                <button type="button" onclick="searchBtn()" class="btn btn-primary glyphicon glyphicon-search">查询</button>
+                </div>
+            </div>
+    </form>
+</div>
+<table id="attractTable"></table>
+
+</body>
+<script>
+    //排序变化提交表单
+    function change_selected(_this,str1,str2){
+        $(_this).css({'border':'2px solid red'});
+        $('#'+str1).val('');
+        $('#'+str2).val('');
+        $('#'+str1).css({'border':'1px solid gray'});
+        $('#'+str2).css({'border':'1px solid gray'});
+        searchBtn();//提交表单
+    }
+    function searchBtn(){
+        $("#attractTable").bootstrapTable('refresh');
+    }
+    $('#attractTable').bootstrapTable({
+        toolbar: '#toolbar',
+        url: '/findAttractPage',//获取数据地址
+        method: "get",
+        pagination: true, //是否展示分页
+        pageList: [1, 3, 5, 7],//分页组件
+        pageSize: 2,//默认每页条数
+        showRefresh: false,//是否显示刷新按钮
+        sidePagination: 'server',//分页方式：client客户端分页，server服务端分页
+        striped: true,//条纹表格
+        queryParams: function () {
+            return {
+                page: this.pageNumber,
+                rows: this.pageSize,
+                productName:$("#productName").val(),
+                provinceId:$("#provinceId").val(),
+                bigClass:$("#bigClassify").val(),
+                centreClass:$("#centreClassify").val(),
+                smallClass:$("#smallClassify").val(),
+                createTime:$("#dateSort").val(),
+                investment:$("#priceSort").val(),
+                cashDeposit:$("#numSort").val(),
+            }
+        },
+        columns: [
+            {field: 'id', title: '编号'},
+            {field: 'productName', title: '产品名称'},
+            {field: 'specifications', title: '规格'},
+            {field: 'manufacturer', title: '生产厂家'},
+            {field: 'provinceName', title: '区域',formatter:function(value,row,index){
+                    return value+"-"+row.cityName;
+                }},
+            {field: 'createTime', title: '发布日期'}
+
+        ]
+    })
+    $(function(){
+        initAreaSelect(0,'bigClassify');
+        initAreaSelecet(0,'provinceId');
+    })
+    $("#bigClassify").change(function(){
+        var id = $(this).val();
+        initAreaSelect(id,'centreClassify')
+        initAreaSelectQu(id,'smallClassify')
+    })
+    $("#centreClassify").change(function(){
+        var ids = $(this).val();
+        initAreaSelectQu(ids,'smallClassify')
+    })
+    function initAreaSelect(pid,obj){
+        $.ajax({
+            url:'/findDrugType',
+            type:'post',
+            data:{
+                id:pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='0' selected>请选择类别</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+                alert("错误");
+            }
+        })
+    }
+    function initAreaSelectQu(pid,obj){
+        $.ajax({
+            url:'/findDrugType',
+            type:'post',
+            data:{
+                id:pid
+            },
+            dataType:'json',
+            success:function(data){
+                var html="<option value='0' selected>请选择类别</option>";
+                for(var i=0;i<data.length; i++){
+                    html+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+                }
+                $("#"+obj).html(html);
+            },
+            error:function(){
+                alert("错误");
+            }
+        })
+    }
+
+</script>
+</html>
