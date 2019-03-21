@@ -132,17 +132,6 @@
         <div class="col-md-5"></div>
     </div>
     <div class="row myrow">
-        <div class="col-md-2">
-            <label ><font color="red">审核状态</font></label>
-        </div>
-        <div class="col-md-5">
-            <input type="radio"  name="auditStatus" value="1">待审核
-            <input type="radio"  name="auditStatus" value="2">已通过
-            <input type="radio"  name="auditStatus" value="3">未通过
-        </div>
-        <div class="col-md-5"></div>
-    </div>
-    <div class="row myrow">
         <div class="col-md-4"></div>
         <div class="col-md-5"><b>效期和库存</b></div>
         <div class="col-md-5"></div>
@@ -452,7 +441,7 @@
     }
     function initAgentiaSelect(){
         $.ajax({
-            url:'findAgentia',
+            url:'/findAgentia',
             type:'get',
             data:{},
             dataType:'json',

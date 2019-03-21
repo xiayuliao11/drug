@@ -2,6 +2,7 @@ package com.jk.service;
 
 
 import com.jk.pojo.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ public interface PortsService {
 
     void saveSite(SiteBean siteBean);
 
-    HashMap<String, Object> findSitePage(Integer page, Integer rows);
+    List<SiteBean> findSitePage();
 
     void delById(Integer userId);
 
@@ -39,4 +40,7 @@ public interface PortsService {
     List<AgentiaBean> findAgentia();
 
     void saveAttract(AttractBean attractBean);
+
+
+    HashMap<String, Object> findAttractPage(Integer page, Integer rows, AttractBean attractBean);
 }

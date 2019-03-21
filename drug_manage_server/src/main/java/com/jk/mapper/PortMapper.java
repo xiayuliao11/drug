@@ -19,7 +19,7 @@ public interface PortMapper {
 
     int findSiteCount();
 
-    List<SiteBean> findSitePage(@Param("start") int start, @Param("rows") Integer rows);
+    List<SiteBean> findSitePage();
 
     @Delete("delete from t_site where id=#{userId}")
     void delById(Integer userId);
@@ -58,4 +58,8 @@ public interface PortMapper {
     void updateProduct(ProductBean productBean);
 
     void saveAttract(AttractBean attractBean);
+
+    int findAttractCount(@Param("attractBean") AttractBean attractBean);
+
+    List<AttractBean> findAttractPage(@Param("start")Integer start, @Param("rows")Integer rows, @Param("attractBean")AttractBean attractBean);
 }

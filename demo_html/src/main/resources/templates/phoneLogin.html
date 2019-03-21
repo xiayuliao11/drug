@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	 <script  type="text/javascript" src="js/jquery-2.1.1.min.js"></script>  
+     <link rel="stylesheet" href="js/layer/theme/default/layer.css"/>
+	 <script  type="text/javascript" src="js/layer/layer.js"></script>
+  
+</head>
+<body>
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active">
+        <a href="#home" data-toggle="tab"> 手机号码登录</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <form class="navbar-form navbar-left" role="search" id="codeform">
+        <div class="form-group">
+            <table >
+                <tr>
+                    <td>
+                        <input type="text" class="form-control" placeholder="填写手机号" name="phone_no"></td>
+                    <td><button type="button" id="getRandomCode" class="btn btn-default" onclick="getRandomData()">发送验证码</button></td>
+                </tr>
+
+                <tr>
+                    <td><input  type="text" class="form-control" placeholder="填写验证码" name="verify_code"></td>
+                    <td> <button type="button" onclick="btnSubmit()" class="btn btn-default">确定</button></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function getRandomData(){
+        $.ajax({
+            url:"http://192.168.101.104:7005/login/getRandomCode",
+            data :$("form").serialize(),
+            type:"post",
+            success : function(result) {
+                if(result.code==2){
+                    layer.msg("以获取验证码,请查看手机!!!");
+                    $("#getRandomCode").prop('disabled', true);
+                }
+                if(result.code==1){
+                    setTime = setInterval("getInterval()", 1000);
+
+                    $("#getRandomCode").prop('disabled', true);
+                }
+                if(result.code==0){
+                    layer.msg("手机号在黑名单,请联系客服申诉!!!");
+                }
+            },
+            error : function() {
+
+                layer.msg("请查看控制台!!!!")
+            },
+        })
+
+    }
+    var time = 60;
+    var setTime="";
+    function getInterval() {
+
+        time--;
+        var htmlData = $("#getRandomCode").html("还剩" + time + "秒!!!");
+
+        if (time <= 0) {
+            time=45;
+
+            $("#getRandomCode").html("重新发送!!!");
+
+            clearInterval(setTime);
+        }
+    }
+    function btnSubmit(){
+
+        $.ajax({
+            url:"http://192.168.101.104:7005/login/checkCode",
+            data:$("form").serialize(),
+            success:function(result){
+                if(result==1){
+                    layer.msg("校验成功!!!!")
+                    location.href="slideshow.html"; 
+                }else{
+
+                    layer.msg("校验失败");
+                }
+            },
+            error:function(){
+
+            }
+        })
+    }
+</script>
+</body>
+</html>

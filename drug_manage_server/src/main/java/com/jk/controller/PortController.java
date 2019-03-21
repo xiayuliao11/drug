@@ -8,6 +8,7 @@ import com.jk.service.PortsService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +23,13 @@ public class PortController implements ManageService {
     @Autowired
     private PortsService portsService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
 
-
-
-
+    /**
+     * 缓存key
+     */
+    String cacheKey=ConstanType.DEPOSIT_CACHE_SITE;
     /**
      * 根据id查询用户信息
      * @param id
@@ -57,8 +61,9 @@ public class PortController implements ManageService {
      */
     @Override
     @ResponseBody
-    public void saveSite(@RequestBody SiteBean siteBean) {
-         portsService.saveSite(siteBean);
+    public void saveSite(SiteBean siteBean) {
+        redisTemplate.opsForList().leftPush(cacheKey,siteBean);
+        portsService.saveSite(siteBean);
     }
 
     /**
@@ -69,8 +74,10 @@ public class PortController implements ManageService {
      */
     @Override
     @ResponseBody
-    public HashMap<String,Object> findSitePage(@RequestParam("page") Integer page, @RequestParam("rows") Integer rows) {
-        return portsService.findSitePage(page,rows);
+    public List<SiteBean> findSitePage() {
+         //redisTemplate.opsForList().range(cacheKey, 0, -1);
+        List<SiteBean> list = portsService.findSitePage();
+        return list;
     }
     /**
      * 删除地址信息
@@ -79,7 +86,9 @@ public class PortController implements ManageService {
     @Override
     @ResponseBody
     public void delById(@RequestParam("userId") Integer userId) {
-        System.out.println("userId = [" + userId + "]");
+/*        String id = userId.toString();
+        System.out.println("userId = [" + id + "]");
+        redisTemplate.opsForList().getOperations().delete(id);*/
         portsService.delById(userId);
     }
 
@@ -197,5 +206,11 @@ public class PortController implements ManageService {
     @ResponseBody
     public void saveAttract(@RequestBody AttractBean attractBean) {
         portsService.saveAttract(attractBean);
+    }
+
+    @Override
+    @ResponseBody
+    public HashMap<String, Object> findAttractPage(Integer page, Integer rows, @RequestBody AttractBean attractBean) {
+          return portsService.findAttractPage(page,rows,attractBean);
     }
 }
