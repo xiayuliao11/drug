@@ -118,13 +118,15 @@
             data:$("#form").serialize(),
             success:function(result){
 			    var cookie_name='userName';
-				
+			    var cookID='userID';
                 if(result!=null){
-                 //   location.href="slideshow.html";   //账号密码正确
-				 var str=JSON.stringify(result)
-				 console.log(str)
+                location.href="slideshow.html";   //账号密码正确
+				 var str=JSON.stringify(result.userName)
+                    var strId=JSON.stringify(result.id)
                     $.cookie(cookie_name, str,{ expires: 7  //设置时间，如果此处留空，则浏览器关闭此cookie就失效。  
-                     }); 
+                     });
+                    $.cookie(cookID, strId,{ expires: 7  //设置时间，如果此处留空，则浏览器关闭此cookie就失效。
+                    });
 					//$.cookie("username", result.userName , { path: '/', expires: 10, domain: 'jquery.com', secure: true });
                 }else{
 
