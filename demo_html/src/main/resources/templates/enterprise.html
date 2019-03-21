@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>上榜企业</title>
+     <!-- 引入jquery -->
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<!-- 引入bootstrap的css、js -->
+	<link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
+	<script type="text/javascript"src="/js/bootstrap3/js/bootstrap.js"></script>
+		<!-- bootstraptable的js,css -->
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.min.css">
+    <script src="/js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <script src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<link rel="stylesheet" href="./首页_files/common.css">
+<link rel="stylesheet" href="./首页_files/css.css">
+<script src="./首页_files/jQuery-2.2.0.min.js.下载"></script>
+<script src="./首页_files/layer.js.下载"></script><link rel="stylesheet" href="./首页_files/layer.css" id="layui_layer_skinlayercss" style="">
+<!--[if lt IE 9]>
+<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
+<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
+
+    
+<script type="text/javascript" src="./首页_files/jquery.SuperSlide.2.1.1.js.下载"></script>
+
+    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
+ </head>
+ <style>
+.parallelogram {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid black;
+            transform: skew(-15deg);
+			margin-left: 600px;
+			margin-top: 50px;
+			background-color: #0044cc;
+        }
+	 .layout{
+	 background-color:#ffccff;
+	 }
+	 .site{
+	 margin-left: 150px;
+	 margin-top: 50px;
+	 }
+	 .case{
+	  margin-left: 150px;
+	  margin-top: 50px;
+	  padding-top: 20px;
+      height: 250px;
+      width: 500px;
+	  background-color: #ffccff;
+	  float: left;
+	  border-style: solid;
+	  border-color: #ffffff
+	 }
+	 .image{
+	  margin-left: 50px;
+	  margin-top: 20px;
+	  height: 160px;
+      width: 150px;
+	  background-color: #ffffff;
+	   float: left;
+	 }
+ 	.message{
+	height: 160px;
+    width: 150px;
+     background-color: #ffccff;
+	 margin-top: 20px;
+	 margin-left: 50px;
+     float: left;
+  	}
+
+ </style>
+ <body>
+   <header class="main-header">
+  <div class="logobox" style="overflow:initial;height:120px;">
+    <div class="logoimg">
+        <a href="../reception_html/slideshow.html">
+            <img src="./首页_files/index_03.png" width="303" height="125">
+        </a>
+    </div>
+   <div class="logobox-rt" style="overflow:initial">
+        <form action="#" method="get">
+            <div class="search-box" style="overflow:initial">
+                <input type="text" class="ss-input" name="key" value="" placeholder="请输入关键字进行搜索">
+                <button type="submit">搜索</button>
+				<div class="input-xlbox" id="zhaode">
+					
+						
+					
+				</div>
+            </div>
+        </form>
+		<script>
+			
+			$("body").on("input propertychange",".ss-input",function(){
+				 var name=$(".ss-input").val();
+				  // alert(name);
+				   $.ajax({
+						type:'post',
+						url:"/index.php/Home/Index/see.html",
+						data:{'name':name},
+						success:function(data){
+							if(data.state=='1'){
+								var html="";
+								//console.log(data.temp)
+								for(var i=0;i<data.temp.length;i++){
+									html +="<div class='xl-list' inclick>"+data.temp[i].goods_name +"</div>";
+								}
+								
+							   $("#zhaode").html(html);
+								
+							}
+						}
+					});
+				
+			}) 
+			var text22 = '';
+			$("#zhaode").on('mouseover',"div", function(){
+				 text22 = $(this).html()
+			    //$('.ss-input').val()
+			})
+			$('.ss-input').focus(function(){
+				$('.input-xlbox').show();
+				$('.input-xlbox').css('zIndex','999');
+				$('.input-xlbox').css('opacity','1');
+			});
+			$('.ss-input').blur(function(){
+				$('.input-xlbox').css('zIndex','-1');
+				$('.input-xlbox').css('opacity','0');
+				$(this).val(text22)
+			});
+			
+		</script>
+		<style>
+		.input-xlbox{position: absolute;width:350px;top:41px;left:-1px;background:#fff;border:1px solid #ff912f;display:none;}
+		.xl-list{width:100%;padding:5px;box-sizing:border-box;}
+		.xl-list:hover{background:#f2f2f2}
+		</style>
+        <div style="float:right;">
+					
+			  <a href="#" class="drug-register">
+                <img src="./首页_files/index_06.png"> 缺药登记
+            </a>
+			
+		             <a href="#" class="myshopping">
+                <img src="./首页_files/index_08.png">
+                我的购物车
+            </a> 
+        </div> 
+    </div>
+</div>	
+ <!--导航-->
+<div class="navbar">
+    <div class="navbox">
+        <h3>药品分类</h3>
+        <ul class="navbar-list">
+            <li><a href="/tovivw?name=slideshow">首页</a></li>
+            <li><a href="/tovivw?name=attract">招商/代理</a></li>
+            <li><a href="/tovivw?name=enterprise">上榜企业</a></li>
+            <li><a href="#">数据中心</a></li>
+            <li><a href="#">资讯平台</a></li>
+            <li><a href="#">医药会展</a></li>
+            <li><a href="#">活动专区</a></li> 
+        </ul>
+    </div>
+</div>
+</header>
+<div class="xb-rightbox">
+	<a href="http://www.xb1y.com/index.php/Home/Member/Member_index.html">
+		<div class="xb-right_list">
+			<img alt="" src="./首页_files/gr.png">
+			我的
+		</div>
+	</a>
+	 <a href="http://www.xb1y.com/index.php/Home/MemberBuyer/MyOrder.html">
+		<div class="xb-right_list">
+			<img alt="" src="./首页_files/dd.png">
+			订单
+		</div>
+	</a>
+	<a href="http://www.xb1y.com/index.php/Home/Goods/user_cart.html">
+		<div class="xb-right_list">
+			<img alt="" src="./首页_files/gwc.png">
+			购物车
+	
+		</div>
+	</a>
+	<a href="http://www.xb1y.com/index.php/Home/Index/index.html#">
+		<div class="xb-right_list">
+			<img alt="" src="./首页_files/tw.png">
+			帮助
+		</div>
+	</a>
+	<a href="http://www.xb1y.com/index.php/Home/Index/index.html#">
+		<div class="xb-right_list">
+			<img alt="" src="./首页_files/sc.png">
+			收藏
+		</div>
+	</a>
+</div>
+<style>
+.xb-rightbox{width:50px;height:655px;position: fixed;right:0;top:15%;background: #377bee;border-radius: 5px;padding:0 2.5px;box-sizing:border-box;color:#fff;text-align:center;}
+.xb-right_list{color:#fff;margin-top:50px;}
+.xb-right_list img{width:36px;}
+.xb-qq{margin:5px auto;width:20px;height:20px;border-radius:50%;background:#ff5a00;line-height:20px;font-size:12px;}
+</style>
+
+ <div class="layout" >
+  <div class="parallelogram">
+  <h2><font color="#ffffff">精选企业推荐</font></h2>
+  </div><br>
+     <div class="site">
+  	 <button type="button" class="btn btn-primary " style="margin-right:40px;">知名企业</button>
+	 <button type="button" class="btn btn-primary " style="margin-right:40px;">中西药品</button>
+	 <button type="button" class="btn btn-primary " style="margin-right:40px;">医疗器械</button>
+	 <button type="button" class="btn btn-primary " style="margin-right:40px;">滋补保健</button>
+	 <button type="button" class="btn btn-primary " style="margin-right:40px;">成人用品</button>	    
+	 <button type="button" class="btn btn-primary " style="margin-right:40px;">草药专区</button>
+	 <button type="button" class="btn btn-primary " style="margin-right:40px;">日常用品</button>
+	 </div>
+ <div class="case">
+		   <div class="image">
+			  <img src="E:/img/2.jpg" width="150" height="160" border="0" alt="">
+	       </div> 
+			  <div class="message">
+			        <p class="qy-title"><h2>万通药业</h2></p> <br>
+					<p class="qy-num">共<span style="color:#ff3c00">40</span>个品种</p> <br>
+				 <button type="button" class="btn btn-primary ">进入旗舰店&nbsp;&nbsp;></button>
+			  </div>
+	  </div>
+	 <div class="case">
+		   <div class="image">
+			  <img src="E:/img/2.jpg" width="150" height="160" border="0" alt="">
+	       </div> 
+			  <div class="message">
+			      <p class="qy-title"><h2>万通药业</h2></p> <br>
+					<p class="qy-num">共<span style="color:#ff3c00">40</span>个品种</p> <br>
+				 <button type="button" class="btn btn-primary ">进入旗舰店&nbsp;&nbsp;></button>
+			  </div>
+	  </div>
+	   <div class="case">
+		   <div class="image">
+			  <img src="E:/img/2.jpg" width="150" height="160" border="0" alt="">
+	       </div> 
+			  <div class="message">
+			      <p class="qy-title"><h2>万通药业</h2></p> <br>
+					<p class="qy-num">共<span style="color:#ff3c00">40</span>个品种</p> <br>
+				 <button type="button" class="btn btn-primary ">进入旗舰店&nbsp;&nbsp;></button>
+			  </div>
+	  </div>
+	   <div class="case">
+		   <div class="image">
+			  <img src="E:/img/2.jpg" width="150" height="160" border="0" alt="">
+	       </div> 
+			  <div class="message">
+			      <p class="qy-title"><h2>万通药业</h2></p> <br>
+					<p class="qy-num">共<span style="color:#ff3c00">40</span>个品种</p> <br>
+				 <button type="button" class="btn btn-primary ">进入旗舰店&nbsp;&nbsp;></button>
+			  </div>
+	  </div>
+	  <div class="case">
+		   <div class="image">
+			  <img src="E:/img/2.jpg" width="150" height="160" border="0" alt="">
+	       </div> 
+			  <div class="message">
+			      <p class="qy-title"><h2>万通药业</h2></p> <br>
+					<p class="qy-num">共<span style="color:#ff3c00">40</span>个品种</p> <br>
+				 <button type="button" class="btn btn-primary ">进入旗舰店&nbsp;&nbsp;></button>
+			  </div>
+	  </div>
+	    <div class="case">
+		   <div class="image">
+			  <img src="E:/img/2.jpg" width="150" height="160" border="0" alt="">
+	       </div> 
+			  <div class="message">
+			      <h2>万通药业</h2>
+				  <br>
+					<p class="qy-num">共<span style="color:#ff3c00">40</span>个品种</p>
+					 <br>
+				 <button type="button" class="btn btn-primary ">进入旗舰店&nbsp;&nbsp;></button>
+			  </div>
+	  </div>
+	<div class="base">
+	<center>
+	<font size="4" align="center">企业搜索</font></center>
+	<hr>
+	   <div class="row myrow">
+	    
+            选择城市：<select name="">
+				<option value="" selected>--全国--
+				<option value="">全国
+				<option value="">全国
+				<option value="">全国
+				<option value="">全国
+            </select>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			     选择分类：<select name="">
+				<option value="" selected>--中西药品--
+				<option value="">全国
+				<option value="">全国
+				<option value="">全国
+				<option value="">全国
+            </select>  <br>
+				<br>
+			当前选择：  <button type="button" id="totop" class="btn btn-default ">全国X</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			   <button type="button" id="totopTow" class="btn btn-default ">制造X</button>
+			    <br>
+				<br>
+				绵阳天源堂医药连锁有限公司..
+       </div>
+	     
+	  </div>
+  <div>
+        <!--底部内容-->
+<div class="footer-box">
+    <div class="footer-link" style="height:215px;">
+         <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">采购指南  </li>
+			
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/shrz.html">商户入驻</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/dllc.html">代理流程</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mjgmlc.html">购买流程</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px; border-bottom:1.5px solid #fff">支付方式 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/zxzf.html">在线支付</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">配送服务 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/smzt.html">上门自提</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/xsps.html">限时配送</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/psfwcx.html">配送服务查询</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">售后服务 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/thgz.html">退货规则</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/thlc.html">退货流程</a></li>
+        </ul> 
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">商家合作</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/qycg.html">企业采购</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/xs.html">销售</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/dlr.html">代理人</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">关于我们</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/lxwm.html">联系我们</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/qyjj.html">企业简介</a></li>
+        </ul>
+		<ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">帮助中心</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mmzh.html">密码找回</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mmxg.html">密码修改</a></li>
+			<li><a href="http://www.xb1y.com/index.php/Home/Index/liuyan.html">意见与反馈</a></li>
+        </ul>
+        <div class="erweima-box">
+            <img src="./首页_files/erweima_03.png">
+            <p>扫描关注，微信二维码</p>
+        </div>
+    </div>
+    <div style="padding:15px;font-size:15px;text-align: center;color:#fff">备案号；陕ICP备18007246号-1</div>
+</div>
+<div class="footer-bottom">
+    <p>Copyright ©   西北医药网版权所有</p>
+</div>
+ </body>
+ <style>
+ 
+ 	.base{
+		height: 200px;
+		width: 1150px;
+		background-color: #ffccff;
+		margin-left: 150px;
+		margin-top: 20px;
+		float: left;
+}
+ .myrow {
+        margin-top: 20px;
+		margin-left: 50px;
+		float: left;
+    }
+ </style>
+ 
+<script type="text/javascript">
+var totop = document.getElementById('totop');
+        var target = 0;
+            totop.onclick = function () {
+                clearInterval(timer);
+                var timer = setInterval(function () {
+                //随定时器达到匀速
+                    target = document.body.scrollTop -50;
+                    window.scrollTo(0, target);
+                    if (parseInt(target) < 60) {
+                        window.scroll(0, 0);
+                        clearInterval(timer);
+                    }
+                }, 10);
+            };
+			var totopTow = document.getElementById('totopTow');
+        var target = 0;
+            totopTow.onclick = function () {
+                clearInterval(timer);
+                var timer = setInterval(function () {
+                //随定时器达到匀速
+                    target = document.body.scrollTop -50;
+                    window.scrollTo(0, target);
+                    if (parseInt(target) < 60) {
+                        window.scroll(0, 0);
+                        clearInterval(timer);
+                    }
+                }, 10);
+            };
+
+</script>
+</html>

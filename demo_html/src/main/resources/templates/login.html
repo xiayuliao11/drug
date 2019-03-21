@@ -35,7 +35,7 @@
                     </div>
                     <div class="default">
                         <div class="box_01_both_1">
-                            <a href="phoneLogin.html"><font size="3px">手机号登录</font></a>
+                            <a href="/tovivw?name=phoneLogin"><font size="3px">手机号登录</font></a>
                         </div>
                     </div>
                     <input type="button" class="s_hover" value="登录" onclick="submitForm()">
@@ -120,12 +120,12 @@
 			    var cookie_name='userName';
 			    var cookID='userID';
                 if(result!=null){
-                location.href="slideshow.html";   //账号密码正确
+                location.href="/tovivw?name=slideshow";   //账号密码正确
 				 var str=JSON.stringify(result.userName)
                     var strId=JSON.stringify(result.id)
-                    $.cookie(cookie_name, str,{ expires: 7  //设置时间，如果此处留空，则浏览器关闭此cookie就失效。  
+                    $.cookie(cookie_name, str,{ expires: 7,path:'/' //设置时间，如果此处留空，则浏览器关闭此cookie就失效。
                      });
-                    $.cookie(cookID, strId,{ expires: 7  //设置时间，如果此处留空，则浏览器关闭此cookie就失效。
+                    $.cookie(cookID, strId,{ expires: 7, path:'/'//设置时间，如果此处留空，则浏览器关闭此cookie就失效。
                     });
 					//$.cookie("username", result.userName , { path: '/', expires: 10, domain: 'jquery.com', secure: true });
                 }else{

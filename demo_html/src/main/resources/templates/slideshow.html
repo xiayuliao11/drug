@@ -10,19 +10,17 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/首页_files/common.css">
     <link rel="stylesheet" href="/首页_files/css.css">
-    <script src="/首页_files/jQuery-2.2.0.min.js.下载"></script>
+    <script  type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
     <script  type="text/javascript" src="/js/jquery-cookie/jquery.cookie.js"></script>
     <script  type="text/javascript" src="/js/layer/layer.js"></script>
     <link rel="stylesheet" href="/js/layer/theme/default/layer.css" id="layui_layer_skinlayercss" style=""/>
-    <script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
-    <script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+    <!--<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>-->
+    <!--<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>-->
     <link rel="shortcut  icon" type="image/x-icon" href="#" media="screen">
        <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
     <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
 
-	<link href="/js/style.css" rel="stylesheet" type="text/css">
-    <!-- 引入jquery -->
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
+	<link href="js/style.css" rel="stylesheet" type="text/css">
     <!-- 引入bootstrap的css、js -->
     <link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
     <script type="text/javascript" src="/js/bootstrap3/js/bootstrap.js"></script>
@@ -134,9 +132,9 @@
             <div class="navbox">
                 <h3>药品分类</h3>
                 <ul class="navbar-list">
-                    <li><a href="#">首页</a></li>
-                    <li><a href="attract.html">招商/代理</a></li>
-                    <li><a href="#">上榜企业</a></li>
+                    <li><a href="/tovivw?name=slideshow">首页</a></li>
+                    <li><a href="/tovivw?name=attract">招商/代理</a></li>
+                    <li><a href="/tovivw?name=enterprise">上榜企业</a></li>
                     <li><a href="#">数据中心</a></li>
                     <li><a href="#">资讯平台</a></li>
                     <li><a href="#">医药会展</a></li>
@@ -212,20 +210,28 @@
             var cookie_name='userName';
             var name=$.cookie(cookie_name);
             var count="";
-            console.log(name)
-            if(name==null){
+            if(name!=''){
+                console.log(name)
+                count+="【";
+                count+=JSON.parse($.cookie(cookie_name));
+                count+="|<a href='#' onclick='logout()' style='color:#e57816;'>退出登录</a>";
+                count+="】";
+
+            }else{
+                console.log(1111)
                 count+="【";
                 count+="<a href='/tovivw?name=login' style='color:#e57816;'>请先登录</a>";
-                count+="|<a href='/tovivw?name=register'>注册</a>";
+                count+="|<a href='/tovivw?name=register'>免费注册</a>";
                 count+="】";
-            }else{
-                count+="【";
-                count+="+name+";
-                count+="<a href='/tovivw?name=login' style='color:#e57816;'>退出登录</a>";
-                count+="】";
-            }$("#span").append(count)
-		}
-
+            }
+            $("#span").html(count)
+		}   
+        function logout() {
+            var cookie_name='userName';
+            $.cookie(cookie_name, '');
+            $("#span").html();
+            getLoginUser();
+        }
         function twoSearch(){//左侧二级菜单
             $('.des-column-head .item').hover(function(){
                 $(this).addClass('active').find('s').hide();
@@ -265,27 +271,12 @@
                 success:function(data){
                     var html = "";
                     $.each(data,function(index,obj){
-                        html += "<a>"+obj.name+"</a>";
+                        html += "<a href='http://192.168.101.125:6001/getTypeList?typeid="+obj.id+"'>"+obj.name+"</a>";
                     });
                     $('.des-column-link').html(html);
                 },
             })
         }
-        /*function threeMenu(id){
-            $.ajax({
-                url:"/searchMinimum",
-                type:"post",
-                async:"false",
-                data:{id:id},
-                success:function(data){
-                    var html = "";
-                    $.each(data,function(index,obj){
-                        html += "<a>"+obj.name+"</a>";
-                    });
-                    $('.des-column-link').html(html);
-                },
-            })
-        }*/
     </script>
 				<!--二级菜单结束-->
 
@@ -300,7 +291,7 @@
                                     <li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="首页_files/1550650371TiNctCdM.jpg"></a></li>
                                     <li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="首页_files/1550650383pPso4LjH.jpg"></a></li>
                                     <li style="display: list-item; opacity: 0.980956;"><a href="javascript:void(0)" target="_blank">
-                                        <img src="首页_files/1550649774NTkn8JSN.jpg"></a></li>                </ul>
+                                        <img src="/首页_files/1550649774NTkn8JSN.jpg"></a></li>                </ul>
                             </div>
 
                             <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
@@ -317,27 +308,27 @@
                     <div class="navpic-rt" style="width:235px;hight:410px;margin-top:0px;margin-left:1px">
                         <ul class="navpicrt-top">
                             <li>
-                                <img src="首页_files/index_14.png">
+                                <img src="/首页_files/index_14.png">
                                 <p>权威荣誉</p>
                             </li>
                             <li>
-                                <img src="首页_files/index_16.png">
+                                <img src="/首页_files/index_16.png">
                                 <p>品牌授权</p>
                             </li>
                             <li>
-                                <img src="首页_files/index_18.png">
+                                <img src="/首页_files/index_18.png">
                                 <p>正品保险</p>
                             </li>
                             <li>
-                                <img src="首页_files/index_24.png">
+                                <img src="/首页_files/index_24.png">
                                 <p>药监认证</p>
                             </li>
                             <li>
-                                <img src="首页_files/index_26.png">
+                                <img src="/首页_files/index_26.png">
                                 <p>退货无忧</p>
                             </li>
                             <li>
-                                <img src="首页_files/index_27.png">
+                                <img src="/首页_files/index_27.png">
                                 <p>隐私包装</p>
                             </li>
                         </ul>
@@ -465,7 +456,7 @@
                                         <ul class="goods-box newGoods">
                                             <div class="shop-toplf">
                                                 <a href="http://xb1y.com/index.php/Home/Goods/goodInfo/id/183.html">
-                                                    <img src="首页_files/20150916084957170.png">
+                                                    <img src="/首页_files/20150916084957170.png">
                                                 </a>
                                             </div>
                                         </ul>
@@ -547,7 +538,7 @@
                                 for (var i = 0; i < data.length; i++) {
                                     html+='<li class="cp-list" style="position:relative">'+
                                         '<a href="http://www.xb1y.com/index.php/Home/Goods/goodInfo/id/908.html" target="_blank">'+
-                                        ' <img src="首页_files/20150916084957170.png" style="height: 100px">'+
+                                        ' <img src="/首页_files/20150916084957170.png" style="height: 100px">'+
                                         '<h3>'+data[i].name+'</h3>'+
                                         '<span style="text-indent: 10px;">规格：'+data[i].specification+'  </span>'+
                                         '<h3 class="news-index-pricestyle" style="text-indent: 0">'+
