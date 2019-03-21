@@ -10,19 +10,17 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="/首页_files/common.css">
     <link rel="stylesheet" href="/首页_files/css.css">
-    <script src="/首页_files/jQuery-2.2.0.min.js.下载"></script>
+    <script  type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
     <script  type="text/javascript" src="/js/jquery-cookie/jquery.cookie.js"></script>
     <script  type="text/javascript" src="/js/layer/layer.js"></script>
     <link rel="stylesheet" href="/js/layer/theme/default/layer.css" id="layui_layer_skinlayercss" style=""/>
-    <script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
-    <script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+    <!--<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>-->
+    <!--<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>-->
     <link rel="shortcut  icon" type="image/x-icon" href="#" media="screen">
        <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
     <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
 
-	<link href="/js/style.css" rel="stylesheet" type="text/css">
-    <!-- 引入jquery -->
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
+	<link href="js/style.css" rel="stylesheet" type="text/css">
     <!-- 引入bootstrap的css、js -->
     <link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
     <script type="text/javascript" src="/js/bootstrap3/js/bootstrap.js"></script>
@@ -135,7 +133,7 @@
                 <h3>药品分类</h3>
                 <ul class="navbar-list">
                     <li><a href="#">首页</a></li>
-                    <li><a href="attract.html">招商/代理</a></li>
+                    <li><a href="/tovivw?name=attract">招商/代理</a></li>
                     <li><a href="#">上榜企业</a></li>
                     <li><a href="#">数据中心</a></li>
                     <li><a href="#">资讯平台</a></li>
@@ -212,20 +210,28 @@
             var cookie_name='userName';
             var name=$.cookie(cookie_name);
             var count="";
-            console.log(name)
-            if(name==null){
+            if(name!=''){
+                console.log(name)
+                count+="【";
+                count+=JSON.parse($.cookie(cookie_name));
+                count+="|<a href='#' onclick='logout()' style='color:#e57816;'>退出登录</a>";
+                count+="】";
+
+            }else{
+                console.log(1111)
                 count+="【";
                 count+="<a href='/tovivw?name=login' style='color:#e57816;'>请先登录</a>";
-                count+="|<a href='/tovivw?name=register'>注册</a>";
+                count+="|<a href='/tovivw?name=register'>免费注册</a>";
                 count+="】";
-            }else{
-                count+="【";
-                count+="+name+";
-                count+="<a href='/tovivw?name=login' style='color:#e57816;'>退出登录</a>";
-                count+="】";
-            }$("#span").append(count)
-		}
-
+            }
+            $("#span").html(count)
+		}   
+        function logout() {
+            var cookie_name='userName';
+            $.cookie(cookie_name, '');
+            $("#span").html();
+            getLoginUser();
+        }
         function twoSearch(){//左侧二级菜单
             $('.des-column-head .item').hover(function(){
                 $(this).addClass('active').find('s').hide();
@@ -265,27 +271,12 @@
                 success:function(data){
                     var html = "";
                     $.each(data,function(index,obj){
-                        html += "<a>"+obj.name+"</a>";
+                        html += "<a href='http://192.168.101.125:6001/getTypeList?typeid="+obj.id+"'>"+obj.name+"</a>";
                     });
                     $('.des-column-link').html(html);
                 },
             })
         }
-        /*function threeMenu(id){
-            $.ajax({
-                url:"/searchMinimum",
-                type:"post",
-                async:"false",
-                data:{id:id},
-                success:function(data){
-                    var html = "";
-                    $.each(data,function(index,obj){
-                        html += "<a>"+obj.name+"</a>";
-                    });
-                    $('.des-column-link').html(html);
-                },
-            })
-        }*/
     </script>
 				<!--二级菜单结束-->
 
