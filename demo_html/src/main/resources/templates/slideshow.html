@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="Generator" content="EditPlus®">
@@ -8,37 +8,30 @@
     <meta name="Description" content="">
     <title>西北医药网-更专业的医药交易服务平台</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="首页_files/common.css">
-    <link rel="stylesheet" href="首页_files/css.css">
-    <script src="首页_files/jQuery-2.2.0.min.js.下载"></script>
-    <script  type="text/javascript" src="js/layer/layer.js"></script>
-    <link rel="stylesheet" href="js/layer/theme/default/layer.css" id="layui_layer_skinlayercss" style=""/>
+    <link rel="stylesheet" href="/首页_files/common.css">
+    <link rel="stylesheet" href="/首页_files/css.css">
+    <script src="/首页_files/jQuery-2.2.0.min.js.下载"></script>
+    <script  type="text/javascript" src="/js/jquery-cookie/jquery.cookie.js"></script>
+    <script  type="text/javascript" src="/js/layer/layer.js"></script>
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css" id="layui_layer_skinlayercss" style=""/>
     <script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
     <script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
     <link rel="shortcut  icon" type="image/x-icon" href="#" media="screen">
-    <script type="text/javascript" src="首页_files/jquery.SuperSlide.2.1.1.js.下载"></script>
-    <link rel="shortcut  icon" type="image/x-icon" href="#" media="screen">
-
-    <link rel="stylesheet" href="./首页_files/common.css">
-    <link rel="stylesheet" href="./首页_files/css.css">
-    <script src="./首页_files/layer.js.下载"></script><link rel="stylesheet" href="./首页_files/layer.css" id="layui_layer_skinlayercss" style="">
-    <script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
-    <script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
-    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
+       <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
     <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
 
-	<link href="js/style.css" rel="stylesheet" type="text/css">
+	<link href="/js/style.css" rel="stylesheet" type="text/css">
     <!-- 引入jquery -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
     <!-- 引入bootstrap的css、js -->
-    <link rel="stylesheet" href="js/bootstrap3/css/bootstrap.css">
-    <script type="text/javascript" src="js/bootstrap3/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="/js/bootstrap3/js/bootstrap.js"></script>
     <!-- 引入table的css、js -->
-    <link rel="stylesheet" href="js/bootstrap-table/bootstrap-table.css">
-    <script type="text/javascript" src="js/bootstrap-table/bootstrap-table.js"></script>
-    <script type="text/javascript" src="js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <!-- 引入bootbox.js -->
-    <script type="text/javascript" src="js/bootstrap-bootbox/bootbox.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-bootbox/bootbox.js"></script>
 </head>
 <body>
 <header class="main-header">
@@ -46,15 +39,8 @@
         <div class="logotop-bar">
             <div class="logotop-lf">
                 Hi,欢迎来到西北医药网
-                <span>
-                【
-				<input id="hiddenName" type="hidden">
-                <input id="hidden1" type="hidden">
-				
-				<a id="aass"><font size="4px" color="#dc143c" id="kk" th:text="${session.userBean.userName}">
-				</font></a> <a href="/removeUser"><p msg="qwew" th:text="${param.user==null?'请先登录':'退出登录'}">
-				</p></a>|
-				<a href="register.html">注册</a>】
+                <span id="span">
+
             </span>
             </div>
             <ul class="logotop-rt">
@@ -70,7 +56,7 @@
     <div class="logobox" style="overflow:initial;height:120px;">
         <div class="logoimg">
             <a href="#">
-                <img src="首页_files/index_03.png" width="303" height="125">
+                <img src="/首页_files/index_03.png" width="303" height="125">
             </a>
         </div>
         <div class="logobox-rt" style="overflow:initial">
@@ -92,7 +78,7 @@
                     // alert(name);
                     $.ajax({
                         type:'post',
-                        url:"index.php/Home/Index/see.html",
+                        url:"/index.php/Home/Index/see.html",
                         data:{'name':name},
                         success:function(data){
                             if(data.state=='1'){
@@ -134,11 +120,11 @@
             <div style="float:right;">
 
                 <a href="#" class="drug-register">
-                    <img src="首页_files/index_06.png"> 缺药登记
+                    <img src="/首页_files/index_06.png"> 缺药登记
                 </a>
 
                 <a href="#" class="myshopping">
-                    <img src="首页_files/index_08.png">
+                    <img src="/首页_files/index_08.png">
                     我的购物车
                 </a>
             </div>
@@ -161,32 +147,32 @@
         <div class="xb-rightbox">
             <a href="#">
                 <div class="xb-right_list">
-                    <img alt="" src="首页_files/gr.png">
+                    <img alt="" src="/首页_files/gr.png">
                     我的
                 </div>
             </a>
             <a href="#">
                 <div class="xb-right_list">
-                    <img alt="" src="首页_files/dd.png">
+                    <img alt="" src="/首页_files/dd.png">
                     订单
                 </div>
             </a>
             <a href="#">
                 <div class="xb-right_list">
-                    <img alt="" src="首页_files/gwc.png">
+                    <img alt="" src="/首页_files/gwc.png">
                     购物车
 
                 </div>
             </a>
             <a href="#">
                 <div class="xb-right_list">
-                    <img alt="" src="首页_files/tw.png">
+                    <img alt="" src="/首页_files/tw.png">
                     帮助
                 </div>
             </a>
             <a href="#">
                 <div class="xb-right_list">
-                    <img alt="" src="首页_files/sc.png">
+                    <img alt="" src="/首页_files/sc.png">
                     收藏
                 </div>
             </a>
@@ -223,7 +209,21 @@
 			getLoginUser();
         })
 		function getLoginUser(){
-		    
+            var cookie_name='userName';
+            var name=$.cookie(cookie_name);
+            var count="";
+            console.log(name)
+            if(name==null){
+                count+="【";
+                count+="<a href='/tovivw?name=login' style='color:#e57816;'>请先登录</a>";
+                count+="|<a href='/tovivw?name=register'>注册</a>";
+                count+="】";
+            }else{
+                count+="【";
+                count+="+name+";
+                count+="<a href='/tovivw?name=login' style='color:#e57816;'>退出登录</a>";
+                count+="】";
+            }$("#span").append(count)
 		}
 
         function twoSearch(){//左侧二级菜单
