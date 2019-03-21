@@ -1,6 +1,7 @@
 package com.jk.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.alibaba.fastjson.JSONObject;
 import com.jk.constant.ConstanType;
 import com.jk.constant.HttpClient;
 import com.jk.constant.QueryParam;
@@ -20,6 +21,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.BreakIterator;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,18 +41,24 @@ public class LoginController {
     private RedisTemplate<String,String> redisTemplate;
     @ResponseBody
     @RequestMapping(value = "getQuery",method = RequestMethod.GET)
-    public String getQuery(String account, String userPwd, HttpSession session, HttpServletResponse response, HttpServletRequest request){
+    public UserBean getQuery(String account, String userPwd, HttpSession session, HttpServletResponse response, HttpServletRequest request){
         UserBean userBean= loginServiceDome.getQuery(account,userPwd);
         if(userBean==null){
-            return "0";//账号密码为空
-        }else{
-            session.setAttribute("userBean",userBean);
-            Cookie cookie = new Cookie(ConstanType.remember_pwd,userBean.getAccount()+ConstanType.splitsperator+userBean.getUserName());
-            cookie.setMaxAge(60*60*24*7);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            return "1";
+            return null;
+        }else {
+            return userBean;
         }
+//        //　要想在cookie中存储中文，那么必须使用URLEncoder类里面的encode(String s, String enc)方法进行中文转码，例如：
+//        //　　在获取cookie中的中文数据时，再使用URLDecoder类里面的decode(String s, String enc)进行解码，例如：
+//        String jsonString = JSONObject.toJSONString(userBean);
+//        String encode = null;
+//        try {
+//            encode = URLEncoder.encode(jsonString,"UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+
+
 
     }
 
@@ -63,9 +73,8 @@ public class LoginController {
      */
     @ResponseBody
     @RequestMapping("logout")
-    public String logout(HttpSession session){
+    public void logout(HttpSession session){
            session.invalidate();
-           return "1";
     }
     /**
      * 用手机号获得code
@@ -78,6 +87,7 @@ public class LoginController {
         //根据手机获取用户
         UserBean userBeanByPhone=loginServiceDome.getUserBeanByPhone(queryParam.getPhone_no());
         session.setAttribute("userBean",userBeanByPhone);
+
         if(userBeanByPhone!=null&&userBeanByPhone.getState()==1){
             //每次都从redis中取一下当前手机号 如果有值 说明是刷新界面多次获取验证码
             Boolean aBoolean = redisTemplate.hasKey(ConstanType.multiple_code + queryParam.getPhone_no());
@@ -142,4 +152,10 @@ public class LoginController {
         loginServiceDome.addUser(userBean);
         return "1";
     }
+       @ResponseBody
+       @RequestMapping("getLoginUser")
+       public UserBean getLoginUser(HttpSession session){
+       UserBean user = (UserBean) session.getAttribute("userBean");
+       return user;
+   }
 }

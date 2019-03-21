@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-bootbox/bootbox.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
+    <script type="text/javascript" src="/js/bootstrap3/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.css">
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <link rel="stylesheet" href=/js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css>
+    <script type="text/javascript" src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/ja vascript" src="/js/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/js/bootstrap-fileinput/js/fileinput.js"></script>
+    <script src="/js/bootstrap-fileinput/js/locales/zh.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap-fileinput/css/fileinput.css">
+
+    <link rel="stylesheet" href="./资讯平台_files/navregister.css">
+    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Article/favicon.ico" media="screen">
+    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Article/favicon.ico" media="screen">
+
+    <link rel="stylesheet" href="./首页_files/common.css">
+    <link rel="stylesheet" href="./首页_files/css.css">
+</head>
+
+<body>
+<header class="main-header">
+<div class="logotop">
+<div class="logotop-bar">
+    <div class="logotop-lf">
+        Hi,欢迎来到西北医药网
+        <span>
+                【
+                <a href="http://www.xb1y.com/index.php/Home/Member/Member_login.html" style="color: #e57816;">请先登录</a>
+                |
+                <a href="http://www.xb1y.com/index.php/Home/Member/Member_register.html">注册</a>
+                                】
+        </span>
+    </div>
+    <ul class="logotop-rt">
+        <li>服务热线：400-0097-600</li>
+        <li><a href="http://www.xb1y.com/index.php/Home/MemberBuyer/MyOrder.html">我的订单 </a></li>
+        <li><a href="http://www.xb1y.com/index.php/Home/Goods/user_cart.html">我的购物车</a></li>
+        <li><a href="http://www.xb1y.com/index.php/Home/Index/index.html#">帮助中心</a></li>
+        <li><a href="http://www.xb1y.com/index.php/Home/Index/index.html#">收藏网站</a></li>
+    </ul>
+</div>
+</div>
+<!--logo栏目-->
+<div class="logobox" style="overflow:initial;height:120px;">
+    <div class="logoimg">
+        <a href="http://www.xb1y.com/index.php/Home/Index/index.html">
+            <img src="./首页_files/index_03.png" width="303" height="125">
+        </a>
+    </div>
+    <div class="logobox-rt" style="overflow:initial">
+        <form action="http://www.xb1y.com/index.php/Home/Index/search.html" method="get">
+            <div class="search-box" style="overflow:initial">
+                <input type="text" class="ss-input" name="key" value="" placeholder="请输入关键字进行搜索">
+                <button type="submit">搜索</button>
+                <div class="input-xlbox" id="zhaode">
+
+                </div>
+            </div>
+        </form>
+        <script>
+
+            $("body").on("input propertychange",".ss-input",function(){
+                var name=$(".ss-input").val();
+                // alert(name);
+                $.ajax({
+                    type:'post',
+                    url:"/index.php/Home/Index/see.html",
+                    data:{'name':name},
+                    success:function(data){
+                        if(data.state=='1'){
+                            var html="";
+                            //console.log(data.temp)
+                            for(var i=0;i<data.temp.length;i++){
+                                html +="<div class='xl-list' inclick>"+data.temp[i].goods_name +"</div>";
+                            }
+
+                            $("#zhaode").html(html);
+
+                        }
+                    }
+                });
+
+            })
+            var text22 = '';
+            $("#zhaode").on('mouseover',"div", function(){
+                text22 = $(this).html()
+                //$('.ss-input').val()
+            })
+            $('.ss-input').focus(function(){
+                $('.input-xlbox').show();
+                $('.input-xlbox').css('zIndex','999');
+                $('.input-xlbox').css('opacity','1');
+            });
+            $('.ss-input').blur(function(){
+                $('.input-xlbox').css('zIndex','-1');
+                $('.input-xlbox').css('opacity','0');
+                $(this).val(text22)
+            });
+
+        </script>
+        <style>
+            .input-xlbox{position: absolute;width:350px;top:41px;left:-1px;background:#fff;border:1px solid #ff912f;display:none;}
+            .xl-list{width:100%;padding:5px;box-sizing:border-box;}
+            .xl-list:hover{background:#f2f2f2}
+        </style>
+        <div style="float:right;">
+
+            <a href="http://www.xb1y.com/index.php/Home/MemberBuyer/MemberBuyer_lackmedicine_add.html" class="drug-register">
+                <img src="./首页_files/index_06.png"> 缺药登记
+            </a>
+
+            <a href="http://www.xb1y.com/index.php/Home/Goods/user_cart.html" class="myshopping">
+                <img src="./首页_files/index_08.png">
+                我的购物车
+            </a>
+        </div>
+    </div>
+</div>
+<!--导航-->
+<div class="navbar">
+    <div class="navbox">
+        <h3>药品分类</h3>
+        <ul class="navbar-list">
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/index.html">首页</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Agent/index.html">招商/代理</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Board/index.html">上榜企业</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Information/index.html">数据中心</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Article/index.html">资讯平台</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Drugshow/index.html">医药会展</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Activityzone/index.html">活动专区</a></li>
+        </ul>
+    </div>
+</div>
+<style>
+    .xb-rightbox{width:50px;height:655px;position: fixed;right:0;top:15%;background: #377bee;border-radius: 5px;padding:0 2.5px;box-sizing:border-box;color:#fff;text-align:center;}
+    .xb-right_list{color:#fff;margin-top:50px;}
+    .xb-right_list img{width:36px;}
+    .xb-qq{margin:5px auto;width:20px;height:20px;border-radius:50%;background:#ff5a00;line-height:20px;font-size:12px;}
+</style>
+
+<div class="content-wrapper">
+    <section class="content">
+        <!--数据中心-->
+        <div class="databig-box">
+            <!--数据栏目顶部列表-->
+            <div class="info-box">
+                <ul class="data-top-list">
+                    <li style="background-color:#28aadc;">
+                        <a href="/index.php/Home/Information/index.html">
+                            <img src="资讯平台_files/info_03.png">
+                            <p>中标数据药品库 </p>
+                        </a>
+                    </li>
+                    <li style="background-color:#219fd0;">
+                        <a href="/index.php/Home/Information/clinic.html">
+                            <img src="资讯平台_files/info_03.png">
+                            <p>药店、诊所大全 </p>
+                        </a>
+                    </li>
+                    <li style="background-color:#1b93c1;">
+                        <a href="/index.php/Home/Information/hospital.html">
+                            <img src="资讯平台_files/info_03.png">
+                            <p>医院大全</p>
+                        </a>
+                    </li>
+                    <li style="background-color:#dc7316;">
+                        <a href="/index.php/Home/Information/investment.html">
+                            <img src="资讯平台_files/info_03.png">
+                            <p>招商信息下载</p>
+                        </a>
+                    </li>
+                    <li style="background-color:#e3812b;">
+                        <a href="/index.php/Home/Information/zizhi_goods.html">
+                            <img src="资讯平台_files/info_03.png">
+                            <p>资质下载</p>
+                        </a>
+                    </li>
+
+                    <li style="background-color:#ef9545;">
+                        <a href="/index.php/Home/Information/exposition.html">
+                            <img src="资讯平台_files/info_03.png">
+                            <p>国药会展资料下载</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+<div id="toolbar">
+<form class="form-inline" style="margin-left: 10px">
+<div class="form-group">
+            <label for="name">产品名称：</label>
+            <input type="text" class="form-control" id="name" name="name" style="width: 150px">
+
+            <label for="serial">药品编号：</label>
+            <input type="text" class="form-control" id="serial" name="serial" style="width: 150px">
+
+            <label for="provider">生产企业：</label>
+            <input type="text" class="form-control" id="provider" name="provider" style="width: 150px">
+
+            <label for="jx">产品剂型：</label>
+            <input type="text" class="form-control" id="jx" name="jx" style="width: 150px">
+
+            <label for="specification">规格：</label>
+            <input type="text" class="form-control" id="specification" name="specification" style="width: 150px">
+
+            <label for="type">目录类型：</label>
+            <input type="text" class="form-control" id="type" name="type" style="width: 150px">
+</div>
+
+<div style="margin-left:600px">
+            <button type="button" class="btn btn-warning glyphicon glyphicon-search" onclick="search()">搜索</button>
+</div>
+</form>
+</div>
+         <table id="table" class="table"></table>
+</body>
+<script>
+    $("#table").bootstrapTable({
+        url: "http://192.168.101.108:1999/findData",
+        pagination: true,
+        pageList:[2,4,6,8],
+        pageSize: 4,
+        sidePagination: 'server',//分页方式：client客户端分页，server服务端分页
+        striped: true,//条纹表格
+        queryParams: function () {
+            return {
+                page: this.pageNumber,
+                rows: this.pageSize,
+                name:$("#name").val(),
+                serial:$("#serial").val(),
+                provider:$("#provider").val(),
+                jx:$("#jx").val(),
+                specification:$("#specification").val(),
+                type:$("#type").val(),
+            };
+        },
+        columns: [
+            {field: "id", title: "序列"},
+            {field: "serial", title: "药品编号"},
+            {field: "name", title: "通用名"},
+            {field: "jx", title: "剂型"},
+            {field: "feature", title: "药品特征"},
+            {field: "specification", title: "规格"},
+            {field: "count", title: "转换系数"},
+            {field: "unit", title: "包装单位"},
+            {field: "type", title: "目录类型"},
+            {field: "provider", title: "生产企业"},
+            {field: "address", title: "入围企业"},
+            {field: "price", title: "采购价"},
+            {field: "retail", title: "临时零售价"}
+
+        ]
+    })
+//搜索
+function search(){
+    $('#table').bootstrapTable('refresh');
+}
+</script>
+</html>
