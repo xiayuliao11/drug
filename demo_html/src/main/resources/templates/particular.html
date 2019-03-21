@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://www.xb1y.com/index.php/Home/Goods/goodInfo/id/1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品详情</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="./商品详情_files/common.css">
+<link rel="stylesheet" href="./商品详情_files/css.css">
+<script src="./商品详情_files/jQuery-2.2.0.min.js.下载"></script>
+<script src="./商品详情_files/layer.js.下载"></script><link rel="stylesheet" href="./商品详情_files/layer.css" id="layui_layer_skinlayercss" style="">
+<!--[if lt IE 9]>
+<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
+<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut  icon" type="image/x-icon" href="#" media="screen">
+
+    
+<link rel="stylesheet" href="./商品详情_files/common.css">
+<link rel="stylesheet" href="./商品详情_files/classification-style.css">
+<!--商品图片展示代码-->
+<link rel="stylesheet" href="./商品详情_files/smoothproducts.css">
+<link rel="stylesheet" href="./商品详情_files/comment.css">
+<script src="./商品详情_files/jquery.min.js.下载"></script>
+<script src="./商品详情_files/jquery.zclip.min.js.下载"></script>
+
+<script type="text/javascript">
+
+</script>
+<!--分享 -->
+    <link rel="stylesheet" href="./商品详情_files/share.css">
+<style>
+
+                            .kehupingjia-box{
+                                width: 95%;
+                                overflow: hidden;
+                                border-top: 1px solid #f7f7f7;
+                                border-bottom: 1px solid #f7f7f7;
+                                margin:10px auto;
+                            }
+                            .kehupingjia-boxlf{
+                                width: 80%;
+                                float: left;
+                            }
+                            .kehupingjai-boxrt{
+                                width: 20%;
+                                float: left;
+                            }
+                            .khpj-toptext{
+                                width: 100%;
+                                overflow: hidden;
+                            }
+                            .khpj-text-tit{
+                                width: 100%;
+                                color: #666;
+                            }
+                            .khpj-imglist{
+                                width: 100%;
+                                overflow: hidden;
+                                border-bottom: none!important;
+                            }
+                            .khpj-imglist li{
+                                float: left;
+                                margin: 10px;
+                                border: 1px solid #f7f7f7;
+                                background-color: #dbdbdb;
+                                width: 50px!important;
+                                height: 50px!important;
+                            }
+                            .khpj-imglist li img{
+                                width: 48px;
+                                height: 48px;
+                            }
+                            .data-khpj-riqi{
+                                width: 100%;
+                                line-height: 36px;
+                                color: #999;
+                            }
+                            .kehupingjai-boxrt p{
+                                line-height: 36px;
+                                color: #666;
+                                text-align: center;
+                                background-color: #f7f7f7;
+                                margin-top: 20px;
+                            }
+							
+							.pagination .active{
+							  background:green;
+							 
+							}
+						   .pagination .active a{
+							 
+							  color:#fff;
+							}
+							.pagination .paginate_button{
+							  width:60px;
+							  height:30px;
+							}
+							.pagination .paginate_button a{
+							  width:60px;
+							  height:30px;
+							  line-height:33px;
+							  text-align:center;
+							}
+
+</style>
+	<script>
+        $(document).ready(function(){
+//获得文本框对象
+            var t = $("#text_box");
+//初始化数量为1,并失效减
+            $('#min').attr('disabled',true);
+			 var h="1000";
+			
+            //数量增加操作
+            $("#add").click(function(){
+			   if(t.val()==''){
+                	t.val(1);
+                	return false;
+                }
+				
+				if(t.val() == h){
+					 $('#add').attr('disabled',true);
+                    return false;
+				}
+				 t.val(parseInt(t.val())+1);	   
+					 
+				
+				
+            })
+            //数量减少操作
+            $("#min").click(function(){
+            	if(t.val()==''){
+                	t.val(1);
+                	return false;
+                }
+                if (t.val()==1){
+                    $('#min').attr('disabled',true);
+                    return false;
+                }
+                t.val(parseInt(t.val())-1);
+            })
+
+        });
+    </script>
+
+    <link rel="shortcut  icon" type="image/x-icon" href="#" media="screen">
+<script src="./商品详情_files/share.js.下载"></script><link rel="stylesheet" href="./商品详情_files/share_style1_32.css"></head>
+<body class="hold-transition skin-blue sidebar-mini" id="app" style="">
+<div class="wrapper">
+    <header class="main-header">
+<div class="logotop">
+    <div class="logotop-bar">
+        <div class="logotop-lf">
+            Hi,欢迎来到西北医药网
+            <span>
+                【
+                <a href="" style="color: #e57816;">请先登录</a>
+                |
+                <a href="">注册</a>
+                                】
+            </span>
+        </div>
+        <ul class="logotop-rt">
+            <li>服务热线：400-0097-600</li>
+            <li><a href="#">我的订单 </a></li>
+            <li><a href="#">我的购物车</a></li> 
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">收藏网站</a></li>
+        </ul>
+    </div>
+</div>
+<!--logo栏目-->
+<div class="logobox" style="overflow:initial;height:120px;">
+    <div class="logoimg">
+        <a href="#">
+            <img src="./商品详情_files/index_03.png" width="303" height="125">
+        </a>
+    </div>
+    <div class="logobox-rt" style="overflow:initial">
+        <form action="#" method="get">
+            <div class="search-box" style="overflow:initial">
+                <input type="text" class="ss-input" name="key" value="" placeholder="请输入关键字进行搜索">
+                <button type="submit">搜索</button>
+				<div class="input-xlbox" id="zhaode">
+					
+						
+					
+				</div>
+            </div>
+        </form>
+		<script>
+			
+			$("body").on("input propertychange",".ss-input",function(){
+				 var name=$(".ss-input").val();
+				  // alert(name);
+				   $.ajax({
+						type:'post',
+						url:"/index.php/Home/Index/see.html",
+						data:{'name':name},
+						success:function(data){
+							if(data.state=='1'){
+								var html="";
+								//console.log(data.temp)
+								for(var i=0;i<data.temp.length;i++){
+									html +="<div class='xl-list' inclick>"+data.temp[i].goods_name +"</div>";
+								}
+								
+							   $("#zhaode").html(html);
+								
+							}
+						}
+					});
+				
+			}) 
+			var text22 = '';
+			$("#zhaode").on('mouseover',"div", function(){
+				 text22 = $(this).html()
+			    //$('.ss-input').val()
+			})
+			$('.ss-input').focus(function(){
+				$('.input-xlbox').show();
+				$('.input-xlbox').css('zIndex','999');
+				$('.input-xlbox').css('opacity','1');
+			});
+			$('.ss-input').blur(function(){
+				$('.input-xlbox').css('zIndex','-1');
+				$('.input-xlbox').css('opacity','0');
+				$(this).val(text22)
+			});
+			
+		</script>
+		<style>
+		.input-xlbox{position: absolute;width:350px;top:41px;left:-1px;background:#fff;border:1px solid #ff912f;display:none;}
+		.xl-list{width:100%;padding:5px;box-sizing:border-box;}
+		.xl-list:hover{background:#f2f2f2}
+		</style>
+        <div style="float:right;">
+					
+			  <a href="#" class="drug-register">
+                <img src="./商品详情_files/index_06.png"> 缺药登记
+            </a>
+			
+		             <a href="#" class="myshopping">
+                <img src="./商品详情_files/index_08.png">
+                我的购物车
+            </a> 
+        </div> 
+    </div>
+</div>
+<!--导航-->
+<div class="navbar">
+    <div class="navbox">
+        <h3>药品分类</h3>
+        <ul class="navbar-list">
+            <li><a href="slideshow.html">首页</a></li>
+            <li><a href="attract.html">招商/代理</a></li>
+            <li><a href="#">上榜企业</a></li>
+            <li><a href="#">数据中心</a></li>
+            <li><a href="#">资讯平台</a></li>
+            <li><a href="#">医药会展</a></li>
+            <li><a href="activityArea.html">活动专区</a></li> 
+        </ul>
+    </div>
+</div>
+</header>
+<div class="xb-rightbox">
+	<a href="#">
+		<div class="xb-right_list">
+			<img alt="" src="./商品详情_files/gr.png">
+			我的
+		</div>
+	</a>
+	 <a href="#">
+		<div class="xb-right_list">
+			<img alt="" src="./商品详情_files/dd.png">
+			订单
+		</div>
+	</a>
+	<a href="#">
+		<div class="xb-right_list">
+			<img alt="" src="./商品详情_files/gwc.png">
+			购物车
+	
+		</div>
+	</a>
+	<a href="#">
+		<div class="xb-right_list">
+			<img alt="" src="./商品详情_files/tw.png">
+			帮助
+		</div>
+	</a>
+	<a href="#">
+		<div class="xb-right_list">
+			<img alt="" src="./商品详情_files/sc.png">
+			收藏
+		</div>
+	</a>
+</div>
+<style>
+.xb-rightbox{width:50px;height:655px;position: fixed;right:0;top:15%;background: #377bee;border-radius: 5px;padding:0 2.5px;box-sizing:border-box;color:#fff;text-align:center;}
+.xb-right_list{color:#fff;margin-top:50px;}
+.xb-right_list img{width:36px;}
+.xb-qq{margin:5px auto;width:20px;height:20px;border-radius:50%;background:#ff5a00;line-height:20px;font-size:12px;}
+</style>
+    <div class="content-wrapper">
+    <section class="content-header">
+        
+
+    </section>
+    <section class="content">
+        
+<div class="location-now">
+    <div class="location-text">
+        <img src="./商品详情_files/pro-info_03.png">
+        当前位置：首页 &gt;中西药品&gt;泌尿科用药&gt;肾结石用药&gt;龙都 肾石通颗粒    </div>
+</div>
+<!--商品详情-->
+<div class="pro-infobigbox">
+    <!--左边的内容-->
+    <div class="pro-infobox">
+        <!--商品图片内容-->
+        <div class="pro-info-top">
+            <!--左边的图片展示-->
+            <div class="proinfotop-img">
+                <div class="page-imgpro">
+                    <div class="sp-wrap" style="display: inline-block;">
+						<div class="sp-large">
+							<a href="#" class=""><img src="./商品详情_files/1484129241Rnv1yyR0.jpg" alt="齐鲁天和惠世卡马西平片">
+							</a>
+						</div>
+					</div>
+                    
+                </div>
+            </div>
+            <!--右边的内容展示-->
+            <div class="proinfotop-rt">
+                <div class="proinfo-rttop">
+                    <h2>齐鲁天和惠世卡马西平片                    	<img src="./商品详情_files/otc01.png" style="height:26px;">
+                    	                    	<img src="./商品详情_files/zdj01.png" style="height:26px;">                    	                    	<img src="./商品详情_files/zdj03.png" style="height:26px;">                    </h2>
+                    <p>清热利湿，活血止痛，化石，排石用于肾结石，肾孟结石，膀胱结石，输尿管结石                    	<span style="color:green;font-size:16px;"><b>限时秒杀</b></span>
+                    	                    </p>
+                </div>
+                <div class="proinfotop-price">
+                    <dl>
+                        <dt>优惠价格：</dt>
+						                          <dd>认证后可见</dd>                    </dl>
+                    <dl>
+                        <dt>市场价：</dt>
+                                                <dd style="color: #666;text-decoration: line-through">认证后可见</dd>                    </dl>
+                    <p class="procuxiaoiinfo">现在购买将在7天后送达</p>
+                </div>
+                <div class="proinfo-xq">
+
+                    <!--<dl>
+                        <dt>生产批号：  </dt>
+                        <dd>201611123456</dd>
+                    </dl>-->
+                    <dl>
+                        <dt>生产日期：  </dt>
+                        <dd>1970-01-01  </dd>
+                    </dl>
+					<dl>
+                        <dt>有效期:</dt>
+                        <dd>1970-01-01 </dd>
+                    </dl>
+                    <dl>
+                        <dt>批准文号：  </dt>
+                        <dd>国药准字Z41022409</dd>
+                    </dl>
+
+                    <dl>
+                        <dt>数量：   </dt>
+                        <dd>
+                            <div class="proinfobox-numadd">
+                                <a href="javascript:void(0);" id="min" disabled="disabled">-</a>
+                                <input id="text_box" type="text" value="1">
+                                <a href="javascript:void(0);" id="add">+</a>
+                            </div>
+                            <span id="kucun" style="float: left;padding-left: 20px;color: #666;">库存：1000件</span>
+                        </dd>
+                    </dl>
+                    <p class="little-notice">
+                       	 小提示：收货时确认药检报告和随货通行单。
+                    </p>
+                    <p class="procuxiaoiinfo">活动已取消或已结束</p>                    <div class="proiinfo-btnbox">
+					<a href="#">查看原商品</a>                    
+				   </div>
+
+                </div>
+
+            </div>
+        </div>
+        <form id="frm" action="#" method="post">
+        	<input type="hidden" name="goods_id[]" value="1">
+        	<input type="hidden" id="form_goods_num" name="goods_num[]" value="">
+        </form>
+        <!--tab切换内容-->
+        <div class="proinfo-toptextab" id="proinfo-toptextab">
+            <script type="text/javascript">
+
+                $(document).ready(function() {
+
+                //Default Action
+                $(".tab_content").hide(); //Hide all content
+                $("ul.tabs li:first").addClass("active").show(); //Activate first tab
+                $(".tab_content:first").show(); //Show first tab content
+
+                //On Click Event
+        $("ul.tabs li").click(function() {
+                    $("ul.tabs li").removeClass("active"); //Remove any "active" class
+                $(this).addClass("active"); //Add "active" class to selected tab
+                $(".tab_content").hide(); //Hide all tab content
+                var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+                $(activeTab).fadeIn(); //Fade in the active content
+                return false;
+                });
+
+                });
+            </script>
+
+            <div class="proinfo-tabtit">
+                <ul class="tabs">
+                    <li class="active"><a href="#tab1">商品详情</a></li>
+                    <li><a href="#tab2">规格参数</a></li>
+                    <li><a href="#tab3">产品说明书</a> </li>
+                    <li><a href="#tab4">客户评价</a></li>
+                    <li><a href="#tab5">医药资质</a> </li>
+				</ul>
+                <style>
+                    .pro-boxcontent-info{
+                        width: 95%;
+                        margin: 10px auto;
+                        border-top: 1px solid #f7f7f7;
+                        overflow: hidden;
+                        border-bottom: 1px solid #f7f7f7;
+                    }
+                    .pro-boxcontent-info img{
+                        width: 90%;
+                        margin: 0 auto;
+                    }
+
+                    .pro-boxcont-infolf{
+                        width: 20%;
+                        float: left;
+                        background-color: #ffaa5e;
+                        text-align: center;
+                        color: #FFFFFF;
+                    }
+                    .pro-boxcont-infort{
+                        width: 78%;
+                        float: left;
+                        padding-left: 2%;
+                        background-color: #fff;
+                    }
+                </style>
+                <div class="tab_container">
+                    <div id="tab1" class="tab_content" style="display: block; padding-left: 3px;">
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>主要成分</b></h3>
+                            <p class="pro-boxcont-infort">金钱草、王不留行、萹蓄、延胡索、鸡内金（烫）、丹参、木香、瞿麦、牛膝、海金沙</p>
+                        </div>
+
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>性状</b></h3>
+                            <p class="pro-boxcont-infort">本品为棕褐色的颗粒；味甜、微涩</p>
+                        </div>
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>主治功能</b></h3>
+                            <p class="pro-boxcont-infort">清热利湿，活血止痛，化石，排石用于肾结石，肾孟结石，膀胱结石，输尿管结石</p>
+                        </div>
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>不良反应</b></h3>
+                            <p class="pro-boxcont-infort">尚不明确</p>
+                        </div>
+                       <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>禁忌</b></h3>
+                            <p class="pro-boxcont-infort">尚不明确</p>
+                       </div>
+                        <div class="pro-boxcontent-info">
+                            <img src="./商品详情_files/1484129241Rnv1yyR0.jpg" alt="齐鲁天和惠世卡马西平片">                        </div>
+                    </div>
+                    
+                    <div id="tab2" class="tab_content" style="display: none; ">
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>规格参数</b></h3>
+                            <p class="pro-boxcont-infort">15g*10袋/盒</p>
+                        </div>
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>产品编号</b></h3>
+                            <p class="pro-boxcont-infort">A7100013</p>
+                        </div>
+                       <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>拼音</b></h3>
+                            <p class="pro-boxcont-infort">Shenshitong Keli</p>
+                       </div>
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>执行标准</b></h3>
+                            <p class="pro-boxcont-infort">暂无</p>
+                        </div>
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>批准文号</b></h3>
+                            <p class="pro-boxcont-infort">国药准字Z41022409</p>
+                        </div>
+                    </div>
+
+                    <div id="tab3" class="tab_content" style="display:none; ">
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>注意事项</b></h3>
+                            <p class="pro-boxcont-infort">尚不明确</p>
+                        </div>
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>药物过量</b></h3>
+                            <p class="pro-boxcont-infort">暂无</p>
+                        </div>
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>药物毒理</b></h3>
+                            <p class="pro-boxcont-infort">暂无</p>
+                        </div>
+                      <div class="pro-boxcontent-info">
+						<h3 class="pro-boxcont-infolf"><b>药物相互作用</b></h3>
+                        <p class="pro-boxcont-infort">如正在服用其他药品，使用本品前请咨询医师或药师</p>
+                      </div>
+                        <div class="pro-boxcontent-info">
+                            <h3 class="pro-boxcont-infolf"><b>用法用量</b></h3>
+                            <p class="pro-boxcont-infort">温开水冲服，一次1袋，一日2次</p>
+                        </div>
+                    </div>
+                    
+		<div id="tab4" class="tab_content" style="display: none; ">
+			<div class="kehupingjia-box">
+				<div class="parame-bott ov-hi" style="" id="tab2">
+					<div class="evaluation-bott pa-to-25 cliks-bn" style="display:block" id="ajax_comment_List">									<div></div>
+<script>
+    // 点击分页触发的事件  点击页码ajax获取当前页码下的列表
+    $(".pagination  a").click(function(){
+    	var index = layer.load(2);//js加载条提示  
+        cur_page = $(this).data('p');
+        ajax_get_table('search-form2',cur_page,index);//index为加载条变量
+    });
+</script></div>
+				</div>
+			</div>
+		</div>
+                    
+                    <div id="tab5" class="tab_content" style="display: none; ">
+                    	<p><br></p><p><img src="./商品详情_files/1508481872291368.jpg" style="" title="1508481872291368.jpg"></p><p><img src="./商品详情_files/1508481872954401.jpg" style="" title="1508481872954401.jpg"></p><p><img src="./商品详情_files/1508481872326740.jpg" style="" title="1508481872326740.jpg"></p><p><br></p>                   
+                    </div>
+					                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--右边的内容 -->
+    <div class="pro-info-rt">
+        <!--店铺信息-->
+        <div class="dianpuinfobox">
+            <h1>店铺信息</h1>
+            <div class="dianpu-name">
+                <ul>
+                    <li><img src="./商品详情_files/pro-info_07.png" alt=""></li>
+                    <li><img src="./商品详情_files/pro-info_07.png" alt=""></li>
+                    <li><img src="./商品详情_files/pro-info_07.png" alt=""></li>
+                    <li><img src="./商品详情_files/pro-info_07.png" alt=""></li>
+                    <li><img src="./商品详情_files/pro-info_07.png" alt=""></li>
+                </ul>
+            </div>
+            <ul class="wuliulist">
+                <li>描述<br>0.00分</li>
+                <li>服务<br>0.00分</li>
+                <li style="border-right: 0;">物流<br>0.00分</li>
+            </ul>
+            <dl class="pro-contactlink">
+                <dt>联系客服：</dt>
+                <dd>
+                    <a href="javascript:void(0);" onclick="service()">在线客服</a>
+                </dd>
+            </dl>
+            <ul class="pro-colectlink">
+                <li><a href="javascript:void(0);" id="store"><img src="./商品详情_files/pro-info_18.png">收藏店铺</a></li>
+                <li><a href="#"><img src="./商品详情_files/pro-info_15.png">进入店铺</a></li>
+            </ul>
+
+        </div>
+        <!--店铺药品分类-->
+        <div class="pro-classfiy">
+            <h2>店铺药品分类</h2>
+            <ul>
+                <li><a href="#">中成药<span>&gt;</span></a></li>
+                <li><a href="#">中成药<span>&gt;</span></a></li>
+                <li><a href="#">中成药<span>&gt;</span></a></li>
+                <li><a href="#">中成药<span>&gt;</span></a></li>
+            </ul>
+        </div>
+        <!--店铺药品推荐-->
+        <div class="prohottuijian">
+            <h3>店铺药品推荐</h3>
+            <ul>
+            	            </ul>
+        </div>
+    </div>
+</div>
+   <form action="#" id="search-form2" class="navbar-form form-inline" method="post" onsubmit="return false">
+     <input type="hidden" name="goods_id" value="1">
+   </form>
+
+        
+<script type="text/javascript" src="./商品详情_files/smoothproducts.js.下载"></script>
+<script>
+	$(function(){
+		var index = layer.load(2);//js加载条提示
+		ajax_get_table('search-form2',1,index);  //index为加载条变量
+	})
+	
+	
+	 //  page 为当前第几页  index为加载条变量
+	    function ajax_get_table(tab,page,index){
+			cur_page = page; //当前页面 保存为全局变量
+	            $.ajax({
+	                type : "POST",
+	                url:"/index.php/Home/Goods/ajax_commentList/p/"+page,//+tab,	
+	                data : $('#'+tab).serialize(),// 你的formid
+	                success: function(data){
+						//alert(data);
+	                	//关闭
+						//alert('success');
+	                	layer.close(index);  
+	                	//$('#data_jiazai_buyinfo').hide();
+	                    $("#ajax_comment_List").html('');
+	                    $("#ajax_comment_List").append(data);
+	                },
+	                error:function(data,s,dd){
+	                	layer.close(index); 
+	                	//layer.msg('网络错误,请重试！');
+	                }
+	            
+	            });
+	   }
+   
+</script>
+<script>
+//收藏店铺
+$('#store').click(
+   	function collect(){
+ 		$.post("/index.php/Home/Store/collect.html", { id:"2"}, 
+				function (data) {
+ 				data = eval("("+data+")");
+ 				if(data.status){
+ 					//收藏成功
+ 					layer.msg(data.msg);
+ 					$('#store').text(data.btn);
+ 				}else{
+ 					//收藏失败
+ 					layer.alert(data.msg);
+ 				}
+ 			});
+   	}		
+);
+//客服
+function service(){
+	$.get("/index.php/Home/Goods/getQQ.html",{id:"2"},function(data){
+		
+		if(data.status){
+			window.location=data.url;
+		}else{
+			layer.alert(data.msg);
+		}
+	});
+}
+//收藏商品
+$('#goods').click(
+   	function collect(){
+ 		$.post("/index.php/Home/Goods/collect.html", {id:"1"}, 
+				function (data) {
+ 				data = eval("("+data+")");
+ 				if(data.status){
+ 					//收藏成功
+ 					layer.msg(data.msg);
+ 					$('#goods').text(data.btn);
+ 				}else{
+ 					//收藏失败
+ 					layer.alert(data.msg);
+ 				}
+ 			});
+   	}		
+);
+//加入购物车
+$('#add_cart').click(function(){
+	var num = $('#text_box').val();
+	if(num==''){
+		layer.msg('商品数量必须大于于1');
+		return false;
+	}
+	$.post("/index.php/Home/Goods/add_cart.html", {id:"1",num:num}, 
+			function (data) {
+			data = eval("("+data+")");
+			if(data.status){
+				layer.msg(data.msg, {icon: 1});
+				//按钮不可用 更改颜色、value
+			}else{
+				layer.alert(data.msg);
+			}
+		});
+	
+});
+$('#buyNow').click(function(){
+	var num = $('#text_box').val();
+	if(num==''){
+		layer.msg('商品数量必须大于于1');
+		return false;
+	}
+	$('#form_goods_num').val(num);
+	$('#frm').submit();
+});
+//分享
+</script>
+    <!--分享-->
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"分享到新浪微博","bdMini":"1","bdMiniList":["bdxc","tqf","douban","bdhome","sqq","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","fbook","twi","linkedin","h163","evernotecn","copy","print"],"bdPic":"","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+    <script src="./商品详情_files/ZeroClipboard.js.下载"></script>
+
+    </section>
+</div>
+
+</div>
+    <!--底部内容-->
+<div class="footer-box">
+    <div class="footer-link" style="height:215px;">
+         <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">采购指南  </li>
+			
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/shrz.html">商户入驻</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/dllc.html">代理流程</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mjgmlc.html">购买流程</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px; border-bottom:1.5px solid #fff">支付方式 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/zxzf.html">在线支付</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">配送服务 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/smzt.html">上门自提</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/xsps.html">限时配送</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/psfwcx.html">配送服务查询</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">售后服务 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/thgz.html">退货规则</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/thlc.html">退货流程</a></li>
+        </ul> 
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">商家合作</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/qycg.html">企业采购</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/xs.html">销售</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/dlr.html">代理人</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">关于我们</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/lxwm.html">联系我们</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/qyjj.html">企业简介</a></li>
+        </ul>
+		<ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">帮助中心</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mmzh.html">密码找回</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mmxg.html">密码修改</a></li>
+			<li><a href="http://www.xb1y.com/index.php/Home/Index/liuyan.html">意见与反馈</a></li>
+        </ul>
+        <div class="erweima-box">
+            <img src="./商品详情_files/erweima_03.png">
+            <p>扫描关注，微信二维码</p>
+        </div>
+    </div>
+    <div style="padding:15px;font-size:15px;text-align: center;color:#fff">备案号；陕ICP备18007246号-1</div>
+</div>
+<div class="footer-bottom">
+    <p>Copyright ©   西北医药网版权所有</p>
+</div>
+<script>
+    $(function(){
+        $.ajax({
+            'url':"/index.php/Home/AjaxMessage/index.html",
+            type:'get',
+            dataType:'json',
+            success:function(data){
+                if(data.status==1) {
+                    if(data.type===1){
+                    	layer.msg(data.message,{icon:1});
+                    }else{
+                    	layer.alert(data.message,{icon:2});
+                    }
+                }
+            }
+        })
+    })
+
+</script>
+
+</body></html>

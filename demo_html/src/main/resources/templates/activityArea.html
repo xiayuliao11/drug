@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)http://www.xb1y.com/index.php/Home/Activityzone/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>活动专区</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="./活动专区_files/common.css">
+<link rel="stylesheet" href="./活动专区_files/css.css">
+    <script  type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery-cookie/jquery.cookie.js"></script>
+
+<script src="./活动专区_files/layer.js.下载"></script><link rel="stylesheet" href="./活动专区_files/layer.css" id="layui_layer_skinlayercss" style="">
+<!--[if lt IE 9]>
+<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
+<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Activityzone/favicon.ico" media="screen">
+
+    
+<link rel="stylesheet" href="./活动专区_files/common.css">
+<link rel="stylesheet" href="./活动专区_files/navregister.css">
+<link rel="stylesheet" href="./活动专区_files/banner-index.css">
+<script src="./活动专区_files/lrtk.js.下载"></script>
+
+    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Activityzone/favicon.ico" media="screen">
+</head>
+<body class="hold-transition skin-blue sidebar-mini" id="app">
+<div class="wrapper">
+    <header class="main-header">
+<div class="logotop">
+    <div class="logotop-bar">
+        <div class="logotop-lf">
+            Hi,欢迎来到西北医药网
+            <span id="span">
+
+            </span>
+        </div>
+        <ul class="logotop-rt">
+            <li>服务热线：400-0097-600</li>
+            <li><a href="">我的订单 </a></li>
+            <li><a href="">我的购物车</a></li> 
+            <li><a href="">帮助中心</a></li>
+            <li><a href="">收藏网站</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--logo栏目-->
+<div class="logobox" style="overflow:initial;height:120px;">
+    <div class="logoimg">
+        <a href="">
+            <img src="./活动专区_files/index_03.png" width="303" height="125">
+        </a>
+    </div>
+    <div class="logobox-rt" style="overflow:initial">
+        <form action="" method="get">
+            <div class="search-box" style="overflow:initial">
+                <input type="text" class="ss-input" name="key" value="" placeholder="请输入关键字进行搜索">
+                <button type="submit">搜索</button>
+				<div class="input-xlbox" id="zhaode">
+					
+						
+					
+				</div>
+            </div>
+        </form>
+		<script>
+			
+			$("body").on("input propertychange",".ss-input",function(){
+				 var name=$(".ss-input").val();
+				  // alert(name);
+				   $.ajax({
+						type:'post',
+						url:"/index.php/Home/Index/see.html",
+						data:{'name':name},
+						success:function(data){
+							if(data.state=='1'){
+								var html="";
+								//console.log(data.temp)
+								for(var i=0;i<data.temp.length;i++){
+									html +="<div class='xl-list' inclick>"+data.temp[i].goods_name +"</div>";
+								}
+								
+							   $("#zhaode").html(html);
+								
+							}
+						}
+					});
+				
+			}) 
+			var text22 = '';
+			$("#zhaode").on('mouseover',"div", function(){
+				 text22 = $(this).html()
+			    //$('.ss-input').val()
+			})
+			$('.ss-input').focus(function(){
+				$('.input-xlbox').show();
+				$('.input-xlbox').css('zIndex','999');
+				$('.input-xlbox').css('opacity','1');
+			});
+			$('.ss-input').blur(function(){
+				$('.input-xlbox').css('zIndex','-1');
+				$('.input-xlbox').css('opacity','0');
+				$(this).val(text22)
+			});
+			
+		</script>
+		<style>
+		.input-xlbox{position: absolute;width:350px;top:41px;left:-1px;background:#fff;border:1px solid #ff912f;display:none;}
+		.xl-list{width:100%;padding:5px;box-sizing:border-box;}
+		.xl-list:hover{background:#f2f2f2}
+		</style>
+        <div style="float:right;">
+					
+			  <a href="http://www.xb1y.com/index.php/Home/MemberBuyer/MemberBuyer_lackmedicine_add.html" class="drug-register">
+                <img src="./活动专区_files/index_06.png"> 缺药登记
+            </a>
+			
+		             <a href="http://www.xb1y.com/index.php/Home/Goods/user_cart.html" class="myshopping">
+                <img src="./活动专区_files/index_08.png">
+                我的购物车
+            </a> 
+        </div> 
+    </div>
+</div>
+<!--导航-->
+<div class="navbar">
+    <div class="navbox">
+        <h3>药品分类</h3>
+        <ul class="navbar-list">
+            <li><a href="/tovivw?name=slideshow">首页</a></li>
+            <li><a href="/tovivw?name=attract">招商/代理</a></li>
+            <li><a href="/tovivw?name=enterprise">上榜企业</a></li>
+            <li><a href="/tovivw?name=data">数据中心</a></li>
+            <li><a href="#">资讯平台</a></li>
+            <li><a href="#">医药会展</a></li>
+            <li><a href="/tovivw?name=activityArea">活动专区</a></li>
+        </ul>
+    </div>
+</div>
+</header>
+
+<!--<div class="xb-rightbox">
+	<a href="http://www.xb1y.com/index.php/Home/Member/Member_index.html">
+		<div class="xb-right_list">
+			<img alt="" src="./活动专区_files/gr.png">
+			我的
+		</div>
+	</a>
+	 <a href="http://www.xb1y.com/index.php/Home/MemberBuyer/MyOrder.html">
+		<div class="xb-right_list">
+			<img alt="" src="./活动专区_files/dd.png">
+			订单
+		</div>
+	</a>
+	<a href="http://www.xb1y.com/index.php/Home/Goods/user_cart.html">
+		<div class="xb-right_list">
+			<img alt="" src="./活动专区_files/gwc.png">
+			购物车
+	
+		</div>
+	</a>
+	<a href="http://www.xb1y.com/index.php/Home/Activityzone/index.html#">
+		<div class="xb-right_list">
+			<img alt="" src="./活动专区_files/tw.png">
+			帮助
+		</div>
+	</a>
+	<a href="http://www.xb1y.com/index.php/Home/Activityzone/index.html#">
+		<div class="xb-right_list">
+			<img alt="" src="./活动专区_files/sc.png">
+			收藏
+		</div>
+	</a>
+</div>-->
+<style>
+.xb-rightbox{width:50px;height:655px;position: fixed;right:0;top:15%;background: #377bee;border-radius: 5px;padding:0 2.5px;box-sizing:border-box;color:#fff;text-align:center;}
+.xb-right_list{color:#fff;margin-top:50px;}
+.xb-right_list img{width:36px;}
+.xb-qq{margin:5px auto;width:20px;height:20px;border-radius:50%;background:#ff5a00;line-height:20px;font-size:12px;}
+</style>
+    <div class="content-wrapper">
+    <section class="content-header">
+        
+
+
+    </section>
+    <section class="content">
+        
+<!--位置导航-->
+<div class="location-now">
+    <div class="location-text">
+        <img src="./活动专区_files/compang_03.png">
+        当前位置： 首页 &gt;  活动专区   &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red">活动专区所有产品购买后不可退换！</span>
+    </div>
+</div>
+<!--活动专区内容区域-->
+
+<!--限时秒杀-->
+<div class="active-containerbox">
+    <div class="avtive-container">
+       <!--限时秒杀-->
+        <div class="xianshimiaosha">
+            <h1><span style="color: red;">限时秒杀</span></h1>
+				<ul class="goods-box newGoods">
+				</ul>    
+            
+            <!--<a href="#" class="active-morepro">
+                查看更多&gt;&gt;-->
+            </a>
+        </div>
+        <!--团购专区-->
+        <div class="tuangouzhuanqu">
+            <h1><span style="color: red;">团购专区</span></h1>
+            <ul class="goods-box newGoods">
+				</ul>
+            <!--<a href="http://www.xb1y.com/index.php/Home/Activityzone/ActivityInfo/act/2.html" class="tuangou-morelist">查看更多&gt;&gt;</a>-->
+        </div>
+        <!--积分兑换-->
+        <div class="xianshimiaosha">
+            <h1><span style="color: red;">积分兑换</span></h1>
+           <ul class="goods-box newGoods">
+				</ul>
+            <!--<a href="http://www.xb1y.com/index.php/Home/Activityzone/jifenList.html" class="active-morepro" style="background-color:#fd0539;">
+                查看更多&gt;&gt;
+            </a>-->
+        </div>
+        <!--买赠活动-->
+        <div class="tuangouzhuanqu">
+            <h1><span style="color: red;">买赠活动</span></h1>
+            <ul class="goods-box newGoods">
+				</ul>
+            <!--<a href="http://www.xb1y.com/index.php/Home/Activityzone/ActivityInfo/act/3.html" class="tuangou-morelist" style="background-color:#e113b8;">查看更多&gt;&gt;</a>-->
+        </div>
+    </div>
+</div>
+
+
+        
+
+
+    </section>
+</div>
+
+</div>
+    <!--底部内容-->
+<div class="footer-box">
+    <div class="footer-link" style="height:215px;">
+         <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">采购指南  </li>
+			
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/shrz.html">商户入驻</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/dllc.html">代理流程</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mjgmlc.html">购买流程</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px; border-bottom:1.5px solid #fff">支付方式 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/zxzf.html">在线支付</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">配送服务 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/smzt.html">上门自提</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/xsps.html">限时配送</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/psfwcx.html">配送服务查询</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">售后服务 </li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/thgz.html">退货规则</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/thlc.html">退货流程</a></li>
+        </ul> 
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">商家合作</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/qycg.html">企业采购</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/xs.html">销售</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/dlr.html">代理人</a></li>
+        </ul>
+        <ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">关于我们</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/lxwm.html">联系我们</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/qyjj.html">企业简介</a></li>
+        </ul>
+		<ul class="footer-linka">
+            <li style="font-size:18px;border-bottom:1.5px solid #fff">帮助中心</li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mmzh.html">密码找回</a></li>
+            <li><a href="http://www.xb1y.com/index.php/Home/Index/helpCenter/flag/mmxg.html">密码修改</a></li>
+			<li><a href="http://www.xb1y.com/index.php/Home/Index/liuyan.html">意见与反馈</a></li>
+        </ul>
+        <div class="erweima-box">
+            <img src="./活动专区_files/erweima_03.png">
+            <p>扫描关注，微信二维码</p>
+        </div>
+    </div>
+    <div style="padding:15px;font-size:15px;text-align: center;color:#fff">备案号；陕ICP备18007246号-1</div>
+</div>
+<div class="footer-bottom">
+    <p>Copyright ©   西北医药网版权所有</p>
+</div>
+<script>
+    $(function(){
+        $.ajax({
+            'url':"/index.php/Home/AjaxMessage/index.html",
+            type:'get',
+            dataType:'json',
+            success:function(data){
+                if(data.status==1) {
+                    if(data.type===1){
+                    	layer.msg(data.message,{icon:1});
+                    }else{
+                    	layer.alert(data.message,{icon:2});
+                    }
+                }
+            }
+        });
+		newgoods();
+        getLoginUser();
+    })
+
+
+
+
+	function newgoods(){
+        $.ajax({
+            url:'http://192.168.101.111:4002/findGoods',
+            type:'GET',
+            dataType:'json',
+            success:function(data){
+                var html="";
+                for (var i = 0; i < data.length; i++) {
+                    html+='<li class="cp-list" style="position:relative">'+
+                        '<a href="/tovivw?name=particular" target="_self">'+
+                        '<img src='+data[i].img+'>'+
+                        '<h3>'+data[i].name+'</h3>'+
+                        '<span style="text-indent: 10px;">规格：'+data[i].specification+'  </span>'+
+                        '<h3 class="news-index-pricestyle" style="text-indent: 0">'+
+                        '价格：'+data[i].price+'</h3>'+
+                        '</a>'+
+						'<a href="/tovivw?name=‪‪particular"  target="_black" class="active-addcars">查看详情</a>'+
+                        '</li>';
+                }
+                $(".newGoods").append(html);
+            }
+
+        })
+    }
+
+    function getLoginUser(){
+        var cookie_name='userName';
+        var name=$.cookie(cookie_name);
+        var count="";
+        if(name!=''){
+            console.log(name)
+            count+="【";
+            count+=JSON.parse($.cookie(cookie_name));
+            count+="|<a href='#' onclick='logout()' style='color:#e57816;'>退出登录</a>";
+            count+="】";
+
+        }else{
+            console.log(1111)
+            count+="【";
+            count+="<a href='/tovivw?name=login' style='color:#e57816;'>请先登录</a>";
+            count+="|<a href='/tovivw?name=register'>免费注册</a>";
+            count+="】";
+        }
+        $("#span").html(count)
+    }
+    function logout() {
+        var cookie_name='userName';
+        $.cookie(cookie_name, '');
+        $("#span").html();
+        getLoginUser();
+    }
+
+</script>
+
+</body></html>

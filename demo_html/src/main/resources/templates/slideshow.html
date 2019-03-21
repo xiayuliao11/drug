@@ -135,10 +135,10 @@
                     <li><a href="/tovivw?name=slideshow">首页</a></li>
                     <li><a href="/tovivw?name=attract">招商/代理</a></li>
                     <li><a href="/tovivw?name=enterprise">上榜企业</a></li>
-                    <li><a href="#">数据中心</a></li>
+                    <li><a href="/tovivw?name=data">数据中心</a></li>
                     <li><a href="#">资讯平台</a></li>
                     <li><a href="#">医药会展</a></li>
-                    <li><a href="#">活动专区</a></li>
+                    <li><a href="/tovivw?name=activityArea">活动专区</a></li>
                 </ul>
             </div>
         </div>
@@ -211,14 +211,12 @@
             var name=$.cookie(cookie_name);
             var count="";
             if(name!=''){
-                console.log(name)
                 count+="【";
                 count+=JSON.parse($.cookie(cookie_name));
                 count+="|<a href='#' onclick='logout()' style='color:#e57816;'>退出登录</a>";
                 count+="】";
 
             }else{
-                console.log(1111)
                 count+="【";
                 count+="<a href='/tovivw?name=login' style='color:#e57816;'>请先登录</a>";
                 count+="|<a href='/tovivw?name=register'>免费注册</a>";
@@ -288,10 +286,11 @@
                             </div>
                             <div class="bd">
                                 <ul>
-                                    <li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="首页_files/1550650371TiNctCdM.jpg"></a></li>
-                                    <li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="首页_files/1550650383pPso4LjH.jpg"></a></li>
-                                    <li style="display: list-item; opacity: 0.980956;"><a href="javascript:void(0)" target="_blank">
-                                        <img src="/首页_files/1550649774NTkn8JSN.jpg"></a></li>                </ul>
+                                    <li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="/images/pinzhi.jpg"></a>
+                                    </li><li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="/images/pinzhi2.jpg"></a></li>
+                                    <li style="display: list-item; opacity: 0.980956;"><a href="javascript:void(0)" target="_blank"><img src="/images/xinyu.jpg"></a>
+                                    </li><li style="display: none;"><a href="javascript:void(0)" target="_blank"><img src="/images/quanwei.jpg"></a></li>
+                                </ul>
                             </div>
 
                             <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
