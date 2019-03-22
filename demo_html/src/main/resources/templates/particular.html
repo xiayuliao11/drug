@@ -7,21 +7,19 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link rel="stylesheet" href="./商品详情_files/common.css">
 <link rel="stylesheet" href="./商品详情_files/css.css">
-<script src="./商品详情_files/jQuery-2.2.0.min.js.下载"></script>
-<script src="./商品详情_files/layer.js.下载"></script><link rel="stylesheet" href="./商品详情_files/layer.css" id="layui_layer_skinlayercss" style="">
+    <script  type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script  type="text/javascript" src="/js/jquery-cookie/jquery.cookie.js"></script>
+    <script  type="text/javascript" src="/js/layer/layer.js"></script>
+    <link rel="stylesheet" href="/js/layer/theme/default/layer.css" id="layui_layer_skinlayercss" style=""/>
 <!--[if lt IE 9]>
-<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
-<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+
 <![endif]-->
 <link rel="shortcut  icon" type="image/x-icon" href="#" media="screen">
 
-    
-<link rel="stylesheet" href="./商品详情_files/common.css">
 <link rel="stylesheet" href="./商品详情_files/classification-style.css">
 <!--商品图片展示代码-->
 <link rel="stylesheet" href="./商品详情_files/smoothproducts.css">
 <link rel="stylesheet" href="./商品详情_files/comment.css">
-<script src="./商品详情_files/jquery.min.js.下载"></script>
 <script src="./商品详情_files/jquery.zclip.min.js.下载"></script>
 
 <script type="text/javascript">
@@ -153,12 +151,8 @@
     <div class="logotop-bar">
         <div class="logotop-lf">
             Hi,欢迎来到西北医药网
-            <span>
-                【
-                <a href="" style="color: #e57816;">请先登录</a>
-                |
-                <a href="">注册</a>
-                                】
+            <span id="span">
+
             </span>
         </div>
         <ul class="logotop-rt">
@@ -253,13 +247,13 @@
     <div class="navbox">
         <h3>药品分类</h3>
         <ul class="navbar-list">
-            <li><a href="slideshow.html">首页</a></li>
-            <li><a href="attract.html">招商/代理</a></li>
-            <li><a href="#">上榜企业</a></li>
-            <li><a href="#">数据中心</a></li>
+            <li><a href="/tovivw?name=slideshow">首页</a></li>
+            <li><a href="/tovivw?name=attract">招商/代理</a></li>
+            <li><a href="/tovivw?name=enterprise">上榜企业</a></li>
+            <li><a href="/tovivw?name=data">数据中心</a></li>
             <li><a href="#">资讯平台</a></li>
             <li><a href="#">医药会展</a></li>
-            <li><a href="activityArea.html">活动专区</a></li> 
+            <li><a href="/tovivw?name=activityArea">活动专区</a></li>
         </ul>
     </div>
 </div>
@@ -481,7 +475,7 @@
                             <img src="./商品详情_files/1484129241Rnv1yyR0.jpg" alt="齐鲁天和惠世卡马西平片">                        </div>
                     </div>
                     
-                    <div id="tab2" class="tab_content" style="display: none; ">
+                    <div id="tab21" class="tab_content" style="display: none; ">
                         <div class="pro-boxcontent-info">
                             <h3 class="pro-boxcont-infolf"><b>规格参数</b></h3>
                             <p class="pro-boxcont-infort">15g*10袋/盒</p>
@@ -612,7 +606,7 @@
 		var index = layer.load(2);//js加载条提示
 		ajax_get_table('search-form2',1,index);  //index为加载条变量
 	})
-	
+
 	
 	 //  page 为当前第几页  index为加载条变量
 	    function ajax_get_table(tab,page,index){
@@ -776,22 +770,22 @@ $('#buyNow').click(function(){
     <p>Copyright ©   西北医药网版权所有</p>
 </div>
 <script>
-    $(function(){
-        $.ajax({
-            'url':"/index.php/Home/AjaxMessage/index.html",
-            type:'get',
-            dataType:'json',
-            success:function(data){
-                if(data.status==1) {
-                    if(data.type===1){
-                    	layer.msg(data.message,{icon:1});
-                    }else{
-                    	layer.alert(data.message,{icon:2});
-                    }
-                }
-            }
-        })
-    })
+    // $(function(){
+    //     $.ajax({
+    //         'url':"/index.php/Home/AjaxMessage/index.html",
+    //         type:'get',
+    //         dataType:'json',
+    //         success:function(data){
+    //             if(data.status==1) {
+    //                 if(data.type===1){
+    //                 	layer.msg(data.message,{icon:1});
+    //                 }else{
+    //                 	layer.alert(data.message,{icon:2});
+    //                 }
+    //             }
+    //         }
+    //     })
+    // })
 
 </script>
 
