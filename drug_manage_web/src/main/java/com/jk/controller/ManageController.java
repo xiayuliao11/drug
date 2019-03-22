@@ -202,10 +202,30 @@ public class ManageController {
         result.put("img", fileUpload);
         return result;
     }
+
+    /**
+     * 招商信息
+     * @param page
+     * @param rows
+     * @param attractBean
+     * @return
+     */
     @RequestMapping("findAttractPage")
     @ResponseBody
     public HashMap<String,Object> findAttractPage(Integer page,Integer rows,AttractBean attractBean){
         return manageServiceFeign.findAttractPage(page,rows,attractBean);
+    }
+    /**
+     * 代理信息
+     * @param page
+     * @param rows
+     * @param attractBean
+     * @return
+     */
+    @RequestMapping("findAgencyPage")
+    @ResponseBody
+    public HashMap<String,Object> findAgencyPage(Integer page,Integer rows,ProductsBean productsBean){
+        return manageServiceFeign.findAgencyPage(page,rows,productsBean);
     }
 
     //跳转查看页面
@@ -247,5 +267,10 @@ public class ManageController {
     @GetMapping("toSelectAttract")
     public String toSelectAttract(){
         return "attractList";
+    }
+    //跳转新增页面
+    @GetMapping("toSelectAengey")
+    public String toSelectAengey(){
+        return "productslist";
     }
 }

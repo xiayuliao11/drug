@@ -94,7 +94,7 @@ INSERT INTO drug_product (
     <sql id="attractWhere">
         <where>
             <if test="attractBean.productName!=null and attractBean.productName!='' ">
-                and a.productName =#{attractBean.productName}
+                and a.productName like '%${attractBean.productName}%'
             </if>
             <if test="attractBean.provinceId!=null and attractBean.provinceId!='' and attractBean.provinceId!=0 ">
                 and a.provinceId =#{attractBean.provinceId}
@@ -139,5 +139,47 @@ INSERT INTO drug_product (
         </if>
       limit #{start},#{rows}
 
+    </select>
+    <select id="findAgencyCount" resultType="int">
+      select count(*) from t_products p
+      <include refid="productsWhere"></include>
+    </select>
+    <sql id="productsWhere">
+        <where>
+            <if test="productsBean.productsName!=null and productsBean.productsName!='' ">
+                    and p.products_name like '%${productsBean.productsName}%'
+            </if>
+            <if test="productsBean.productsProvince!=null and productsBean.productsProvince!='' and productsBean.productsProvince!=0 ">
+                and p.products_province =#{productsBean.productsProvince}
+            </if>
+            <if test="productsBean.productsType!=null and productsBean.productsType!='' and productsBean.productsType!=0 ">
+                and p.products_type =#{productsBean.productsType}
+            </if>
+            <if test="productsBean.productsTyped!=null and productsBean.productsTyped!='' and productsBean.productsTyped!=0 ">
+                and p.products_typed =#{productsBean.productsTyped}
+            </if>
+            <if test="productsBean.productsTyping!=null and productsBean.productsTyping!='' and productsBean.productsTyping!=0 ">
+                and p.products_typing =#{productsBean.productsTyping}
+            </if>
+        </where>
+    </sql>
+    <select id="findAgencyPage" resultType="com.jk.pojo.ProductsBean">
+  SELECT
+            products_id productsId,
+            products_name productsName,
+            products_district productsDistrict ,
+            products_detail productsDetail,
+            products_linkman productsLinkman,
+            products_phone productsPhone ,
+            province. NAME productsProvinceName,
+            city. NAME productsCityName,
+          district.name productsDistrictName
+        FROM
+            t_products p
+        LEFT JOIN drug_area province ON p.products_province = province.id
+        LEFT JOIN drug_area city ON p.products_city = city.id
+        left join drug_area district on p.products_district = district.id
+        <include refid="productsWhere"></include>
+        limit #{start},#{rows}
     </select>
 </mapper>

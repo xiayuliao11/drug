@@ -10,7 +10,7 @@ public interface PortMapper {
     @Select("select * from drug_user where id=#{id}")
     UserBean findUserById(Integer id);
     //修改密码
-    @Update("update drug_user set userPwd=#{userNewPwd} where id=#{id} ")
+    @Update("update t_userbean set userPwd=#{userNewPwd} where id=#{id} ")
     Boolean updateUserPwd(UserBean userBean);
 
     @Insert("insert into t_site(cityid,consignee,detailedAddress,phone,postcode,provinceId) VALUES" +
@@ -62,4 +62,8 @@ public interface PortMapper {
     int findAttractCount(@Param("attractBean") AttractBean attractBean);
 
     List<AttractBean> findAttractPage(@Param("start")Integer start, @Param("rows")Integer rows, @Param("attractBean")AttractBean attractBean);
+
+    int findAgencyCount(@Param("productsBean") ProductsBean productsBean);
+
+    List<AttractBean> findAgencyPage(@Param("start")Integer start, @Param("rows")Integer rows, @Param("productsBean") ProductsBean productsBean);
 }

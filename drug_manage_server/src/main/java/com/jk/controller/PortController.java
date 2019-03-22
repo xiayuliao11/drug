@@ -213,4 +213,10 @@ public class PortController implements ManageService {
     public HashMap<String, Object> findAttractPage(Integer page, Integer rows, @RequestBody AttractBean attractBean) {
           return portsService.findAttractPage(page,rows,attractBean);
     }
+
+    @Override
+    @ResponseBody
+    public HashMap<String, Object> findAgencyPage(Integer page, Integer rows, @RequestBody ProductsBean productsBean) {
+        return portsService.findAgencyPage(page,rows,productsBean);
+    }
 }

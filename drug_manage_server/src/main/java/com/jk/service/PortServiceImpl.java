@@ -193,5 +193,16 @@ public class PortServiceImpl implements PortsService {
         return param;
     }
 
+    @Override
+    public HashMap<String, Object> findAgencyPage(Integer page, Integer rows, ProductsBean productsBean) {
+        HashMap<String, Object> param = new HashMap<>();
+        int total = portMapper.findAgencyCount(productsBean);
+        int start = (page-1)*rows;
+        List<AttractBean> list = portMapper.findAgencyPage(start,rows,productsBean);
+        param.put("total",total);
+        param.put("rows",list);
+        return param;
+    }
+
 
 }
