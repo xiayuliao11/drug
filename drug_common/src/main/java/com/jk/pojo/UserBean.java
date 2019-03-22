@@ -18,4 +18,67 @@ public class UserBean implements Serializable {
     private Integer  state;    //黑名单
     private String rememberPwd;  //记住密码
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPwd() {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
+    }
+
+    public String getUserNewPwd() {
+        return userNewPwd;
+    }
+
+    public void setUserNewPwd(String userNewPwd) {
+        this.userNewPwd = userNewPwd;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getRememberPwd() {
+        return rememberPwd;
+    }
+
+    public void setRememberPwd(String rememberPwd) {
+        this.rememberPwd = rememberPwd;
+    }
 }

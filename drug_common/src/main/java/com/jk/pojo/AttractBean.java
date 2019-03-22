@@ -1,5 +1,7 @@
 package com.jk.pojo;
 
+import com.jk.constant.ConstanType;
+
 public class AttractBean {
     private Integer id;   //招商id
     private String headline; //招商标题
@@ -17,7 +19,7 @@ public class AttractBean {
     private String  merchantsImg;//招商图片
     private String  details;//招商详细说明
     private String  cashDeposit;//需交保证金
-    private String createTime; //发布时间
+    private String createTime = ConstanType.CURRENT_SYSTEM_TIME; //发布时间
     private Integer bigClass;
     private Integer centreClass;
     private Integer smallClass;

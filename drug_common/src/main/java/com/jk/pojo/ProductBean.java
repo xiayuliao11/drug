@@ -1,5 +1,7 @@
 package com.jk.pojo;
 
+import com.jk.constant.ConstanType;
+
 public class ProductBean {
     private Integer productId;  //商品id
     private String  productName;//商品名称
@@ -11,7 +13,7 @@ public class ProductBean {
     private Integer inventory;//库存
     private Integer goodsState;//商品状态
     private String releaseTime;//发布时间
-    private Integer auditStatus;//审核状态
+    private Integer auditStatus = ConstanType.AUDIT_STATUS_ONE;//审核状态
     private Integer drugNumber;//药品编号
     private String commodityName;//商品别名
     private Integer  market;//是否拆零销售 1:是 2：否
