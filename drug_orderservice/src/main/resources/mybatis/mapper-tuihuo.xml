@@ -26,13 +26,22 @@ select id,sales_return_commddtiy salesReturnCommddtiy,sales_return_time salesRet
 
   <!--  List<Demand> getDemand(Demand t);-->
     <select id="getDemand" resultType="Demand">
-        select * from demand
+        select * from demand where 1=1
+        <if test="state!=null and state!=''">
+            and state =#{state}
+        </if>
     </select>
 
  <!--   void addDemand(Demand t);-->
     <insert id="addDemand">
         insert into demand(commddtiyName,tyida,tyidb,tyidc,manufacturer,commddtiyBrand,qya,qyb,qyc,validity,img,describ,linkman,phone,site,state)
-        values(#{commddtiyName},#{tyida},#{tyidb},#{tyidc},#{manufacturer},#{commddtiyBrand},#{qya},#{qyb},#{qyc},#{validity},#{img},#{describ},#{linkman},#{phone},#{site},#{state})
+        values(#{commddtiyName},#{tyida},#{tyidb},#{tyidc},#{manufacturer},#{commddtiyBrand},#{qya},#{qyb},#{qyc},#{validity},#{img},#{describ},#{linkman},#{phone},#{site},2)
+    </insert>
+
+<!--    void addShoppingCart(ShoppingCart shoppingCart);-->
+    <insert id="addShoppingCart">
+        insert into drug_shoppingcart(id,name,specifications,unitPrice,count,subtotal,userid,imgg)
+        values (#{id},#{name},#{specifications},#{unitPrice},#{count},#{subtotal},#{userid},#{imgg})
     </insert>
 
 </mapper>

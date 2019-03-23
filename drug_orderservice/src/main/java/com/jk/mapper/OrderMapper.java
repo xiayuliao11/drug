@@ -1,13 +1,7 @@
 package com.jk.mapper;
 
-import com.jk.pojo.DaugType;
-import com.jk.pojo.Demand;
-import com.jk.pojo.GoodsReturned;
-import com.jk.pojo.RegionType;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import com.jk.pojo.*;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -51,4 +45,31 @@ public interface OrderMapper {
     List<RegionType> getRegionType(Integer id);
 
     void addDemand(Demand t);
+
+    void addShoppingCart(ShoppingCart shoppingCart);
+     @Update("Update drug_shoppingcart set count=count+1 where id=#{id} and userid=#{a}")
+    void updateS1(@Param("id") Integer id,@Param("a") Integer a);
+    @Update("Update drug_shoppingcart set count=count-1 where id=#{id} and userid=#{a}")
+    void updateS2(@Param("id") Integer id,@Param("a") Integer a);
+
+    @Select("select * from drug_shoppingcart where id=#{id} and userid=#{a}")
+    ShoppingCart getById(@Param("id") Integer id,@Param("a") Integer a);
+
+    @Select("select * from drug_shoppingcart where id in (${ids}) and userid=#{a}")
+    List<ShoppingCart> logjieSuanCheckPrice(@Param("ids") String ids,@Param("a") Integer a);
+
+    @Select("select * from drug_shoppingcart where userid=#{yhid}")
+    List<ShoppingCart> loggouwuche(Integer yhid);
+
+    @Delete("Delete from drug_shoppingcart where id=#{id} and userid=#{a}")
+    void logdeleteItem(@Param("id") Integer id,@Param("a") Integer a);
+
+    @Update("Update drug_shoppingcart set subtotal=#{hjprice} where id=#{id} and userid=#{a}")
+    void updateHJprice(@Param("id") Integer id,@Param("hjprice") Integer hjprice,@Param("a") Integer a);
+
+    @Select("select * from drug_shoppingcart_kc where id=#{id}")
+    ShoppingCart getShoppingCartKC(Integer id);
+
+    @Select("select * from t_userbean where account=#{account} and userPwd=#{userPwd}")
+    UserBean getQuery(@Param("account") String account, @Param("userPwd") String userPwd);
 }

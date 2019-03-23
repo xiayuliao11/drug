@@ -20,13 +20,13 @@
     </properties>
 
     <dependencies>
-        <!--为map而加的-->
+        <!--为map转换对象而加的-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.1.36</version>
         </dependency>
-        <!--为map而加的-->
+        <!--为map转换对象而加的-->
         <dependency>
             <groupId>com.jk</groupId>
             <artifactId>drug_orderapi</artifactId>
@@ -54,7 +54,6 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>1.2.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>

@@ -9,8 +9,8 @@ spring:
     name: order-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.101.55:3306/drug?useUnicode=true&characterEncoding=utf-8
-    #url: jdbc:mysql://127.0.0.1:3306/usdom?useUnicode=true&characterEncoding=utf-8
+   # url: jdbc:mysql://192.168.101.55:3306/drug?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://127.0.0.1:3306/drugb?useUnicode=true&characterEncoding=utf-8
     # url: jdbc:mysql://localhost:3306/order?useUnicode=true&characterEncoding=utf-8&serverTimezone=Hongkong
     username: root
     password: root
@@ -22,7 +22,7 @@ spring:
 
 mybatis:
   mapperLocations: classpath*:mybatis/mapper-*.xml
-  typeAliasesPackage: com.gugr.springboot.entity
+  #typeAliasesPackage: com.gugr.springboot.entity
   type-aliases-package: com.jk.pojo
 
   pagehelper:
