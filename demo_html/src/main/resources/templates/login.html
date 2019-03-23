@@ -4,10 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
     <script  type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script src="/js/layer/layer.js"></script>
 	<script  type="text/javascript" src="/js/jquery-cookie/jquery.cookie.js"></script>
     <link rel="stylesheet" href="/js/loginAngRegister/css/base.css"/>
     <link rel="stylesheet" href="/js/loginAngRegister/css/login.css"/>
     <link rel="stylesheet" href="/js/layer/theme/default/layer.css"/>
+
 </head>
 <body>
 <div id="main">
@@ -117,16 +119,17 @@
             type:"GET",
             data:$("#form").serialize(),
             success:function(result){
+                console.log(result)
 			    var cookie_name='userName';
 			    var cookID='userID';
-                if(result!=null){
-                location.href="/tovivw?name=slideshow";   //账号密码正确
+                if(result!=''){
 				 var str=JSON.stringify(result.userName)
                     var strId=JSON.stringify(result.id)
                     $.cookie(cookie_name, str,{ expires: 7,path:'/' //设置时间，如果此处留空，则浏览器关闭此cookie就失效。
                      });
                     $.cookie(cookID, strId,{ expires: 7, path:'/'//设置时间，如果此处留空，则浏览器关闭此cookie就失效。
                     });
+                    location.href="/tovivw?name=slideshow";   //账号密码正确
 					//$.cookie("username", result.userName , { path: '/', expires: 10, domain: 'jquery.com', secure: true });
                 }else{
 

@@ -1,31 +1,101 @@
 package com.jk.pojo;
 
+import com.jk.constant.ConstanType;
+
 public class ProductsBean {
 
     private Integer productsId;
-    private String productsName;
-    private Integer productsType;
-    private String productsCommonname;
-    private String productsManufacturer;
-    private String productsBrand;
-    private Integer productsDistrict;
-    private String productsChannel;
-    private Integer productsIndate;
-    private String productsImg;
-    private String productsDetail;
-    private String productsLinkman;
-    private String productsPhone;
-    private String productsArea;
-    private Integer productsTyped;
-    private Integer productsTyping;
-    private Integer productsProvince;
-    private Integer productsCity;
-
-
-
-
+    private String productsName; //产品名称
+    private Integer productsType; //产品类型1
+    private String productsCommonname; //产品通用名称
+    private String productsManufacturer;//生产厂家
+    private String productsBrand;//品牌
+    private String approvalNumber;//编号
+    private String specifications;//规格
+    private Integer goodsPrice;//商品价格
+    private Integer quantity;//交易量
+    private String createTime= ConstanType.CURRENT_SYSTEM_TIME; //发布时间
+    private Integer productsDistrict;//代理区域区
+    private String productsChannel; //销售渠道
+    private Integer productsIndate; //有效期
+    private String productsImg;//产品图片
+    private String productsDetail; //需求描述
+    private String productsLinkman; //联系人
+    private String productsPhone; //联系电话
+    private String productsArea; //联系地址
+    private Integer productsTyped; //类型2
+    private Integer productsTyping; //类型3
+    private Integer productsProvince; //省
+    private Integer productsCity;//市
+    private String productsProvinceName;
+    private String productsCityName;
+    private String productsDistrictName;
     //业务字段
     private String producttypeName;
+
+    public String getApprovalNumber() {
+        return approvalNumber;
+    }
+
+    public void setApprovalNumber(String approvalNumber) {
+        this.approvalNumber = approvalNumber;
+    }
+
+    public String getSpecifications() {
+        return specifications;
+    }
+
+    public void setSpecifications(String specifications) {
+        this.specifications = specifications;
+    }
+
+    public Integer getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(Integer goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getProductsProvinceName() {
+        return productsProvinceName;
+    }
+
+    public void setProductsProvinceName(String productsProvinceName) {
+        this.productsProvinceName = productsProvinceName;
+    }
+
+    public String getProductsCityName() {
+        return productsCityName;
+    }
+
+    public void setProductsCityName(String productsCityName) {
+        this.productsCityName = productsCityName;
+    }
+
+    public String getProductsDistrictName() {
+        return productsDistrictName;
+    }
+
+    public void setProductsDistrictName(String productsDistrictName) {
+        this.productsDistrictName = productsDistrictName;
+    }
 
     public Integer getProductsId() {
         return productsId;

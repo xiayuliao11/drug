@@ -8,29 +8,29 @@
   <meta name="Description" content="">
   <title>上榜企业</title>
      <!-- 引入jquery -->
-	<script type="text/javascript" src="/js/jquery.min.js"></script>
-	<!-- 引入bootstrap的css、js -->
+     <script  type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+     <script  type="text/javascript" src="/js/jquery-cookie/jquery.cookie.js"></script>
+
+     <!-- 引入bootstrap的css、js -->
 	<link rel="stylesheet" href="/js/bootstrap3/css/bootstrap.css">
 	<script type="text/javascript"src="/js/bootstrap3/js/bootstrap.js"></script>
-		<!-- bootstraptable的js,css -->
+	 <script  type="text/javascript" src="/js/layer/layer.js"></script>
+	 <link rel="stylesheet" href="/js/layer/theme/default/layer.css" id="layui_layer_skinlayercss" style=""/>
+
+	 <!-- bootstraptable的js,css -->
     <link rel="stylesheet" href="/js/bootstrap-table/bootstrap-table.min.css">
     <script src="/js/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="/js/bootstrap-bootbox/bootbox.js"></script>
     <script src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <link rel="stylesheet" href="./首页_files/common.css">
 <link rel="stylesheet" href="./首页_files/css.css">
-<script src="./首页_files/jQuery-2.2.0.min.js.下载"></script>
-<script src="./首页_files/layer.js.下载"></script><link rel="stylesheet" href="./首页_files/layer.css" id="layui_layer_skinlayercss" style="">
+
 <!--[if lt IE 9]>
-<script src="/Public/houtai/bootstrap/js/html5shiv.min.js"></script>
-<script src="/Public/houtai/bootstrap/js/respond.min.js"></script>
+
 <![endif]-->
-<link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
-
-    
-<script type="text/javascript" src="./首页_files/jquery.SuperSlide.2.1.1.js.下载"></script>
-
-    <link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">
+<!--<link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">-->
+<!--<script type="text/javascript" src="./首页_files/jquery.SuperSlide.2.1.1.js.下载"></script>-->
+	 <!--<link rel="shortcut  icon" type="image/x-icon" href="http://www.xb1y.com/index.php/Home/Index/favicon.ico" media="screen">-->
  </head>
  <style>
 .parallelogram {
@@ -78,85 +78,133 @@
   	}
 
  </style>
+ <script>
+	 $(function(){
+		 getLoginUser();
+	 })
+	 function getLoginUser(){
+		 var cookie_name='userName';
+		 var name=$.cookie(cookie_name);
+		 var count="";
+		 if(name!=''){
+			 count+="【";
+			 count+=JSON.parse($.cookie(cookie_name));
+			 count+="|<a href='#' onclick='logout()' style='color:#e57816;'>退出登录</a>";
+			 count+="】";
+
+		 }else{
+			 count+="【";
+			 count+="<a href='/tovivw?name=login' style='color:#e57816;'>请先登录</a>";
+			 count+="|<a href='/tovivw?name=register'>免费注册</a>";
+			 count+="】";
+		 }
+		 $("#span").html(count)
+	 }
+	 function logout() {
+		 var cookie_name='userName';
+		 $.cookie(cookie_name, '');
+		 $("#span").html();
+		 getLoginUser();
+	 }
+ </script>
  <body>
    <header class="main-header">
-  <div class="logobox" style="overflow:initial;height:120px;">
-    <div class="logoimg">
-        <a href="../reception_html/slideshow.html">
-            <img src="./首页_files/index_03.png" width="303" height="125">
-        </a>
-    </div>
-   <div class="logobox-rt" style="overflow:initial">
-        <form action="#" method="get">
-            <div class="search-box" style="overflow:initial">
-                <input type="text" class="ss-input" name="key" value="" placeholder="请输入关键字进行搜索">
-                <button type="submit">搜索</button>
-				<div class="input-xlbox" id="zhaode">
-					
-						
-					
-				</div>
-            </div>
-        </form>
-		<script>
-			
-			$("body").on("input propertychange",".ss-input",function(){
-				 var name=$(".ss-input").val();
-				  // alert(name);
-				   $.ajax({
-						type:'post',
-						url:"/index.php/Home/Index/see.html",
-						data:{'name':name},
-						success:function(data){
-							if(data.state=='1'){
-								var html="";
-								//console.log(data.temp)
-								for(var i=0;i<data.temp.length;i++){
-									html +="<div class='xl-list' inclick>"+data.temp[i].goods_name +"</div>";
-								}
-								
-							   $("#zhaode").html(html);
-								
-							}
-						}
-					});
-				
-			}) 
-			var text22 = '';
-			$("#zhaode").on('mouseover',"div", function(){
-				 text22 = $(this).html()
-			    //$('.ss-input').val()
-			})
-			$('.ss-input').focus(function(){
-				$('.input-xlbox').show();
-				$('.input-xlbox').css('zIndex','999');
-				$('.input-xlbox').css('opacity','1');
-			});
-			$('.ss-input').blur(function(){
-				$('.input-xlbox').css('zIndex','-1');
-				$('.input-xlbox').css('opacity','0');
-				$(this).val(text22)
-			});
-			
-		</script>
-		<style>
-		.input-xlbox{position: absolute;width:350px;top:41px;left:-1px;background:#fff;border:1px solid #ff912f;display:none;}
-		.xl-list{width:100%;padding:5px;box-sizing:border-box;}
-		.xl-list:hover{background:#f2f2f2}
-		</style>
-        <div style="float:right;">
-					
-			  <a href="#" class="drug-register">
-                <img src="./首页_files/index_06.png"> 缺药登记
-            </a>
-			
-		             <a href="#" class="myshopping">
-                <img src="./首页_files/index_08.png">
-                我的购物车
-            </a> 
-        </div> 
-    </div>
-</div>	
+	  <div class="logotop">
+		  <div class="logotop-bar">
+			  <div class="logotop-lf">
+				  Hi,欢迎来到西北医药网
+				  <span id="span">
+
+            </span>
+			  </div>
+			  <ul class="logotop-rt">
+				  <li>服务热线：400-0097-600</li>
+				  <li><a href="#">我的订单 </a></li>
+				  <li><a href="#">我的购物车</a></li>
+				  <li><a href="#">帮助中心</a></li>
+				  <li><a href="#">收藏网站</a></li>
+			  </ul>
+		  </div>
+	  </div>
+	  <!--logo栏目-->
+	  <div class="logobox" style="overflow:initial;height:120px;">
+		  <div class="logoimg">
+			  <a href="#">
+				  <img src="/首页_files/index_03.png" width="303" height="125">
+			  </a>
+		  </div>
+		  <div class="logobox-rt" style="overflow:initial">
+			  <form action="#" method="get">
+				  <div class="search-box" style="overflow:initial">
+					  <input type="text" class="ss-input" name="key" value="" placeholder="请输入关键字进行搜索">
+					  <button type="submit">搜索</button>
+					  <div class="input-xlbox" id="zhaode">
+
+
+
+					  </div>
+				  </div>
+
+			  </form>
+			  <script>
+
+				  $("body").on("input propertychange",".ss-input",function(){
+					  var name=$(".ss-input").val();
+					  // alert(name);
+					  $.ajax({
+						  type:'post',
+						  url:"/index.php/Home/Index/see.html",
+						  data:{'name':name},
+						  success:function(data){
+							  if(data.state=='1'){
+								  var html="";
+								  //console.log(data.temp)
+								  for(var i=0;i<data.temp.length;i++){
+									  html +="<div class='xl-list' inclick>"+data.temp[i].goods_name +"</div>";
+								  }
+
+								  $("#zhaode").html(html);
+
+							  }
+						  }
+					  });
+
+				  })
+				  var text22 = '';
+				  $("#zhaode").on('mouseover',"div", function(){
+					  text22 = $(this).html()
+					  //$('.ss-input').val()
+				  })
+				  $('.ss-input').focus(function(){
+					  $('.input-xlbox').show();
+					  $('.input-xlbox').css('zIndex','999');
+					  $('.input-xlbox').css('opacity','1');
+				  });
+				  $('.ss-input').blur(function(){
+					  $('.input-xlbox').css('zIndex','-1');
+					  $('.input-xlbox').css('opacity','0');
+					  $(this).val(text22)
+				  });
+
+			  </script>
+			  <style>
+				  .input-xlbox{position: absolute;width:350px;top:41px;left:-1px;background:#fff;border:1px solid #ff912f;display:none;}
+				  .xl-list{width:100%;padding:5px;box-sizing:border-box;}
+				  .xl-list:hover{background:#f2f2f2}
+			  </style>
+			  <div style="float:right;">
+
+				  <a href="#" class="drug-register">
+					  <img src="/首页_files/index_06.png"> 缺药登记
+				  </a>
+
+				  <a href="#" class="myshopping">
+					  <img src="/首页_files/index_08.png">
+					  我的购物车
+				  </a>
+			  </div>
+		  </div>
+	  </div>
  <!--导航-->
 <div class="navbar">
     <div class="navbox">
@@ -165,10 +213,10 @@
             <li><a href="/tovivw?name=slideshow">首页</a></li>
             <li><a href="/tovivw?name=attract">招商/代理</a></li>
             <li><a href="/tovivw?name=enterprise">上榜企业</a></li>
-            <li><a href="#">数据中心</a></li>
+            <li><a href="/tovivw?name=data">数据中心</a></li>
             <li><a href="#">资讯平台</a></li>
             <li><a href="#">医药会展</a></li>
-            <li><a href="#">活动专区</a></li> 
+            <li><a href="/tovivw?name=activityArea">活动专区</a></li>
         </ul>
     </div>
 </div>

@@ -1,5 +1,8 @@
 package com.jk.constant;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ConstanType {
 
     /**
@@ -36,4 +39,21 @@ public class ConstanType {
     //判断手机号是不是多次获取验证码
     public static final String multiple_code = "multiple_code_";
 
+    /**
+     * 当前系统时间
+     */
+    private static SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+    private static    Date  newDate= new Date();
+    public static final String CURRENT_SYSTEM_TIME = date.format(newDate);
+    /**
+     * 审核状态 1 待审核 2.已通过 3，未通过
+     */
+    public static final Integer AUDIT_STATUS_ONE=1;
+    public static final Integer AUDIT_STATUS_TWO=2;
+    public static final Integer AUDIT_STATUS_THREE=3;
+    /**
+     * 商品状态 1.上架 2.下架
+     */
+    public static final Integer GOODS_STATE_ONE = 1;
+    public static final Integer GOODS_STATE_TWO = 2;
 }

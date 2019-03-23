@@ -117,6 +117,24 @@ public interface ManageService {
     @PostMapping("saveAttract")
     void saveAttract(@RequestBody AttractBean attractBean);
 
+    /**
+     * 招商信息
+     * @param page
+     * @param rows
+     * @param attractBean
+     * @return
+     */
     @PostMapping("findAttractPage")
     HashMap<String,Object> findAttractPage(@RequestParam("page")Integer page,@RequestParam("rows")Integer rows,AttractBean attractBean);
+
+    /**
+     * 代理信息
+     * @param page
+     * @param rows
+     * @param productsBean
+     * @return
+     */
+    @PostMapping("findAgencyPage")
+    HashMap<String,Object> findAgencyPage(@RequestParam("page")Integer page,@RequestParam("rows")Integer rows,ProductsBean productsBean);
+
 }

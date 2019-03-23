@@ -41,6 +41,7 @@ public interface PortsService {
 
     void saveAttract(AttractBean attractBean);
 
-
     HashMap<String, Object> findAttractPage(Integer page, Integer rows, AttractBean attractBean);
+
+    HashMap<String, Object> findAgencyPage(Integer page, Integer rows, ProductsBean productsBean);
 }
