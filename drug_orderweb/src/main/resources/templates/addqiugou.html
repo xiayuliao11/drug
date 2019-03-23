@@ -8,10 +8,22 @@
 
 <script type="text/javascript">
     $(function(){
+        uploadImg2();
         initTypeSelect(0,'tyida');
         initAreaSelect(0,'qya');
 
+
     })
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 查询类型(三级联动)
@@ -28,8 +40,8 @@
     })
     function initTypeSelect(pid,obj){
         $.ajax({
-           // url:'/getDaugType',
-            url:"http://192.168.101.22:5001/getDaugType",
+            url:'/getDaugType',
+         //   url:"http://192.168.101.22:5001/getDaugType",
             data:{
                 pid:pid
             },
@@ -48,8 +60,8 @@
     }
     function initTypeSelectQu(pid,obj){
         $.ajax({
-           // url:'/getDaugType',
-            url:"http://192.168.101.22:5001/getDaugType",
+            url:'/getDaugType',
+         //   url:"http://192.168.101.22:5001/getDaugType",
             data:{
                 pid:pid
             },
@@ -80,8 +92,8 @@
     })
     function initAreaSelect(pid,obj){
         $.ajax({
-            //url:'/getRegionType',
-            url:"http://192.168.101.22:5001/getRegionType",
+            url:'/getRegionType',
+         //   url:"http://192.168.101.22:5001/getRegionType",
            // type:'post',
             data:{
                 id:pid
@@ -102,8 +114,8 @@
 
     function initAreaSelectQu(pid,obj){
         $.ajax({
-           // url:'/getRegionType',
-            url:"http://192.168.101.22:5001/getRegionType",
+           url:'/getRegionType',
+          //  url:"http://192.168.101.22:5001/getRegionType",
            // type:'post',
             data:{
                 id:pid
@@ -122,6 +134,61 @@
         })
     }
 
+
+
+    //--------------------------------------------------------------------图片上传开始
+    function uploadImg2(url){
+        $('#timg').fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: '/updaloadImg', //上传的地址
+            allowedFileExtensions: ['jpg', 'gif', 'png'],//接收的文件后缀
+            showUpload: true, //是否显示上传按钮
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: false,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 2, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount:true,
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+
+        }).on('fileuploaded', function(event, data, previewId, index) {
+
+
+    /*        var imgval = $('#testimg').val();
+            if(imgval == null || imgval == "" || imgval == undefined){
+                imgval = data.response.responseText;
+            }/!*else{
+			imgval += ","+"http://<%= request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/"+data.response;
+		}*!/
+
+            $('#testimg').val(imgval);*/
+       console.log("---------------------");
+        console.log(data);
+        //data返回的是一个的数组，第六个给是图片存储的路径
+            var imgval = $('#testimg').val();
+            var a= 0
+            for(var i in data){
+                a++;
+                if (a==6)
+                {
+                    $('#testimg').val(data[i]);
+                }
+            }
+        });
+
+
+
+    }
+
+
+    //------------------------------------------------------------------图片上传结束
 </script>
 <body>
 <form id="form" style="width: 50%;">
@@ -154,6 +221,11 @@
         <label>信息有效期:</label>
         <input name="validity" id="validity " class="form-control" placeholder="请输入信息有效期">
     </div>
+
+    商品图片:
+    <input type="hidde" id="testimg" name="timg"/>
+    <input type="file" multiple class="projectfile" accept="image/*" name="imgg" id="timg">
+
     <div class="form-group">
         <label>需求简要描述:</label>
         <input name="describ" id="describ " class="form-control" placeholder="请输入需求简要描述">

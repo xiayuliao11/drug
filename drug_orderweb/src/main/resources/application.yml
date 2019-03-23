@@ -15,9 +15,12 @@ spring:
        port: 27017
        database: meng
 
+  pagehelper:
+    helperDialect: mongodb
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
 
 
-    #mongodb
-     # application:
-     #   name: pring-boot-mongodb
+
 

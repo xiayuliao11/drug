@@ -1,7 +1,9 @@
 package com.jk.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.jk.pojo.*;
+import com.jk.service.IOssService;
 import com.jk.service.OrderServiceFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -10,14 +12,20 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -82,13 +90,12 @@ public class OrderController {
         }
         //-------------------------日期调查结束
 
-    //    int sum=(int) mongoTemplate.count(query, GoodsEvaluate.class);
-        // skipNum = (pageNow-1)*pageSize
-        //  int pageNow =  offset /  pageSize+1;
-      //  query.skip(offset);
-      //  query.limit(pageSize); // 每页展示的条数
+        int sum=(int) mongoTemplate.count(query, GoodsEvaluate.class);
+
+        query.skip(offset);
+        query.limit(pageSize); // 每页展示的条数
         List <GoodsEvaluate> list=mongoTemplate.find(query,GoodsEvaluate.class);
-        SendPage sendPage = new SendPage(list.size(),list);
+        SendPage sendPage = new SendPage(sum,list);
         return sendPage;
     }
 
@@ -98,13 +105,12 @@ public class OrderController {
     @RequestMapping(value = "getIntegral",method = RequestMethod.GET)
     public SendPage getGoodsEvaluate(Integral t, Integer pageSize, Integer offset){
         Query query = new Query();
-       // int sum=(int) mongoTemplate.count(query, Integral.class);
-        // skipNum = (pageNow-1)*pageSize
-        //  int pageNow =  offset /  pageSize+1;
-       /* query.skip(offset);
-        query.limit(pageSize); // 每页展示的条数*/
+        int sum=(int) mongoTemplate.count(query, Integral.class);
+
+        query.skip(offset);
+        query.limit(pageSize); // 每页展示的条数
         List <Integral> list=mongoTemplate.find(query,Integral.class);
-        SendPage sendPage = new SendPage(list.size(),list);
+        SendPage sendPage = new SendPage(sum,list);
         return sendPage;
     }
     //查看积分
@@ -123,13 +129,12 @@ public class OrderController {
     @RequestMapping(value = "getIntegralGain",method = RequestMethod.GET)
     public SendPage getGoodsEvaluate(IntegralGain t, Integer pageSize, Integer offset){
         Query query = new Query();
-        // int sum=(int) mongoTemplate.count(query, IntegralGain.class);
-        // skipNum = (pageNow-1)*pageSize
-        //  int pageNow =  offset /  pageSize+1;
-       /* query.skip(offset);
-        query.limit(pageSize); // 每页展示的条数*/
+         int sum=(int) mongoTemplate.count(query, IntegralGain.class);
+
+        query.skip(offset);
+        query.limit(pageSize); // 每页展示的条数
         List <IntegralGain> list=mongoTemplate.find(query,IntegralGain.class);
-        SendPage sendPage = new SendPage(list.size(),list);
+        SendPage sendPage = new SendPage(sum,list);
         return sendPage;
     }
 
@@ -141,43 +146,93 @@ public class OrderController {
     @Resource
     private RedisTemplate<String,DrugShortage> redisTemplate;
 
-    //缺药登记
-
+    //缺药登记新增
     @ResponseBody
     @RequestMapping("addDrugShortage")
     public String addDrugShortage(DrugShortage t){
         List<DrugShortage> shopingFormDb = null;
+        DrugShortage li=null;
         String str = "weiyi";
-        t.setLinkman("王阳明");
-        t.setPhone("13693478321");
 
-            if (redisTemplate.hasKey(str)) {
+          if (t.getId().equals("")){
+              String id=UUID.randomUUID().toString();
+              t.setId(id);
+              redisTemplate.opsForList().leftPush(str, t);
+          }else {
+              shopingFormDb = redisTemplate.opsForList().range(str, 0, -1);
+              for (int i=0;i<shopingFormDb.size();i++){
+                  if (shopingFormDb.get(i).getId().equals(t.getId())){
+                      li=shopingFormDb.get(i);
+                      shopingFormDb.remove(li);
+                  }
+              }
+              shopingFormDb.add(t);
+              redisTemplate.delete(str);
+              for (int j=0;j<shopingFormDb.size();j++){
+                  redisTemplate.opsForList().leftPush(str,shopingFormDb.get(j));
+              }
+          }
+
+
+       /*     if (redisTemplate.hasKey(str)) {
                 shopingFormDb = redisTemplate.opsForList().range(str, 0, -1);
-                int id = shopingFormDb.size();
-                t.setId(id + 1);
+               String id=UUID.randomUUID().toString();
+             *//*   Integer id = shopingFormDb.size();
+                t.setId(id + 1);*//*
+             t.setId(id);
                 redisTemplate.opsForList().leftPush(str, t);
             } else {
-                t.setId(1);
+                String id=UUID.randomUUID().toString();
+                t.setId(id);
                 redisTemplate.opsForList().leftPush(str, t);
-            }
+            }*/
 
         return "1";
     }
+    //缺药登记修改
+    @ResponseBody
+    @RequestMapping("updateDrugShortage")
+    public DrugShortage updateDrugShortage(String id){
+          String str="weiyi";
+        DrugShortage li=null;
+        List<DrugShortage>   shopingFormDb =redisTemplate.opsForList().range(str,0,-1);
+         for (int i=0;i<shopingFormDb.size();i++){
+             if (shopingFormDb.get(i).getId().equals(id)){
+                 li=shopingFormDb.get(i);
+             }
+         }
+         System.out.println(li);
+        return li;
 
-    //delDrugShortage
+    }
+    //缺药登记删除
     @ResponseBody
     @RequestMapping("delDrugShortage")
-    public String delDrugShortage(Integer ids){
+    public String delDrugShortage(String ids){
         String str="weiyi";
-        List<DrugShortage>   shopingFormDb = redisTemplate.opsForList().range(str, 0, -1);
+        DrugShortage li=null;
+       List<DrugShortage>   shopingFormDb = redisTemplate.opsForList().range(str, 0, -1);
+   /*     for (DrugShortage drugShortage : shopingFormDb) {
+              if (drugShortage.getId().equals(ids)){
+           System.out.println(drugShortage);
+
+        }*/
+
         for (int i = 0; i < shopingFormDb.size(); i++) {
-
-            if (shopingFormDb.get(i).getId()==ids) {
-
+        System.out.println(shopingFormDb.get(i).getId());
+            if (shopingFormDb.get(i).getId().equals(ids)) {
+                li=shopingFormDb.get(i);
+                shopingFormDb.remove(li);
             }
+
+        }
+        redisTemplate.delete(str);
+        for (int j = 0; j < shopingFormDb.size(); j++){
+            redisTemplate.opsForList().leftPush(str,shopingFormDb.get(j) );
         }
         return "1";
     }
+    //缺药登记查询
     @ResponseBody
     @RequestMapping(value = "getDrugShortage",method = RequestMethod.GET)
     public SendPage getDrugShortage(Integer pageSize, Integer offset){
@@ -212,7 +267,7 @@ public class OrderController {
      /*   redisTemplate.opsForList().leftPush(str, t1);
         redisTemplate.opsForList().leftPush(str, t2);
         redisTemplate.opsForList().leftPush(str, t3);*/
-        redisTemplate.expire(str,30, TimeUnit.SECONDS);
+        redisTemplate.expire(str,3600, TimeUnit.SECONDS);
     List <DrugShortage> list= redisTemplate.opsForList().range(str, 0, -1);
 
         SendPage sendPage = new SendPage(list.size(), list);
@@ -253,5 +308,34 @@ public class OrderController {
       orderServiceFeign.addDemand(t);
       return "1";
   }
+
+  @Resource
+  private IOssService iOssService;
+  //图片上传
+  @PostMapping("updaloadImg")
+  @ResponseBody
+  public String updaloadImg(HttpServletRequest request, HttpServletResponse response, MultipartFile imgg) throws IOException {
+
+      String img = iOssService.uploadImg(imgg);
+    String im= JSON.toJSONString(img);
+    System.out.println("--------------------------------"+im);
+      return im;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -20,25 +20,33 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 
-
     </properties>
 
     <dependencies>
 
-
-
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
         <dependency>
             <groupId>com.jk</groupId>
             <artifactId>drug_orderapi</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--mongodb-->
+        <!-- 阿里云OSS -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>2.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.36</version>
+        </dependency>
 
-     <!--   <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>-->
         <!--跳转视图开始-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -72,6 +80,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
+
+
+
+        <dependency>
+            <groupId>net.guerlab</groupId>
+            <artifactId>sdk-alipay-starter</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alipay</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>20170324180803</version>
+        </dependency>
         <!-- 使用redis添加的依赖结束-->
     <!--    <dependency>
             <groupId>org.springframework.session</groupId>
@@ -89,6 +111,8 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
+
+
     </dependencyManagement>
 
     <build>
